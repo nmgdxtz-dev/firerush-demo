@@ -1,0 +1,18 @@
+import{test}from'node:test';import assert from'node:assert/strict';
+import{createGame,step,damageTower,spawnEnemy,pulse,supplyValue,supplies,chooseSupply}from'../src/game.js';
+import{simulate}from'../scripts/balance.mjs';
+const advance=(s,n)=>{for(let i=0;i<n*60;i++)step(s,1/60);};
+test('seeded initial armies and waves reproduce',()=>{const a=createGame(3),b=createGame(3);advance(a,4);advance(b,4);assert.deepEqual(a.enemies,b.enemies);assert.equal(a.base,b.base);});
+test('command fortress is immune until side towers are captured',()=>{const s=createGame(1),core=s.towers[2];damageTower(s,core,100);assert.equal(core.hp,1700);s.towers[0].owner='ally';damageTower(s,core,100);assert.equal(core.hp,1682);s.towers[1].owner='ally';damageTower(s,core,100);assert.equal(core.hp,1582);});
+test('destroying a side tower does not instantly capture it',()=>{const s=createGame(1),t=s.towers[0];damageTower(s,t,999);assert.equal(t.owner,'ruin');assert.equal(s.captures,0);});
+test('holding a cleared side for 1.4 seconds captures a functional turret',()=>{const s=createGame(1),t=s.towers[0];s.enemies=[];damageTower(s,t,999);s.x=s.target=80;advance(s,1.5);assert.equal(t.owner,'ally');assert.equal(s.captures,1);assert.equal(t.hp,160);});
+test('nearby enemies contest capture even while player holds that side',()=>{const s=createGame(1),t=s.towers[0];s.enemies=[];s.fire=100;damageTower(s,t,999);s.x=s.target=80;spawnEnemy(s,0,300,'shield');s.enemies[0].hp=999;advance(s,1);assert.equal(t.owner,'ruin');assert.equal(t.capture,0);});
+test('sapper raid can recapture a neglected turret and restore fortress shield',()=>{const s=createGame(1),t=s.towers[0];s.enemies=[];s.fire=100;s.x=s.target=340;t.owner='ally';t.hp=2;t.fire=99;spawnEnemy(s,0,315,'sapper');s.enemies[0].attack=0;step(s,.02);assert.equal(t.owner,'enemy');assert.equal(s.recaptures,1);assert(t.hp>0);});
+test('normal resonance is local, cannot clear the opposite flank or auto-capture',()=>{const s=createGame(1);s.enemies=[];s.bond=45;s.x=s.target=80;spawnEnemy(s,0,400);spawnEnemy(s,2,400);s.enemies[0].x=80;s.enemies[1].x=340;assert(pulse(s));assert.equal(s.kills,1);assert(!s.enemies[1].dead);assert.equal(s.captures,0);assert(!pulse(s));});
+test('supply arithmetic previews multiplication, division and cap',()=>{assert.equal(supplyValue(35,supplies[1][0]),52);assert.equal(supplyValue(35,supplies[1][1]),17);assert.equal(supplyValue(90,supplies[1][0]),99);});
+test('paid repair consumes real firepower and cannot be granted for free',()=>{const s=createGame(1);s.power=30;s.base=40;s.supply={options:supplies[0]};assert(chooseSupply(s,1));assert.equal(s.power,22);assert.equal(s.base,62);s.power=8;s.supply={options:supplies[0]};assert(!chooseSupply(s,1));assert.equal(s.base,62);});
+test('forward progress depends on fortress destruction rather than waiting',()=>{const s=createGame(1);advance(s,30);assert.equal(s.sector,0);assert.equal(s.mode,'lose');});
+test('defeating three fortress sectors produces victory without resource cheats',()=>{const r=simulate(1,'siege');assert.equal(r.mode,'win');assert.equal(r.sector,3);assert(r.captures>=6);assert(r.peak>=70);});
+test('alternate opening can also complete the operation',()=>{assert.equal(simulate(2,'right').mode,'win');});
+test('stationary play fails with no captured structures',()=>{const r=simulate(12,'idle');assert.equal(r.mode,'lose');assert.equal(r.captures,0);assert(r.time<25);});
+test('entity caps hold during repeated large spawns',()=>{const s=createGame(1);for(let i=0;i<1000;i++)spawnEnemy(s,i%3);assert.equal(s.enemies.length,220);});
