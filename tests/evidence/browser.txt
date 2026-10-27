@@ -1,0 +1,18 @@
+PASS pause stops simulation time
+PASS pause overlay renders
+PASS resume removes overlay
+PASS pointer drag changes target
+PASS pointer cancellation stops dragging
+PASS idle defeat renders retry
+PASS retry resets run
+PASS full run reaches victory without changing resources
+PASS six route decisions resolved
+PASS win overlay renders retry
+{
+  "mode": "win",
+  "time": 141.68333333333823,
+  "hull": 83,
+  "kills": 379,
+  "leaked": 1,
+  "peak": 22
+}
