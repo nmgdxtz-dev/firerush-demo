@@ -1,0 +1,21 @@
+PASS finger outside canvas still steers via window
+PASS lift then re-press resumes with fresh identifier
+PASS cancel then re-press resumes
+PASS second finger triggers skill independently
+PASS skill finger release preserves movement finger
+PASS manual pause stops simulation
+PASS resume restores battlefield
+PASS stationary play loses and shows retry
+PASS retry resets operation and touch state
+PASS real engine replay captures three fortress sectors
+PASS replay exercises captures and enemy recapture
+PASS victory screen offers another route
+{
+  "seed": 2,
+  "time": 102.68333333332879,
+  "base": 89.5,
+  "kills": 789,
+  "captures": 9,
+  "enemyRecaptures": 3,
+  "peak": 90
+}
