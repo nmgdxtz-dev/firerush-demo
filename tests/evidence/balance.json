@@ -1,0 +1,135 @@
+{
+  "idle": {
+    "seed": 12,
+    "mode": "lose",
+    "time": 27,
+    "hull": 0,
+    "kills": 16,
+    "leaked": 23,
+    "charge": 7,
+    "peak": 29,
+    "reason": "敌人突破后方能源车"
+  },
+  "active": [
+    {
+      "seed": 1,
+      "mode": "win",
+      "time": 146,
+      "hull": 65,
+      "kills": 383,
+      "leaked": 1,
+      "charge": 77,
+      "boss": -16.240000000080727,
+      "peak": 29,
+      "reason": "封锁核心击破，双人能源车抵达灯塔"
+    },
+    {
+      "seed": 2,
+      "mode": "win",
+      "time": 145,
+      "hull": 75,
+      "kills": 344,
+      "leaked": 10,
+      "charge": 75,
+      "boss": -0.6400000000699588,
+      "peak": 28,
+      "reason": "封锁核心击破，双人能源车抵达灯塔"
+    },
+    {
+      "seed": 3,
+      "mode": "win",
+      "time": 142,
+      "hull": 89,
+      "kills": 384,
+      "leaked": 0,
+      "charge": 77,
+      "boss": -38.36000000008971,
+      "peak": 24,
+      "reason": "封锁核心击破，双人能源车抵达灯塔"
+    },
+    {
+      "seed": 4,
+      "mode": "win",
+      "time": 142,
+      "hull": 73,
+      "kills": 352,
+      "leaked": 4,
+      "charge": 77,
+      "boss": -5.240000000070722,
+      "peak": 25,
+      "reason": "封锁核心击破，双人能源车抵达灯塔"
+    },
+    {
+      "seed": 5,
+      "mode": "win",
+      "time": 142,
+      "hull": 80,
+      "kills": 377,
+      "leaked": 0,
+      "charge": 70,
+      "boss": -21.800000000088403,
+      "peak": 25,
+      "reason": "封锁核心击破，双人能源车抵达灯塔"
+    },
+    {
+      "seed": 6,
+      "mode": "win",
+      "time": 142,
+      "hull": 64,
+      "kills": 395,
+      "leaked": 0,
+      "charge": 77,
+      "boss": -25.480000000086875,
+      "peak": 19,
+      "reason": "封锁核心击破，双人能源车抵达灯塔"
+    },
+    {
+      "seed": 7,
+      "mode": "win",
+      "time": 142,
+      "hull": 83,
+      "kills": 379,
+      "leaked": 1,
+      "charge": 70,
+      "boss": -0.6400000000958244,
+      "peak": 22,
+      "reason": "封锁核心击破，双人能源车抵达灯塔"
+    },
+    {
+      "seed": 8,
+      "mode": "win",
+      "time": 142,
+      "hull": 89,
+      "kills": 376,
+      "leaked": 3,
+      "charge": 77,
+      "boss": -3.4000000000851287,
+      "peak": 20,
+      "reason": "封锁核心击破，双人能源车抵达灯塔"
+    },
+    {
+      "seed": 9,
+      "mode": "win",
+      "time": 146,
+      "hull": 78,
+      "kills": 373,
+      "leaked": 3,
+      "charge": 71,
+      "boss": -19.000000000083446,
+      "peak": 32,
+      "reason": "封锁核心击破，双人能源车抵达灯塔"
+    },
+    {
+      "seed": 10,
+      "mode": "win",
+      "time": 142,
+      "hull": 89,
+      "kills": 383,
+      "leaked": 2,
+      "charge": 76,
+      "boss": -40.20000000009168,
+      "peak": 20,
+      "reason": "封锁核心击破，双人能源车抵达灯塔"
+    }
+  ]
+}
