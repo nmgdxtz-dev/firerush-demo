@@ -1,0 +1,315 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,viewport-fit=cover"><meta name="theme-color" content="#123240"><title>火力突围 V0.11 · 沿海狂奔</title><style>*{box-sizing:border-box}html,body{margin:0;width:100%;height:100%;overflow:hidden;overscroll-behavior:none;background:#111c22;color:#f9efd7;font-family:system-ui,-apple-system,"PingFang SC",sans-serif}body{display:grid;place-items:center}#game{position:relative;width:min(100vw,55.2632dvh);height:min(100dvh,180.9524vw);container-type:size;touch-action:none;user-select:none;-webkit-user-select:none;background:#314843;box-shadow:0 0 100px #8b9b7330}canvas{display:block;width:100%;height:100%;touch-action:none}button{font:inherit;border:0;cursor:pointer;touch-action:manipulation}#top{position:absolute;top:1.5%;right:3%;display:flex;gap:5px}#top button{background:#253c3e;color:#dfecd9;padding:6px 9px;font-size:10px;border:1px solid #536b63;border-radius:5px}#overlay{position:absolute;inset:0;display:flex;flex-direction:column;justify-content:center;padding:8%;gap:14px;background:linear-gradient(#152a30e8,#162830f5)}#overlay[hidden],#controls[hidden]{display:none}.eyebrow{font-size:10px;letter-spacing:4px;color:#a4d9b7}.title{font-size:clamp(29px,8vw,46px);font-weight:950;line-height:1.13;margin:0;color:#f8e8c7}.title em{font-style:normal;color:#f4b970}.subtitle{margin:0;font-size:14px;color:#b6d8bd;letter-spacing:3px}.rule{border:1px solid #63776680;border-left:3px solid #a6d6b5;padding:12px;font-size:12px;line-height:1.9;color:#d4e2cd;background:#2f474855}.rule b{color:#f6c984}.primary{background:#f6c984;color:#223231;padding:16px;border-radius:9px;box-shadow:0 4px 0 #9e7849;font-size:18px;font-weight:900}.secondary{padding:12px;background:#365450;color:#dae9d3;border-radius:7px}.fine{font-size:10px;line-height:1.7;color:#96b4ac;margin:0}.stats{display:flex;gap:7px}.stats div{border:1px solid #526f64;padding:10px;flex:1;font-size:11px;color:#a3c6b0}.stats strong{font-size:24px;display:block;color:#f5d79d}#controls{position:absolute;bottom:max(2%,env(safe-area-inset-bottom));right:3%;width:35%;pointer-events:none}#controls span{display:none}#skill{pointer-events:auto;width:100%;min-height:58px;background:#f2c67f;color:#273d38;border:2px solid #ffe7b0;border-radius:12px;box-shadow:0 4px 0 #8a704c;padding:7px 4px}#skill b{font-size:14px;display:block}#skill small{font-size:9px;display:block;margin-top:3px}#skill:disabled{background:#354d49;color:#9bb2a4;border-color:#5b7466;box-shadow:0 3px 0 #233b37}button:focus-visible{outline:3px solid white}@container(max-height:650px){#overlay{padding:6%;gap:8px}.eyebrow{font-size:8px;letter-spacing:2px}.title{font-size:32px}.subtitle{font-size:12px}.rule{font-size:10px;padding:8px;line-height:1.7}.primary{font-size:15px;padding:12px}.fine{font-size:9px}.secondary{padding:9px}.stats strong{font-size:20px}}
+html,body{background:#0b1722;color:#f7ecdb}#game{background:#163d42;box-shadow:0 0 90px #56c9bf33}#overlay{background:linear-gradient(#0c2534eb,#102c36f5)}.title em{color:#ffcb99}.eyebrow{color:#8ee8db}.rule{background:#244a5155;border-color:#5c9a9560;border-left-color:#8ee8db}.primary{background:#ffd3a0;color:#173943}#controls{width:37%}#skill{background:#ffd2a0;border-color:#fff0c1;color:#183c44}#skill.risk{background:#c67768;color:#fff0db;border-color:#ffc09f}#skill:disabled{background:#27444d;color:#8fb6b7;border-color:#4b7278}.stats strong{color:#ffd2a0}
+
+#formation{position:absolute;top:22.7%;left:3.5%;width:93%;height:8.4%;display:flex;gap:4%}#formation[hidden]{display:none}#formation button{width:48%;background:transparent;color:transparent;border:0;padding:0}
+</style></head><body><main id="game"><canvas id="c" aria-label="裂潮战场：滑动寻找橙色缝眼，击碎后牵手向前冲锋"></canvas><div id="top"><button id="pause" aria-label="暂停">Ⅱ</button><button id="sound">音效 OFF</button></div><section id="overlay" aria-live="polite"></section><div id="formation" hidden><button aria-label="收束成矛：伤害增加，宽度缩小">收束成矛</button><button aria-label="展开成翼：宽度增加，伤害减少">展开成翼</button></div><div id="controls" hidden><button id="skill"><b>咕咕 · 拉弦冲锋</b><small>先凿穿缺口，再向前冲</small></button></div></main><script type="module">// A crowded coastal road: aim through the tide, then steer around physical obstacles.
+const W=420,H=760,GOAL=5400,MAX_ENEMIES=760,LIMIT=180;
+const clamp=(n,a,b)=>Math.max(a,Math.min(b,n));
+function rng(seed){return()=>{let t=seed+=0x6d2b79f5;t=Math.imul(t^t>>>15,t|1);t^=t+Math.imul(t^t>>>7,t|61);return((t^t>>>14)>>>0)/4294967296;};}
+const tier=p=>p>=70?2:p>=40?1:0;
+function road(z){const center=210+Math.sin(z*.0024)*20,bridge=z>=3600,half=bridge?144:156;return{center,left:center-half,right:center+half,half,biome:Math.min(2,Math.floor(Math.max(0,z)/1800))};}
+function obstacleX(s,o){return o.type==='cart'?o.x+Math.sin(s.time*.95+o.phase)*54:o.x;}
+function obstacleAhead(s,range=290){return s.obstacles.find(o=>!o.passed&&o.z>s.distance-40&&o.z<s.distance+range);}
+const weapons=['双生四弦','六弦破潮','八弦日冕'];
+function note(s,text,color='#ffe3a4'){s.notices.push({text,color,life:2.4});if(s.notices.length>2)s.notices.shift();}
+function createGame(seed=Date.now()){
+ const s={seed,random:rng(seed),mode:'play',time:0,distance:0,camera:0,x:210,target:210,hull:100,power:26,width:1,tension:36,rear:0,kills:0,cleanRushes:0,hardRushes:0,cooldown:0,fire:0,spawn:.65,phase:0,dash:null,pulse:0,invulnerable:0,streak:0,serial:0,enemies:[],traces:[],particles:[],notices:[],choice:null,nextChoice:320,history:[],fronts:[],peak:0,weaponTier:0,reason:'',wakes:[],rings:[],chain:0,chainWindow:0,explosions:0,wakeKills:0,obstacles:[],obstacleHits:0,dodged:0,impact:0,obstacleGrace:0,nearMisses:0,tailwind:0,windRushes:0,footprints:[],footTimer:0,grid:new Uint16Array(30*52)};
+ let previous=210;for(let i=0;i<9;i++){let x=70+s.random()*280;if(Math.abs(x-previous)<95)x=previous<210?315:105;s.fronts.push({z:430+i*520,x,baseX:x,hp:140+i*22,max:140+i*22,open:0,breached:false,phase:s.random()*6.28});previous=x;}
+ for(let i=0;i<9;i++){const z=650+i*520,r=road(z);s.obstacles.push({z,x:r.center+((i+((seed>>>0)%2))%2?64:-64),width:i%3===1?76:96,type:i%3===1?'cart':'barrier',phase:i*1.7+((seed>>>0)%13)*.3,passed:false});}
+ for(let row=0;row<25;row++)spawnRow(s,160+row*22,0);
+ note(s,'沿海公路，出发！破潮之后看路障，提前绕行');return s;
+}
+function spawnEnemy(s,x,z,type='swarm'){
+ if(s.enemies.length>=MAX_ENEMIES)return;
+ const hp=type==='lantern'?16:type==='heavy'?32+s.phase*3:10+s.phase;
+ s.enemies.push({id:++s.serial,x:clamp(x,road(z).left+9,road(z).right-9),z,hp,max:hp,type,stun:0,phase:s.random()*6.28,dead:false});
+}
+function spawnRow(s,z,phase=s.phase){
+ const shift=Math.sin(z*.008)*9;
+ for(let col=0;col<25;col++){const x=17+col*16+shift+(s.random()-.5)*5;spawnEnemy(s,x,z+Math.sin(col*.28+z*.012)*20+(s.random()-.5)*7,s.random()<.035?'lantern':s.random()<.06+phase*.065?'heavy':'swarm');}
+}
+function burst(s,x,z,color,n=5){for(let i=0;i<n&&s.particles.length<170;i++)s.particles.push({x,z,vx:(s.random()-.5)*130,vz:(s.random()-.5)*130,life:.25+s.random()*.3,color});}
+function kill(s,e){if(e.dead)return;e.dead=true;s.kills++;s.tension=Math.min(100,s.tension+.72);if(s.kills%24===0)s.power=Math.min(99,s.power+1);burst(s,e.x,e.z,e.type==='swarm'?'#94e6cc':'#ffb478',2);
+ if(e.type==='lantern'){
+  // Mark dead before cascading: a bounded chain can visit each creature only once.
+  s.explosions++;s.rings.push({x:e.x,z:e.z,life:.55});if(s.rings.length>24)s.rings.shift();
+  burst(s,e.x,e.z,'#ffd28b',12);
+  for(const other of s.enemies)if(!other.dead&&Math.hypot(other.x-e.x,(other.z-e.z)*.8)<62){other.hp-=25;other.stun=.65;if(other.hp<=0)kill(s,other);}
+  for(const f of s.fronts)if(!f.breached&&!f.held&&f.open<=0&&Math.hypot(f.x-e.x,f.z-e.z)<90){f.hp-=55;if(f.hp<=0){f.open=3.6;note(s,'灯蛹炸开潮眼！趁现在拉弦','#ffd28b');}}
+ }
+}
+function seam(s,x=s.x){
+ const radius=22*s.width;let mass=0,count=0;
+ for(const e of s.enemies)if(!e.dead&&e.z>s.distance+22&&e.z<s.distance+242&&Math.abs(e.x-x)<radius){count++;mass+=e.type==='heavy'?2:1;}
+ for(const f of s.fronts)if(!f.breached&&f.z>s.distance&&f.z<s.distance+270&&((f.open<=0&&!f.held)||Math.abs(x-f.x)>33))mass+=24;
+ return{mass,count,ready:mass<=7,clarity:clamp(Math.round(100-Math.max(0,mass-7)*5),0,100),radius};
+}
+const choices=[
+ {name:'收束成矛',op:'伤害 ×1.28 / 宽度 ÷1.28',factor:1/1.28,description:'更窄、更深，容易凿穿缺口'},
+ {name:'展开成翼',op:'宽度 ×1.28 / 伤害 ÷1.28',factor:1.28,description:'更宽、击退更强，压住两侧'},
+];
+function formationPreview(s,side){const width=clamp(s.width*choices[side].factor,.55,1.8);return{width,damage:1/width};}
+function chooseFormation(s,side){if(!s.choice)return false;const p=formationPreview(s,side);s.width=p.width;s.history.push(choices[side].name);s.choice=null;note(s,choices[side].name+'：伤害 ×'+p.damage.toFixed(2)+' / 宽度 ×'+p.width.toFixed(2));return true;}
+const rushCost=s=>s.chainWindow>0?22:32;
+const skillCost=s=>seam(s).ready?rushCost(s):12;
+function rush(s){
+ if(s.mode!=='play'||s.dash||s.cooldown>0||s.tension<skillCost(s))return false;
+ const gap=seam(s),clean=gap.ready;
+ if(!clean){
+  s.tension-=12;s.cooldown=1.05;s.invulnerable=.45;s.pulse=.35;s.hardRushes++;s.chain=0;s.chainWindow=0;
+  for(const e of s.enemies)if(!e.dead&&Math.hypot(e.x-s.x,(e.z-s.distance)*.65)<100){e.hp-=18;e.z+=35;e.stun=.65;if(e.hp<=0)kill(s,e);}
+  s.rings.push({x:s.x,z:s.distance,life:.45});note(s,'咕咕回旋护住墨墨 · 耗弦 12','#ffcf9e');return true;
+ }
+ s.tension-=rushCost(s);s.chain=s.chainWindow>0?s.chain+1:1;s.chainWindow=0;
+ const windy=s.tailwind>0;if(windy){s.tailwind=0;s.windRushes++;}let length=windy?290:240;const blocking=s.fronts.find(f=>!f.breached&&f.z>s.distance&&f.z<=s.distance+length&&(f.open<=0||Math.abs(s.x-f.x)>33));if(blocking)length=Math.max(0,blocking.z-s.distance-32);
+ s.cooldown=s.chain>=3?6.6:.98;s.invulnerable=.95;s.pulse=.7;
+ const wake={points:[{x:s.x,z:s.distance}],life:5.5};s.wakes.push(wake);if(s.wakes.length>4)s.wakes.shift();
+ s.dash={from:s.distance,to:s.distance+length,age:0,duration:.72,clean:true,x:s.x,wake};
+ for(const f of s.fronts)if(!f.breached&&f.open>0&&f.z>s.dash.from&&f.z<=s.dash.to){f.held=true;f.holderX=f.x;s.dash.gate=f;}
+ s.cleanRushes++;s.streak++;s.rear=Math.max(0,s.rear-12);s.power=Math.min(99,s.power+2);
+ note(s,s.chain>1?'心弦接力 ×'+s.chain+'！留下的路也在战斗':'破潮织路！滑动可弯冲，金色心弦拦住回涌','#a7ffe1');return true;
+}
+function fire(s){
+ const count=4+tier(s.power)*2,fan=18*s.width,damage=(9+s.power*.04)/s.width;
+ const front=s.fronts.find(f=>!f.breached&&f.z>s.distance&&f.z<s.distance+325);
+ const candidates=s.enemies.filter(e=>!e.dead&&e.z>s.distance+10&&e.z<s.distance+325&&(!front||e.z<front.z)).sort((a,b)=>a.z-b.z);
+ for(let i=0;i<count;i++){
+  const start=s.x+(i%2?1:-1)*19*s.width,spread=(i-(count-1)/2)*fan;
+  let hits=0,tx=s.x+spread,tz=s.distance+325;
+  for(const e of candidates){if(e.dead)continue;const along=(e.z-s.distance)/325,rayx=start+(tx-start)*along;if(Math.abs(e.x-rayx)>8)continue;
+   e.hp-=damage;e.z+=2.2*s.width;if(e.hp<=0)kill(s,e);hits++;tz=e.z;if(e.type==='heavy'&&e.hp>0)break;if(hits>=2+tier(s.power))break;
+  }
+  if(front&&hits<2+tier(s.power)){const along=(front.z-s.distance)/325,hitx=start+(tx-start)*along;tz=front.z;if(front.open<=0&&!front.held&&Math.abs(hitx-front.x)<29){front.hp-=damage;if(front.hp<=0){front.open=3.6;burst(s,front.x,front.z,'#ffd89e',30);note(s,'缝眼破裂！裂口只维持 3.6 秒，拉弦向前！','#b1ffdc');}}}
+  if(s.traces.length<130)s.traces.push({x:start,z:s.distance+15,tx,tz,life:.13,color:tier(s.power)>0?'#ffdf9d':'#a5f9df'});
+ }
+}
+function resolveObstacles(s,beforeZ,beforeX=s.x){
+ for(const o of s.obstacles){
+  const radius=22*s.width+8,near=o.z-28;
+  if(o.passed||beforeZ>o.z+30)continue;
+  if(s.distance>=near&&beforeZ<=o.z+28){
+   const f=s.distance===beforeZ?1:clamp((near-beforeZ)/(s.distance-beforeZ),0,1),crossX=beforeX+(s.x-beforeX)*f;
+   if(Math.abs(crossX-obstacleX(s,o))<o.width/2+radius){
+    s.distance=Math.max(beforeZ,Math.min(s.distance,near-1));s.dash=null;s.chain=0;s.chainWindow=0;s.cooldown=Math.max(s.cooldown,.85);
+    if(s.obstacleGrace<=0){s.hull=Math.max(0,s.hull-16);s.tension=Math.max(0,s.tension-8);s.obstacleGrace=1.1;s.impact=.5;s.obstacleHits++;o.hit=true;note(s,'撞上'+(o.type==='cart'?'横移货箱':'倒塌路障')+'！向空侧绕开','#ffb09a');burst(s,s.x,s.distance,'#ffbc9f',15);}
+   }else{o.clearance=Math.min(o.clearance??Infinity,Math.abs(crossX-obstacleX(s,o))-o.width/2-radius);if(s.distance>o.z+28){o.passed=true;s.dodged++;s.tension=Math.min(100,s.tension+7);if(!o.hit&&o.clearance<22){s.nearMisses++;s.tailwind=4;s.tension=Math.min(100,s.tension+7);s.cooldown=Math.max(0,s.cooldown-.6);burst(s,s.x,s.distance,'#fff1a5',20);note(s,'漂亮擦边！尾风 4 秒 · 下一冲 +50','#fff0ad');}else note(s,'成功绕行 · 蓄弦 +7','#c0ffde');}}
+  }
+ }
+}
+function crowd(s,dt){
+ s.grid.fill(0);const rangeStart=s.distance-90;
+ for(const e of s.enemies){const xx=clamp(Math.floor(e.x/14),0,29),zz=clamp(Math.floor((e.z-rangeStart)/18),0,51);s.grid[zz*30+xx]++;}
+ const crest=.5+.5*Math.sin(s.time*.72),speed=39+s.phase*8+crest*22;
+ let contacts=0;
+ for(const e of s.enemies){if(e.dead)continue;e.phase+=dt;e.stun=Math.max(0,e.stun-dt);
+  if(e.stun<=0){const xx=clamp(Math.floor(e.x/14),1,28),zz=clamp(Math.floor((e.z-rangeStart)/18),0,51),index=zz*30+xx;
+   const disperse=clamp((s.grid[index-1]-s.grid[index+1])*3,-14,14);
+   const close=e.z<s.distance+210?clamp((s.x-e.x)*.09,-14,14):Math.sin(e.phase+s.time*.25)*6;
+   e.x=clamp(e.x+(disperse+close)*dt,road(e.z).left+9,road(e.z).right-9);e.z-=speed*dt*(e.type==='heavy'?.75:1);
+  }
+  let caught=false;for(const w of s.wakes){for(let i=1;i<w.points.length;i+=3){const p=w.points[i];if(Math.abs(e.z-p.z)<18&&Math.abs(e.x-p.x)<23*s.width){e.hp-=70*dt;e.stun=.15;caught=true;break;}}if(caught)break;}if(e.hp<=0){s.wakeKills++;kill(s,e);continue;}
+  if(s.dash&&e.z>s.distance-28&&e.z<s.distance+55){const dx=e.x-s.dash.x;if(Math.abs(dx)<29*s.width){kill(s,e);continue;}if(Math.abs(dx)<90){e.x=clamp(e.x+Math.sign(dx)*90*dt,15,405);e.stun=.45;}}
+  if(e.z<s.distance+16&&e.z>s.distance-20&&Math.abs(e.x-s.x)<28*s.width){contacts+=e.type==='heavy'?2:1;if(s.invulnerable<=0){e.z=s.distance+17;e.hp-=35*dt;if(e.hp<=0)kill(s,e);}}
+  if(e.z<s.distance-85){e.dead=true;s.rear=Math.min(100,s.rear+.14);}
+ }
+ if(s.invulnerable<=0)s.hull=Math.max(0,s.hull-Math.min(16,contacts)*.34*dt-Math.max(0,s.rear-35)*.05*dt);
+ s.enemies=s.enemies.filter(e=>!e.dead);
+}
+function result(s){
+ const score=Math.max(0,Math.floor(s.distance*2+s.dodged*150+s.nearMisses*250+s.cleanRushes*50+Math.min(2000,s.kills)*.5-s.obstacleHits*400-s.time*30+(s.mode==='win'?10000+s.hull*20:0)));
+ const grade=s.mode!=='win'?'未完成':s.obstacleHits===0&&s.nearMisses>=4?'S':s.obstacleHits<=2?'A':'B';return{score,grade};
+}
+function step(s,dt){
+ if(s.mode!=='play')return;dt=clamp(dt,0,.04);s.time+=dt;
+ const beforeZ=s.distance,beforeX=s.x;const r=road(s.distance),edge=22*s.width+12;const squeeze=Math.max(0,s.rear-65)*.12;s.x+=(clamp(s.target,r.left+edge+squeeze,r.right-edge-squeeze)-s.x)*(1-Math.exp(-15*dt));
+ s.footTimer-=dt;if(s.footTimer<=0){s.footTimer=.12;s.footprints.push({x:s.x+(Math.floor(s.time*8)%2?10:-10),z:s.distance-10,life:2});if(s.footprints.length>45)s.footprints.shift();}for(const p of s.footprints)p.life-=dt;s.footprints=s.footprints.filter(p=>p.life>0);
+ s.chainWindow=Math.max(0,s.chainWindow-dt);for(const w of s.wakes)w.life-=dt;s.wakes=s.wakes.filter(w=>w.life>0);for(const r of s.rings)r.life-=dt;s.rings=s.rings.filter(r=>r.life>0);
+ s.tailwind=Math.max(0,s.tailwind-dt);s.obstacleGrace=Math.max(0,s.obstacleGrace-dt);s.impact=Math.max(0,s.impact-dt);
+ s.cooldown=Math.max(0,s.cooldown-dt);s.invulnerable=Math.max(0,s.invulnerable-dt);s.pulse=Math.max(0,s.pulse-dt);
+ for(const a of s.traces)a.life-=dt;s.traces=s.traces.filter(a=>a.life>0);
+ for(const p of s.particles){p.x+=p.vx*dt;p.z+=p.vz*dt;p.life-=dt;}s.particles=s.particles.filter(p=>p.life>0);
+ for(const n of s.notices)n.life-=dt;s.notices=s.notices.filter(n=>n.life>0);
+ if(s.dash){const d=s.dash;d.age+=dt;const f=clamp(d.age/d.duration,0,1);s.distance=d.from+(d.to-d.from)*(1-Math.pow(1-f,2));if(d.gate&&s.distance<d.gate.z+28)s.x+=(d.gate.holderX-s.x)*(1-Math.exp(-30*dt));d.x=s.x;if(d.wake.points.length<48)d.wake.points.push({x:s.x,z:s.distance});if(f>=1){s.dash=null;s.chainWindow=s.chain>=3?0:1.8;}}
+ else{s.distance+=11*dt;const wall=s.fronts.find(f=>!f.breached&&!f.held&&f.z>s.distance-30);if(wall&&s.distance>wall.z-30)s.distance=wall.z-30;}
+ resolveObstacles(s,beforeZ,beforeX);
+ for(const f of s.fronts){const rr=road(f.z);f.x=f.held?f.holderX:clamp(f.baseX+Math.sin(s.time*.65+f.phase)*20,rr.left+54,rr.right-54);if(f.open>0){f.open-=dt;if(f.open<=0&&!f.breached&&!f.held){f.hp=f.max*.55;note(s,'裂口合拢了，再打一次缝眼','#ffb09a');}}if(!f.breached&&s.distance>=f.z){f.breached=true;f.held=false;note(s,'潮脊被甩在身后！继续向前','#a7ffe1');}}
+ s.camera+=(s.distance-s.camera)*(1-Math.exp(-(s.dash?4:9)*dt));
+ const phase=Math.min(2,Math.floor(s.distance/1800));if(phase!==s.phase){s.phase=phase;s.rear=Math.max(0,s.rear-8);note(s,phase===1?'红岩栈道：货箱横移，先看路线再冲':'风暴跨海桥：路更窄了，两个人一起出去','#ffbd9e');for(let i=0;i<6;i++)spawnRow(s,s.distance+350+i*27,phase);}
+ if(!s.dash&&s.distance>=s.nextChoice&&!s.choice){s.choice={remaining:3.5};s.nextChoice+=550;}
+ if(s.choice){s.choice.remaining-=dt;if(s.choice.remaining<=0)chooseFormation(s,s.x<210?0:1);}
+ s.spawn-=dt;if(s.spawn<=0){s.spawn=.42-s.phase*.025;spawnRow(s,s.distance+560+Math.sin(s.time)*22);}
+ s.fire-=dt;if(s.fire<=0){s.fire=.13;fire(s);}
+ crowd(s,dt);
+ if(s.hull<=0){s.mode='lose';s.reason='前潮压住矛头，后潮合拢了退路';}
+ else if(s.distance>=GOAL){s.mode='win';s.reason='把三重敌潮撕成一条路，两个人一起冲了出去';}
+ else if(s.time>=LIMIT){s.mode='lose';s.reason='停留太久，整片潮墙合拢；需要主动穿过缺口';}
+ s.peak=Math.max(s.peak,s.enemies.length);
+ const level=tier(s.power);if(level!==s.weaponTier){s.weaponTier=level;note(s,'心弦进化：'+weapons[level]);}
+}
+
+// Native Touch Events are the phone's primary input. No pointer capture.
+// Track one movement finger; the skill button may use a second finger independently.
+function bindInput({area,canvas,skill,host=window,active,onMove,onSkill}){
+ let finger=null,mouse=false,lastTouch=-Infinity,lastSkillTouch=-Infinity;
+ const move=clientX=>{if(!active())return;const r=canvas.getBoundingClientRect();if(r.width)onMove((clientX-r.left)*420/r.width);};
+ const ignored=target=>!!target?.closest?.('button,#overlay,#top');
+ const find=(list,id)=>Array.from(list||[]).find(t=>t.identifier===id);
+ function reset(){finger=null;mouse=false;}
+ area.addEventListener('touchstart',e=>{if(finger!==null&&e.touches&&!find(e.touches,finger))finger=null;if(!active()||finger!==null||ignored(e.target))return;const t=e.changedTouches[0];if(!t)return;finger=t.identifier;lastTouch=Date.now();move(t.clientX);if(e.cancelable)e.preventDefault();},{passive:false});
+ host.addEventListener('touchmove',e=>{if(finger===null||!active())return;const t=find(e.touches,finger);if(t){move(t.clientX);if(e.cancelable)e.preventDefault();}},{passive:false,capture:true});
+ const finish=e=>{if(finger!==null&&(find(e.changedTouches,finger)||(e.touches&&!find(e.touches,finger)))){finger=null;lastTouch=Date.now();}};
+ host.addEventListener('touchend',finish,{passive:true,capture:true});
+ host.addEventListener('touchcancel',finish,{passive:true,capture:true});
+ skill.addEventListener('touchstart',e=>{lastTouch=Date.now();lastSkillTouch=Date.now();if(e.cancelable)e.preventDefault();e.stopPropagation();if(active()&&!skill.disabled)onSkill();},{passive:false});
+ skill.addEventListener('click',()=>{if(Date.now()-lastSkillTouch>700&&active())onSkill();});
+ area.addEventListener('pointerdown',e=>{if(e.pointerType==='touch'||Date.now()-lastTouch<800||!active()||ignored(e.target))return;mouse=true;move(e.clientX);});
+ host.addEventListener('pointermove',e=>{if(mouse&&active())move(e.clientX);});
+ host.addEventListener('pointerup',()=>mouse=false);
+ host.addEventListener('pointercancel',()=>mouse=false);
+ host.addEventListener('blur',reset);
+ return {reset,trackedFinger:()=>finger};
+}
+
+const canvas=document.querySelector('#c'),g=canvas.getContext('2d'),overlay=document.querySelector('#overlay'),controls=document.querySelector('#controls'),skill=document.querySelector('#skill');
+let s=createGame(),view='menu',keys={},last=0,freeze=false,hidden=false,muted=true,audio,lastPop=0,best=0,bestScore=0;
+try{best=+localStorage.getItem('fr011best')||0;bestScore=+localStorage.getItem('fr011score')||0;}catch{}
+const C={mint:'#9ffff0',gold:'#ffda9e',coral:'#ffad99',ink:'#12313a',pale:'#e8f4df'};
+const box=(x,y,w,h,c,r=0)=>{g.fillStyle=c;g.beginPath();g.roundRect(x,y,w,h,r);g.fill();};
+const circle=(x,y,r,c)=>{g.fillStyle=c;g.beginPath();g.arc(x,y,r,0,Math.PI*2);g.fill();};
+const line=(x,y,xx,yy,c,w=1)=>{g.strokeStyle=c;g.lineWidth=w;g.beginPath();g.moveTo(x,y);g.lineTo(xx,yy);g.stroke();};
+function text(a,x,y,size=12,color=C.pale,align='center'){g.fillStyle=color;g.font=`800 ${size}px system-ui`;g.textAlign=align;g.fillText(a,x,y);}
+function resize(){const d=Math.min(devicePixelRatio||1,2);canvas.width=W*d;canvas.height=H*d;g.setTransform(d,0,0,d,0,0);}resize();addEventListener('resize',resize);
+const screen=z=>550-(z-s.camera)*.79;
+// Original procedural sprites are cached once; crowd rendering uses drawImage, not hundreds of paths.
+const sprites={};
+for(const type of ['swarm','heavy','lantern']){const c=document.createElement('canvas');c.width=c.height=40;const q=c.getContext('2d');q.fillStyle='#05262a70';q.beginPath();q.ellipse(20,29,14,7,0,0,Math.PI*2);q.fill();q.fillStyle=type==='heavy'?'#b4b4a4':'#438e85';q.beginPath();q.moveTo(8,25);q.quadraticCurveTo(5,3,19,5);q.quadraticCurveTo(35,1,33,24);q.lineTo(29,32);q.lineTo(23,28);q.lineTo(18,33);q.lineTo(12,28);q.fill();q.fillStyle=type==='heavy'?'#545d66':'#1b5b60';q.fillRect(10,12,20,7);q.fillStyle=type==='heavy'?'#ffc38e':'#c1ffdc';q.fillRect(13,14,4,3);q.fillRect(24,14,4,3);if(type==='heavy'){q.fillStyle='#d7c0ab';q.fillRect(16,6,7,4);q.fillRect(11,25,18,5);}if(type==='lantern'){q.fillStyle='#ffbe62';q.beginPath();q.arc(20,19,12,0,Math.PI*2);q.fill();q.fillStyle='#fff0bb';q.fillRect(17,8,6,20);q.fillRect(9,16,22,5);}sprites[type]=c;}
+function cat(x,y,k=1){g.save();g.translate(x,y);g.scale(k,k);circle(0,5,13,'#152b3b');g.fillStyle='#152b3b';g.beginPath();g.moveTo(-12,1);g.lineTo(-14,-17);g.lineTo(-3,-9);g.lineTo(11,-17);g.lineTo(13,3);g.fill();box(-9,-1,5,3,C.mint,1);box(4,-1,5,3,C.mint,1);box(-11,15,23,5,C.mint,2);g.restore();}
+function dog(x,y,k=1){g.save();g.translate(x,y);g.scale(k,k);circle(-12,-4,8,'#b07b58');circle(12,-4,8,'#b07b58');circle(0,5,15,'#ffcf92');circle(-5,2,2,C.ink);circle(5,2,2,C.ink);circle(0,8,3,C.ink);box(-12,17,24,5,'#f29991',2);g.restore();}
+const districtNames=['01 / 薄荷港 · 沿海公路','02 / 赤岩湾 · 崖边栈道','03 / 白浪桥 · 风暴冲刺'];
+const terrain=[['#286e67','#349b91','#d9c58b','#50615c'],['#8f5550','#d49873','#d7ad8d','#625864'],['#163c56','#286b83','#b6c8c6','#485b6b']];
+function polygon(points,color){g.fillStyle=color;g.beginPath();points.forEach((p,i)=>i?g.lineTo(...p):g.moveTo(...p));g.closePath();g.fill();}
+function scenicProp(z,side,index){
+ const y=screen(z);if(y<85||y>825)return;const r=road(z),x=side<0?r.left-25:r.right+25,t=r.biome;
+ if(t===0){
+  if(index%3===0&&side<0){box(x-24,y-29,43,38,'#dfd3ac',3);polygon([[x-29,y-28],[x-3,y-51],[x+25,y-28]],'#c27560');box(x-8,y-11,13,20,'#386b69',2);box(x-20,y-20,8,8,'#89c7bc',1);line(x+12,y-52,x+12,y-34,'#f0c59b',5);}
+  else{line(x,y+12,x+Math.sin(index)*6,y-32,'#a8a078',6);const top=x+Math.sin(index)*6;for(let j=0;j<5;j++){const a=j*1.256;g.strokeStyle=j%2?'#70b78c':'#a1c98a';g.lineWidth=7;g.beginPath();g.moveTo(top,y-32);g.quadraticCurveTo(top+Math.cos(a)*24,y-43+Math.sin(a)*15,top+Math.cos(a)*28,y-26+Math.sin(a)*19);g.stroke();}circle(x,y-31,4,'#c6a16a');}
+ }else if(t===1){
+  polygon([[x-29,y+15],[x-21,y-23],[x-5,y-50],[x+15,y-30],[x+28,y+13]],'#b87962');polygon([[x-5,y-50],[x+2,y-3],[x+28,y+13],[x+15,y-30]],'#e1ad88');line(x-18,y-5,x-5,y-16,'#87544f',3);
+  if(index%2===0){line(x-10,y+18,x-10,y-8,'#83a27e',5);line(x-10,y+3,x-20,y-1,'#83a27e',4);line(x-20,y-1,x-20,y-9,'#83a27e',4);}
+ }else{
+  box(x-7,y-65,14,91,'#839ba7',3);box(x-13,y-70,26,7,'#c7d8cf',2);line(x,y-63,x+side*29,y-90,'#bed6d7',2);line(x,y-63,x+side*29,y-20,'#bed6d7',2);box(x-3,y-55,6,10,C.gold,2);
+ }
+}
+function ground(){
+ box(0,0,W,H,'#286e67');
+ const start=Math.floor((s.camera-300)/24)*24;
+ for(let z=start;z<s.camera+650;z+=24){const r=road(z),n=road(z+24),y=screen(z),yy=screen(z+24),p=terrain[r.biome];
+  box(0,yy,W,y-yy+1,p[0]);box(r.right+8,yy,W-r.right,y-yy+1,p[1]);
+  if(r.biome===0){line(r.right+18,y,r.right+39,y-4,'#9cd8c095',2);}
+  if(r.biome===2){line(0,y+4,r.left-9,y-7,'#69b2c65c',3);line(r.right+8,y,W,y-7,'#a0d1d660',3);}
+  polygon([[r.left-9,y],[r.right+9,y],[n.right+9,yy],[n.left-9,yy]],'#172f3b70');
+  polygon([[r.left,y],[r.right,y],[n.right,yy],[n.left,yy]],p[3]);
+ }
+ for(let z=Math.floor((s.camera-280)/42)*42;z<s.camera+600;z+=42){const r=road(z),y=screen(z),p=terrain[r.biome];
+  const curb=Math.floor(z/42)%2?'#dbcbaa':'#aa7769';line(r.left,y,r.left,screen(z+33),curb,5);line(r.right,y,r.right,screen(z+33),curb,5);
+  for(const off of [-48,48])line(r.center+off,y,r.center+off,screen(z+19),'#ead9b34a',2);
+  if(Math.floor(z/42)%4===0){const x=r.center;line(x-7,y+7,x,y,'#e6dfbf80',2);line(x,y,x+7,y+7,'#e6dfbf80',2);}
+ }
+ for(let z=Math.floor((s.camera-300)/155)*155;z<s.camera+650;z+=155){scenicProp(z,-1,Math.floor(z/155));scenicProp(z+70,1,Math.floor(z/155)+1);}
+ for(const p of s.footprints){g.globalAlpha=p.life*.15;box(p.x-3,screen(p.z),5,9,C.gold,2);}g.globalAlpha=1;
+ if(s.rear>45){const inset=(s.rear-45)*.42;box(0,130,inset,630,'#e4979540');box(W-inset,130,inset,630,'#e4979540');}
+ if(s.dash){for(let i=0;i<14;i++){const x=(i*79+31)%420,y=(i*113+s.time*1800)%730;line(x,y,x,y+48,C.gold+'60',2);}}
+}
+function obstacles(){
+ for(const o of s.obstacles){const y=screen(o.z),x=obstacleX(s,o);if(y<110||y>790)continue;const near=o.z-s.distance;
+  if(near>0&&near<360){g.globalAlpha=.32+.1*Math.sin(s.time*8);box(x-o.width/2-8,y+24,o.width+16,65,'#ffb498',4);g.globalAlpha=1;for(let i=0;i<3;i++){line(x-8,y+43+i*17,x,y+36+i*17,C.gold,2);line(x,y+36+i*17,x+8,y+43+i*17,C.gold,2);}}
+  box(x-o.width/2-5,y-5,o.width+10,39,'#142d3c90',7);
+  if(o.type==='cart'){
+   const r=road(o.z);line(r.left+20,y,r.right-20,y,'#f9d39855',2);for(const dx of [-25,25]){circle(x+dx,y+15,8,'#20343b');circle(x+dx,y+15,3,'#c6d0bd');}
+   box(x-o.width/2,y-27,o.width,38,'#b67c54',3);box(x-o.width/2+5,y-23,o.width-10,28,'#deac72',2);line(x-29,y-20,x+29,y+2,'#916c51',4);line(x+29,y-20,x-29,y+2,'#916c51',4);
+   const direction=Math.cos(s.time*.95+o.phase)>0?1:-1;text(direction>0?'货箱 →':'← 货箱',x,y-36,11,C.gold);
+  }else{
+   box(x-o.width/2,y-19,o.width,25,'#f1cd83',3);g.save();g.beginPath();g.rect(x-o.width/2,y-19,o.width,25);g.clip();for(let dx=-o.width;dx<o.width;dx+=21)polygon([[x+dx,y+6],[x+dx+12,y+6],[x+dx+30,y-19],[x+dx+18,y-19]],'#5b5b52');g.restore();
+   for(const dx of [-o.width/2+9,o.width/2-9]){line(x+dx,y+2,x+dx,y+23,'#adaca0',5);box(x+dx-10,y+21,20,5,'#d7c3a0',2);}text('绕行路障',x,y-28,11,'#ffe1a5');
+  }
+ }
+}
+function sea(){
+ g.save();g.beginPath();let first=true;for(let z=s.camera-300;z<=s.camera+650;z+=25){const p=road(z);if(first){g.moveTo(p.left,screen(z));first=false;}else g.lineTo(p.left,screen(z));}for(let z=s.camera+650;z>=s.camera-300;z-=25)g.lineTo(road(z).right,screen(z));g.closePath();g.clip();
+ const leading=new Float32Array(26).fill(-70);let visible=[];
+ for(const e of s.enemies){const y=screen(e.z);if(y<125||y>720)continue;visible.push(e);const col=clamp(Math.floor(e.x/16),0,25);leading[col]=Math.max(leading[col],y);}
+ // An unbroken silhouette makes the crowd read as a moving mass. A cut is an actual notch.
+ g.fillStyle=['#347c7350','#a06a7350','#9eaeb140'][s.phase];g.beginPath();g.moveTo(12,130);g.lineTo(408,130);for(let col=25;col>=0;col--){const yy=leading[col]>0?leading[col]:140;g.lineTo(10+col*16,yy+10);}g.closePath();g.fill();
+ visible.sort((a,b)=>b.z-a.z);
+ for(const e of visible){const y=screen(e.z),scale=clamp(1-(550-y)*.0006,.65,1.08),size=(e.type==='heavy'?29:24)*scale;g.drawImage(sprites[e.type],e.x-size/2,y-size/2,size,size);}
+ g.restore();
+}
+function fronts(){
+ for(const f of s.fronts){const rr=road(f.z),y=screen(f.z);if(y<135||y>710)continue;
+  if(f.breached){line(rr.left,y,f.x-42,y,'#a1f4d650',5);line(f.x+42,y,rr.right,y,'#a1f4d650',5);continue;}
+  const open=f.open>0||f.held;
+  g.strokeStyle=s.phase===1?'#cb8b9c':'#7bb1a5';g.lineWidth=17;g.beginPath();
+  for(let x=rr.left+2;x<=rr.right-2;x+=8){if(open&&Math.abs(x-f.x)<40){g.moveTo(x,y);continue;}const wave=Math.sin(x*.06+s.time*2)*4;if(x===rr.left+2)g.moveTo(x,y+wave);else g.lineTo(x,y+wave);}g.stroke();
+  for(let x=rr.left+8;x<rr.right-4;x+=17){if(open&&Math.abs(x-f.x)<40)continue;g.drawImage(sprites.heavy,x-14,y-16,28,28);}
+  if(open){g.fillStyle='#ffdc9c33';g.beginPath();g.moveTo(f.x-32,y);g.lineTo(f.x+32,y);g.lineTo(s.x+32,550);g.lineTo(s.x-32,550);g.closePath();g.fill();line(f.x-35,y-22,f.x-35,y+20,C.gold,3);line(f.x+35,y-22,f.x+35,y+20,C.gold,3);text(f.held?'咕咕撑住了！':'裂口 '+f.open.toFixed(1)+'s',f.x,y-32,14,C.gold);}
+  else{circle(f.x,y,21,'#ffce9360');circle(f.x,y,12,C.coral);circle(f.x,y,6,C.gold);box(f.x-27,y+25,54,5,'#12313a',2);box(f.x-27,y+25,54*Math.max(0,f.hp/f.max),5,C.gold,2);text('击碎缝眼',f.x,y-29,11,C.gold);}
+ }
+}
+function render(){document.querySelector('#formation').hidden=!s.choice||view!=='play';ground();
+ for(const w of s.wakes){g.globalAlpha=Math.min(1,w.life);g.strokeStyle='#ffe0a0';g.lineWidth=13;g.lineCap='round';g.beginPath();w.points.forEach((p,i)=>i?g.lineTo(p.x,screen(p.z)):g.moveTo(p.x,screen(p.z)));g.stroke();g.strokeStyle='#fff5dc';g.lineWidth=3;g.stroke();g.globalAlpha=1;}
+ sea();obstacles();fronts();
+ for(const r of s.rings){g.globalAlpha=Math.max(0,r.life/.55);g.strokeStyle='#ffdc96';g.lineWidth=4;g.beginPath();g.ellipse(r.x,screen(r.z),(1-r.life/.6)*78,(1-r.life/.6)*54,0,0,Math.PI*2);g.stroke();g.globalAlpha=1;}
+ if(s.impact>0){g.globalAlpha=s.impact*.35;box(0,125,W,H-125,'#ff8d76');g.globalAlpha=1;}
+ if(s.tailwind>0)text('擦边尾风 '+s.tailwind.toFixed(1)+'s · 下一冲 +50',210,195,12,'#fff3b3');
+ if(s.chainWindow>0)text('接力 ×'+s.chain+' · '+s.chainWindow.toFixed(1)+'s',s.x,screen(s.distance)-42,14,C.gold);
+
+ const playerY=screen(s.distance),span=22*s.width,run=s.dash?0:Math.sin(s.time*20)*2;
+ for(const t of s.traces){const f=1-t.life/.13,yy=screen(t.z+(t.tz-t.z)*f),xx=t.x+(t.tx-t.x)*f;g.globalAlpha=clamp(t.life*10,0,1);line(xx,yy,xx+(t.tx-t.x)*.2,yy-(t.tz-t.z)*.79*.18,t.color,2);}
+ g.globalAlpha=1;
+ for(const p of s.particles){g.globalAlpha=Math.min(1,p.life*3);box(p.x,screen(p.z),3,3,p.color,1);}g.globalAlpha=1;
+ if(view!=='menu'){
+  if(s.dash){g.fillStyle='#ffce9250';g.beginPath();g.moveTo(s.dash.x-26*s.width,screen(s.dash.from));g.lineTo(s.dash.x+26*s.width,screen(s.dash.from));g.lineTo(s.x+span,playerY);g.lineTo(s.x-span,playerY);g.closePath();g.fill();}
+  circle(s.x-span,playerY+19,11,'#09292d80');circle(s.x+span,playerY+19,12,'#09292d80');
+  line(s.x-span,playerY+12,s.x,playerY+19,C.gold,s.dash?5:2);line(s.x,playerY+19,s.x+span,playerY+11,C.gold,s.dash?5:2);
+  // Feet, scarves and a ground shadow distinguish running from a floating craft.
+  line(s.x-span-4,playerY+17,s.x-span-6,playerY+24+run,'#152b3b',5);line(s.x-span+4,playerY+17,s.x-span+6,playerY+24-run,'#152b3b',5);
+  line(s.x+span-5,playerY+18,s.x+span-7,playerY+24-run,'#bb895b',5);line(s.x+span+5,playerY+18,s.x+span+7,playerY+24+run,'#bb895b',5);
+  cat(s.x-span,playerY+run,1.1);dog(s.x+span,playerY-run,1);
+  line(s.x-span-13,playerY+12,s.x-span-30,playerY+18+run,C.mint,4);line(s.x+span+12,playerY+13,s.x+span+26,playerY+20-run,C.coral,4);
+ }
+ if(s.pulse>0){g.globalAlpha=s.pulse*.5;g.strokeStyle=C.gold;g.lineWidth=5;g.beginPath();g.ellipse(s.x,playerY,35+(1-s.pulse)*120,17+(1-s.pulse)*45,0,0,Math.PI*2);g.stroke();g.globalAlpha=1;}
+ // Persistent forward progress is the hero of the dashboard.
+ box(0,0,420,125,'#102c39f5');text('FIRE / RUSH',17,24,11,C.mint,'left');text('沿海狂奔 V0.11',17,44,10,'#a3c7c8','left');text(Math.min(GOAL,Math.floor(s.distance))+' / '+GOAL,398,72,23,C.gold,'right');
+ text('心弦',17,70,10,C.pale,'left');box(48,61,107,9,'#325562',4);box(48,61,107*s.hull/100,9,s.hull<30?C.coral:C.mint,4);text(Math.ceil(s.hull),162,71,12,C.pale,'left');
+ box(17,86,386,4,'#2c4d59',2);box(17,86,386*Math.min(1,s.distance/GOAL),4,C.gold,2);
+ text('敌潮 '+s.enemies.length+' · 火力 '+s.power,17,111,11,C.pale,'left');text('回涌 '+Math.floor(s.rear)+'%',399,111,11,s.rear>65?C.coral:C.mint,'right');
+ text(districtNames[s.phase],18,147,11,C.mint,'left');text(weapons[tier(s.power)],400,147,11,C.gold,'right');
+ const gap=seam(s),next=s.fronts.find(f=>!f.breached);
+ if(view==='play'){
+  const hazard=obstacleAhead(s,290);const msg=hazard?'前方'+(hazard.type==='cart'?'货箱横移':'路障')+' · 提前绕向空侧':s.dash?'一起向前！':next&&next.z-s.distance<330&&next.open<=0?'滑向橙色缝眼，集火凿开潮脊':gap.ready?'缺口贯通！点拉弦，向前冲':'缺口正在合拢 · 先清正前方';
+  box(30,610,360,29,'#102d38e8',7);text(msg,210,629,12,gap.ready?C.gold:C.pale);
+  text('心弦蓄力 '+Math.floor(s.tension)+'%',19,662,10,C.mint,'left');text('缺口 '+gap.clarity+'%',19,683,10,gap.ready?C.gold:C.coral,'left');
+ }
+ if(s.choice){for(let i=0;i<2;i++){const x=15+i*203,selected=(s.x<210?0:1)===i,p=formationPreview(s,i);box(x,173,187,63,selected?'#285562f2':'#123543ef',7);if(selected){g.strokeStyle=C.gold;g.lineWidth=2;g.strokeRect(x+1,174,185,61);}text('触选 · '+choices[i].name,x+93,196,15,C.gold);text('伤害 ×'+p.damage.toFixed(2)+' / 宽度 ×'+p.width.toFixed(2),x+93,219,11,C.pale);text((selected?'当前阵型 · ':'移至此侧 · ')+Math.ceil(s.choice.remaining)+'s',x+93,233,10,selected?C.mint:C.coral);}}
+ const n=s.notices.at(-1);if(n&&!s.choice){g.globalAlpha=Math.min(1,n.life);box(10,157,400,22,'#102c39d9',5);text(n.text,210,172,10,n.color);}g.globalAlpha=1;
+}
+function show(html){overlay.innerHTML=html;overlay.hidden=false;controls.hidden=true;}
+function menu(){view='menu';show(`<div class="eyebrow">V0.11 · COAST ROAD / RUN TOGETHER</div><h1 class="title">火力突围<br><em>沿海狂奔</em></h1><p class="subtitle">潮水追着你，海风推着你。</p><div class="rule"><b>拖动跑线，自动开火。另一根手指点拉弦。</b><br>击碎橙色潮眼 → 牵手冲出敌潮。<br>绕开路障和横移货箱；<b>冲锋也会撞停。</b><br>贴边绕过 → 获得尾风，下一冲更远！<br>打爆金色灯蛹，引爆整片连锁。<br><br>薄荷港 → 赤岩栈道 → 风暴跨海桥<br>每局障碍布局变化，也能重跑同一条路练习。</div><button class="primary" id="start">牵紧我，沿海狂奔 →</button><p class="fine">最高路线得分 ${bestScore} · 目标 5400<br>原生触摸 · 越界可拖动 · 松手可重按 · 独立双指<br>A/D 移动 · 空格拉弦 · P 暂停 · 音效可开启</p>`);document.querySelector('#start').onclick=()=>start();}
+function start(seed){s=createGame(typeof seed==='number'?seed:Date.now());view='play';overlay.hidden=true;controls.hidden=false;input.reset();keys={};lastPop=0;last=performance.now();}
+function end(){view=s.mode;input.reset();const finish=result(s),record=finish.score>bestScore;bestScore=Math.max(bestScore,finish.score);best=Math.max(best,s.kills);try{localStorage.setItem('fr011best',best);localStorage.setItem('fr011score',bestScore);}catch{}
+ show(`<div class="eyebrow">${record?'新的个人纪录 · ':''}${finish.grade} / COAST ROAD</div><h1 class="title">${s.mode==='win'?'冲出潮水，奔向海风':'差一点，再牵紧一点'}</h1><div class="stats"><div>路线得分<strong>${finish.score}</strong></div><div>漂亮擦边<strong>${s.nearMisses}</strong></div><div>撞障<strong>${s.obstacleHits}</strong></div></div><div class="rule">${s.reason}<br>前进 ${Math.floor(s.distance)} / 5400 · 用时 ${Math.floor(s.time)}s<br>击破 ${s.kills} · 灯蛹引爆 ${s.explosions} · 绕行 ${s.dodged}/9<br><b>${s.obstacleHits?'提前看地上的警示条，宽阵型要留更多绕行空间。':s.nearMisses<4?'下次试着贴近路障绕过，攒尾风，挑战 S 级。':'漂亮！再换一条海岸线，看看还能冲多快。'}</b><br>个人最高 ${bestScore}</div><button class="primary" id="again">换一条海岸，再冲 ↻</button><button class="secondary" id="practice">重跑这条路 · 练习擦边</button><button class="secondary" id="back">返回出发点</button>`);
+ document.querySelector('#again').onclick=()=>start();document.querySelector('#practice').onclick=()=>start(s.seed);document.querySelector('#back').onclick=menu;
+}
+function pause(){if(view==='pause'){resume();return;}if(view!=='play')return;view='pause';input.reset();keys={};show('<div class="eyebrow">STILL HOLDING HANDS</div><h1 class="title">等你，潮也停了</h1><div class="rule">战场已暂停。<br>收束更容易穿透缝眼，展开能压住更多侧翼。<br>右下角显示风险：缺口未通时拉弦会消耗蓄力回旋护身。</div><button class="primary" id="resume">继续向前 →</button><button class="secondary" id="restart">重新出发</button>');document.querySelector('#resume').onclick=resume;document.querySelector('#restart').onclick=()=>start();}
+function resume(){view='play';overlay.hidden=true;controls.hidden=false;last=performance.now();}
+function sound(kind='rush'){if(muted)return;try{audio??=new(window.AudioContext||window.webkitAudioContext)();audio.resume();const o=audio.createOscillator(),a=audio.createGain();o.type='triangle';o.frequency.setValueAtTime(kind==='pop'?80:kind==='wind'?440:130,audio.currentTime);o.frequency.exponentialRampToValueAtTime(kind==='pop'?35:kind==='wind'?880:600,audio.currentTime+.2);a.gain.setValueAtTime(.035,audio.currentTime);a.gain.exponentialRampToValueAtTime(.001,audio.currentTime+.3);o.connect(a).connect(audio.destination);o.start();o.stop(audio.currentTime+.3);}catch{}}
+function useSkill(){if(rush(s))sound();}
+for(const [i,button] of [...document.querySelectorAll('#formation button')].entries())button.onclick=()=>{if(view==='play')chooseFormation(s,i);};
+const input=bindInput({area:document.querySelector('#game'),canvas,skill,active:()=>view==='play',onMove:x=>s.target=clamp(x,29,391),onSkill:useSkill});
+document.querySelector('#pause').onclick=pause;document.querySelector('#sound').onclick=()=>{muted=!muted;document.querySelector('#sound').textContent='音效 '+(muted?'OFF':'ON');sound();};
+addEventListener('keydown',e=>{if(['ArrowLeft','ArrowRight',' '].includes(e.key))e.preventDefault();keys[e.key.toLowerCase()]=true;if(!e.repeat){if(e.key===' '&&view==='play')useSkill();if(e.key.toLowerCase()==='p')pause();}});addEventListener('keyup',e=>keys[e.key.toLowerCase()]=false);addEventListener('blur',()=>keys={});document.addEventListener('visibilitychange',()=>{hidden=document.hidden;input.reset();keys={};lastPop=0;last=performance.now();});
+function frame(now){const dt=clamp((now-last)/1000,0,.04);last=now;if(view==='play'&&!freeze&&!hidden){const d=(keys.d||keys.arrowright?1:0)-(keys.a||keys.arrowleft?1:0);if(d)s.target=clamp(s.target+d*370*dt,29,391);const pops=s.explosions,near=s.nearMisses;step(s,dt);if(s.nearMisses>near)sound('wind');else if(s.explosions>pops&&s.time-lastPop>.18){lastPop=s.time;sound('pop');}if(s.mode!=='play')end();}const gap=seam(s);skill.disabled=!!s.dash||s.cooldown>0||s.tension<skillCost(s);skill.classList.toggle('risk',!gap.ready&&!skill.disabled);skill.querySelector('b').textContent=s.dash?'牵紧，一起向前！':s.cooldown>0?'拉弦冷却 '+s.cooldown.toFixed(1)+'s':s.tension<skillCost(s)?'蓄力 '+Math.floor(s.tension)+' / '+skillCost(s):gap.ready?'牵手 · 向前破浪':'咕咕 · 回旋护身';skill.querySelector('small').textContent=s.dash?'心弦正在把两人拉进缺口':gap.ready?s.chainWindow>0?'接力冲锋只耗 22 · 滑动弯冲':s.tailwind>0?'尾风冲锋 290 · 留下心弦拦潮':'推进 240 · 留下心弦拦潮':'清开近身敌群 · 耗弦 12';render();requestAnimationFrame(frame);}
+menu();requestAnimationFrame(frame);
+if(new URLSearchParams(location.search).has('test'))window.__game={state:()=>s,start,pause,resume,input,step:dt=>step(s,dt),rush:useSkill,freeze:v=>freeze=v,render:()=>{render();if(s.mode!=='play'&&view==='play')end();}};
+
+</script></body></html>

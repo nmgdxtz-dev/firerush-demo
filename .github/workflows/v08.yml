@@ -9,8 +9,8 @@ jobs:
         with:
           node-version: 22
       - run: npm test
-      - run: npm run balance
-      - run: npm run build
+      - run: npm run balance:v08
+      - run: npm run build:v08
       - run: git diff --exit-code -- preview/v0.8/index.html
       - uses: actions/upload-artifact@v4
         with:
