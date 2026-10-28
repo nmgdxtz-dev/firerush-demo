@@ -1,0 +1,3 @@
+import{readFile,writeFile,mkdir}from'node:fs/promises';
+const html=await readFile('v09/index.html','utf8'),css=await readFile('src/v09/style.css','utf8');let code='';for(const file of ['game','input','main'])code+=(await readFile(`src/v09/${file}.js`,'utf8')).replace(/^import .*\n/gm,'').replace(/^export /gm,'')+'\n';
+const result=html.replace('<link rel="stylesheet" href="../src/v09/style.css">',`<style>${css}</style>`).replace('<script type="module" src="../src/v09/main.js"></script>',`<script type="module">${code}</script>`);await mkdir('preview/v0.9',{recursive:true});await mkdir('dist',{recursive:true});await writeFile('preview/v0.9/index.html',result);await writeFile('dist/index.html',result);console.log(`Standalone V0.9: ${Buffer.byteLength(result)} bytes`);
