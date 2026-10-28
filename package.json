@@ -1,1 +1,14 @@
-{"name":"firerush-siege","version":"0.8.0","private":true,"type":"module","scripts":{"dev":"python3 -m http.server 4173","test":"node --test tests/*.test.js","build":"node scripts/build.mjs","balance":"node scripts/balance.mjs"}}
+{
+  "name": "firerush-siege",
+  "version": "0.9.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "python3 -m http.server 4173",
+    "test": "node --test tests/*.test.js",
+    "build": "node scripts/build-v09.mjs",
+    "balance": "node scripts/balance-v09.mjs",
+    "build:v08": "node scripts/build.mjs",
+    "balance:v08": "node scripts/balance.mjs"
+  }
+}
