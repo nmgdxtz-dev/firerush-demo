@@ -1,0 +1,21 @@
+- iframe [id="app"]:
+  - main:
+    - generic "折光弩车：点棱盾旋转，拖动选择入口，咕咕发射"
+    - button "暂停": Ⅱ
+    - generic: 折光破阵 / 战役完成
+    - heading "八阵尽破，道路已开" [level=1]
+    - text: 八波768名守军全部击破，弩车穿过最后一道防线
+    - text: 击破 768 / 768 · 完成 8 / 8 波
+    - text: 发射 16 · 空射 0 · 最大连爆 3
+    - text: 用时 37秒 · 军心 100
+    - text: 观察共享的棱盾：一次转向，可能改变后面整条光路。
+    - button "换一场折光破阵 ↻"
+    - button "重演同一组机关"
+    - button "回到出发点"
+- complementary:
+  - button "原始机关局面"
+  - button "连锁爆破之前"
+  - button "逐帧推进"
+  - button "完整八波回归" [active]
+  - button "原生触摸回归"
+  - generic: "PASS all eight waves and all 768 soldiers genuinely destroyed PASS every wave waits for all 96 kills PASS spatial routing produces real chained hits PASS retry UI available PASS no answer supplied in UI { \"mode\": \"win\", \"wave\": 8, \"kills\": 768, \"remaining\": 0, \"cleared\": 8, \"time\": 37.24999999999917, \"distance\": 8000, \"camera\": 7950.083114680199, \"shots\": 16, \"misses\": 0, \"maxCombo\": 3 }"

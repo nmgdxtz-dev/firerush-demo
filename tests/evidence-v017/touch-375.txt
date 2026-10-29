@@ -1,0 +1,20 @@
+- iframe [id="app"]:
+  - main:
+    - generic "折光弩车：点棱盾旋转，拖动选择入口，咕咕发射"
+    - button "暂停": Ⅱ
+    - button "旋转棱盾1 当前斜杠"
+    - button "旋转棱盾2 当前反斜杠"
+    - button "旋转棱盾3 当前反斜杠"
+    - button "旋转棱盾4 当前斜杠"
+    - button "旋转棱盾5 当前斜杠"
+    - button "旋转棱盾6 当前斜杠"
+    - button "咕咕 · 发射弩光 消耗40 · 棱盾反射 · 火油连爆":
+      - generic: 咕咕 · 发射弩光
+      - generic: 消耗40 · 棱盾反射 · 火油连爆
+- complementary:
+  - button "原始机关局面"
+  - button "连锁爆破之前"
+  - button "逐帧推进"
+  - button "完整八波回归"
+  - button "原生触摸回归" [active]
+  - generic: PASS native touch continues beyond canvas PASS lift and re-press resume movement PASS empty cancel lists recover for next press PASS independent skill finger preserves movement PASS manual pause stops time PASS resume restores battlefield PASS second finger rotates mirror without stealing steering PASS mirror suppresses ghost click after native touch

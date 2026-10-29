@@ -1,0 +1,112 @@
+
+> firerush-siege@0.17.0 balance
+> node scripts/balance-v017.mjs
+
+{
+  "smart": [
+    {
+      "seed": 1,
+      "style": "smart",
+      "mode": "win",
+      "time": 34.5,
+      "kills": 768,
+      "cleared": 8,
+      "hull": 100,
+      "shots": 16,
+      "misses": 0,
+      "maxCombo": 3,
+      "distance": 8000
+    },
+    {
+      "seed": 2,
+      "style": "smart",
+      "mode": "win",
+      "time": 37.4,
+      "kills": 768,
+      "cleared": 8,
+      "hull": 90,
+      "shots": 16,
+      "misses": 0,
+      "maxCombo": 3,
+      "distance": 8000
+    },
+    {
+      "seed": 3,
+      "style": "smart",
+      "mode": "win",
+      "time": 37.2,
+      "kills": 768,
+      "cleared": 8,
+      "hull": 100,
+      "shots": 16,
+      "misses": 0,
+      "maxCombo": 3,
+      "distance": 8000
+    },
+    {
+      "seed": 4,
+      "style": "smart",
+      "mode": "win",
+      "time": 34.4,
+      "kills": 768,
+      "cleared": 8,
+      "hull": 100,
+      "shots": 16,
+      "misses": 0,
+      "maxCombo": 3,
+      "distance": 8000
+    },
+    {
+      "seed": 5,
+      "style": "smart",
+      "mode": "win",
+      "time": 36.4,
+      "kills": 768,
+      "cleared": 8,
+      "hull": 100,
+      "shots": 16,
+      "misses": 0,
+      "maxCombo": 3,
+      "distance": 8000
+    },
+    {
+      "seed": 6,
+      "style": "smart",
+      "mode": "win",
+      "time": 35.2,
+      "kills": 768,
+      "cleared": 8,
+      "hull": 90,
+      "shots": 16,
+      "misses": 0,
+      "maxCombo": 3,
+      "distance": 8000
+    }
+  ],
+  "idle": {
+    "seed": 3,
+    "style": "idle",
+    "mode": "lose",
+    "time": 74,
+    "kills": 0,
+    "cleared": 0,
+    "hull": 0,
+    "shots": 0,
+    "misses": 0,
+    "maxCombo": 0,
+    "distance": 150
+  },
+  "spam": {
+    "seed": 3,
+    "style": "spam",
+    "mode": "lose",
+    "time": 42,
+    "kills": 72,
+    "cleared": 0,
+    "hull": 0,
+    "shots": 16,
+    "misses": 14,
+    "maxCombo": 2,
+    "distance": 440
+  }
+}
