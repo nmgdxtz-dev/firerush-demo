@@ -1,4 +1,4 @@
-import{test}from'node:test';import assert from'node:assert/strict';import{bindInput}from'../src/v011/input.js';
+import{test}from'node:test';import assert from'node:assert/strict';import{bindInput}from'../src/v012/input.js';
 class Surface{constructor(){this.listeners={};this.disabled=false;}addEventListener(type,fn){(this.listeners[type]??=[]).push(fn);}send(type,options={}){const e={target:this,cancelable:true,preventDefault(){this.prevented=true;},stopPropagation(){},...options};for(const fn of this.listeners[type]||[])fn(e);return e;}closest(){return false;}getBoundingClientRect(){return{left:10,width:420};}}
 function fixture(){const area=new Surface(),host=new Surface(),canvas=new Surface(),skill=new Surface();skill.closest=()=>true;let xs=[],calls=0;const input=bindInput({area,canvas,skill,host,active:()=>true,onMove:x=>xs.push(x),onSkill:()=>calls++});return{area,host,skill,input,xs,calls:()=>calls};}
 const t=(identifier,clientX)=>({identifier,clientX});
