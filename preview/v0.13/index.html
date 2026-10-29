@@ -131,7 +131,7 @@ function step(s,dt){
  if(s.dash){const d=s.dash;d.age+=dt;const f=clamp(d.age/d.duration,0,1);s.distance=d.from+(d.to-d.from)*f;d.x=s.x;if(d.wake.points.length<48)d.wake.points.push({x:s.x,z:s.distance});if(f>=1){s.dash=null;s.chainWindow=1.8;}}
  else s.distance+=(72+s.phase*7)*dt;
  resolveObstacles(s,beforeZ,beforeX);
- for(const f of s.fronts){if(f.mobile&&s.distance>=13200&&f.hp>0){f.z=s.distance+235;f.baseX=210+Math.sin(s.time*.8)*90;if(!f.active){f.active=true;note(s,'军团弩车挡住出口！瞄准橙色动力核！','#ffd89e');}}const rr=road(f.z);f.x=f.held?f.holderX:clamp(f.baseX+Math.sin(s.time*.65+f.phase)*20,rr.left+54,rr.right-54);if(f.open>0){f.open-=dt;if(f.open<=0&&!f.breached&&!f.held){f.hp=f.max*.55;note(s,'裂口合拢了，再打一次缝眼','#ffb09a');}}if(!f.breached&&s.distance>=f.z){if(f.open<=0){s.hull=Math.max(0,s.hull-18);s.wallHits++;s.impact=.35;note(s,'潮墙擦伤！提前瞄准橙色弱点','#ffb09a');}else{s.tension=Math.min(100,s.tension+15);burst(s,f.x,f.z,'#ffd89e',20);}f.breached=true;f.held=false;}}
+ for(const f of s.fronts){if(f.mobile&&s.distance>=13200&&f.hp>0){f.z=s.distance+235;f.baseX=210+Math.sin(s.time*.8)*90;if(!f.active){f.active=true;note(s,'军团弩车挡住出口！瞄准橙色绞盘！','#ffd89e');}}const rr=road(f.z);f.x=f.held?f.holderX:clamp(f.baseX+Math.sin(s.time*.65+f.phase)*20,rr.left+54,rr.right-54);if(f.open>0){f.open-=dt;if(f.open<=0&&!f.breached&&!f.held){f.hp=f.max*.55;note(s,'裂口合拢了，再打一次缝眼','#ffb09a');}}if(!f.breached&&s.distance>=f.z){if(f.open<=0){s.hull=Math.max(0,s.hull-18);s.wallHits++;s.impact=.35;note(s,'潮墙擦伤！提前瞄准橙色弱点','#ffb09a');}else{s.tension=Math.min(100,s.tension+15);burst(s,f.x,f.z,'#ffd89e',20);}f.breached=true;f.held=false;}}
  s.camera+=(s.distance-s.camera)*(1-Math.exp(-15*dt));
  const phase=Math.min(2,Math.floor(s.distance/4800));if(phase!==s.phase){s.phase=phase;s.rear=Math.max(0,s.rear-8);note(s,phase===1?'骑射隘口：注意地面箭雨落点':'营垒决战：夺旗，击破军团弩车','#ffbd9e');for(let i=0;i<3;i++)spawnRow(s,s.distance+350+i*32,phase);}
  if(s.choiceNumber<6&&s.distance>=s.nextChoice&&!s.choice){s.choice={remaining:6};note(s,'武器补给到手，触选一种新武器！');s.choiceNumber++;s.nextChoice=[480,2600,5200,7400,10000,12200,99999][s.choiceNumber];}
@@ -144,7 +144,7 @@ function step(s,dt){
  s.fire-=dt;if(s.fire<=0){s.fire=.13;fire(s);}
  crowd(s,dt);
  if(s.hull<=0){s.mode='lose';s.reason='军心耗尽，远征暂止；下次试试战间整补';}
- else if(s.distance>=GOAL&&s.fronts.some(f=>f.mobile&&f.hp>0)){s.mode='lose';s.reason='出口还被军团弩车堵住，下一次提前集火橙色动力核';}
+ else if(s.distance>=GOAL&&s.fronts.some(f=>f.mobile&&f.hp>0)){s.mode='lose';s.reason='出口还被军团弩车堵住，下一次提前集火橙色绞盘';}
  else if(s.distance>=GOAL){s.mode='win';s.reason='连破三阵，带着这支队伍走完了远征';}
  else if(s.time>=LIMIT){s.mode='lose';s.reason='停留太久，整片潮墙合拢；需要主动穿过缺口';}
  if(s.mode==='play'&&s.distance>=s.nextCamp&&s.nextCamp<GOAL){s.mode='camp';s.dash=null;s.choice=null;s.nextCamp+=4800;}
