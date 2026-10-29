@@ -1,0 +1,254 @@
+
+> firerush-siege@0.14.0 balance
+> node scripts/balance-v014.mjs
+
+{
+  "idle": {
+    "seed": 3,
+    "style": "idle",
+    "mode": "lose",
+    "time": 600,
+    "distance": 1015,
+    "hull": 100,
+    "bossHealth": 850,
+    "kills": 306,
+    "firstKill": 0.02,
+    "camps": [],
+    "arrowHits": 0,
+    "shieldBlocks": 30,
+    "hits": 0,
+    "walls": 0,
+    "dodged": 0,
+    "upgrades": [
+      "汉弩贯甲"
+    ],
+    "peak": 148
+  },
+  "spam": {
+    "seed": 3,
+    "style": "spam",
+    "mode": "lose",
+    "time": 600,
+    "distance": 4315,
+    "hull": 67.9,
+    "bossHealth": 850,
+    "kills": 612,
+    "firstKill": 0.02,
+    "camps": [],
+    "arrowHits": 0,
+    "shieldBlocks": 5,
+    "hits": 2,
+    "walls": 0,
+    "dodged": 0,
+    "upgrades": [
+      "汉弩贯甲",
+      "汉弩贯甲"
+    ],
+    "peak": 155
+  },
+  "active": [
+    {
+      "seed": 1,
+      "style": "active",
+      "mode": "win",
+      "time": 227.4,
+      "distance": 21600,
+      "hull": 75.8,
+      "bossHealth": -21.37142857142797,
+      "kills": 2754,
+      "firstKill": 0.02,
+      "camps": [
+        "整补军心",
+        "整补军心"
+      ],
+      "arrowHits": 2,
+      "shieldBlocks": 23,
+      "hits": 2,
+      "walls": 0,
+      "dodged": 7,
+      "upgrades": [
+        "汉弩贯甲",
+        "汉弩贯甲",
+        "汉弩贯甲",
+        "汉弩贯甲",
+        "汉弩贯甲",
+        "汉弩贯甲"
+      ],
+      "peak": 128
+    },
+    {
+      "seed": 2,
+      "style": "active",
+      "mode": "win",
+      "time": 232,
+      "distance": 21600,
+      "hull": 99.9,
+      "bossHealth": -21.37142857142797,
+      "kills": 2754,
+      "firstKill": 0.02,
+      "camps": [
+        "整补军心",
+        "整补军心"
+      ],
+      "arrowHits": 0,
+      "shieldBlocks": 21,
+      "hits": 1,
+      "walls": 0,
+      "dodged": 8,
+      "upgrades": [
+        "汉弩贯甲",
+        "汉弩贯甲",
+        "汉弩贯甲",
+        "汉弩贯甲",
+        "汉弩贯甲",
+        "汉弩贯甲"
+      ],
+      "peak": 118
+    },
+    {
+      "seed": 3,
+      "style": "active",
+      "mode": "win",
+      "time": 223.8,
+      "distance": 21600,
+      "hull": 100,
+      "bossHealth": -21.37142857142797,
+      "kills": 2754,
+      "firstKill": 0.02,
+      "camps": [
+        "整补军心",
+        "整补军心"
+      ],
+      "arrowHits": 0,
+      "shieldBlocks": 11,
+      "hits": 1,
+      "walls": 0,
+      "dodged": 8,
+      "upgrades": [
+        "汉弩贯甲",
+        "汉弩贯甲",
+        "汉弩贯甲",
+        "汉弩贯甲",
+        "汉弩贯甲",
+        "汉弩贯甲"
+      ],
+      "peak": 128
+    },
+    {
+      "seed": 4,
+      "style": "active",
+      "mode": "win",
+      "time": 223.9,
+      "distance": 21600,
+      "hull": 100,
+      "bossHealth": -21.37142857142797,
+      "kills": 2754,
+      "firstKill": 0.02,
+      "camps": [
+        "整补军心",
+        "整补军心"
+      ],
+      "arrowHits": 1,
+      "shieldBlocks": 1,
+      "hits": 1,
+      "walls": 0,
+      "dodged": 8,
+      "upgrades": [
+        "汉弩贯甲",
+        "汉弩贯甲",
+        "汉弩贯甲",
+        "汉弩贯甲",
+        "汉弩贯甲",
+        "汉弩贯甲"
+      ],
+      "peak": 129
+    },
+    {
+      "seed": 5,
+      "style": "active",
+      "mode": "win",
+      "time": 228,
+      "distance": 21600,
+      "hull": 65.9,
+      "bossHealth": -21.37142857142797,
+      "kills": 2754,
+      "firstKill": 0.02,
+      "camps": [
+        "整补军心",
+        "整补军心"
+      ],
+      "arrowHits": 3,
+      "shieldBlocks": 9,
+      "hits": 2,
+      "walls": 0,
+      "dodged": 7,
+      "upgrades": [
+        "汉弩贯甲",
+        "汉弩贯甲",
+        "汉弩贯甲",
+        "汉弩贯甲",
+        "汉弩贯甲",
+        "汉弩贯甲"
+      ],
+      "peak": 128
+    },
+    {
+      "seed": 6,
+      "style": "active",
+      "mode": "win",
+      "time": 228.2,
+      "distance": 21600,
+      "hull": 99.9,
+      "bossHealth": -21.37142857142797,
+      "kills": 2754,
+      "firstKill": 0.02,
+      "camps": [
+        "整补军心",
+        "整补军心"
+      ],
+      "arrowHits": 0,
+      "shieldBlocks": 14,
+      "hits": 0,
+      "walls": 0,
+      "dodged": 9,
+      "upgrades": [
+        "汉弩贯甲",
+        "汉弩贯甲",
+        "汉弩贯甲",
+        "汉弩贯甲",
+        "汉弩贯甲",
+        "汉弩贯甲"
+      ],
+      "peak": 131
+    }
+  ],
+  "wings": {
+    "seed": 3,
+    "style": "wings",
+    "mode": "win",
+    "time": 213.2,
+    "distance": 21600,
+    "hull": 99.9,
+    "bossHealth": -8.711999999999126,
+    "kills": 2754,
+    "firstKill": 0.02,
+    "camps": [
+      "整补军心",
+      "整补军心"
+    ],
+    "arrowHits": 2,
+    "shieldBlocks": 709,
+    "hits": 0,
+    "walls": 0,
+    "dodged": 9,
+    "upgrades": [
+      "汉骑掠阵",
+      "汉骑掠阵",
+      "汉骑掠阵",
+      "汉骑掠阵",
+      "汉骑掠阵",
+      "汉骑掠阵"
+    ],
+    "peak": 128
+  }
+}

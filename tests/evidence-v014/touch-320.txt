@@ -1,0 +1,15 @@
+- iframe [id="app"]:
+  - main:
+    - generic "汉代演武：左右拖动跑线，自动射击，点咕咕冲锋"
+    - button "暂停": Ⅱ
+    - button "音效 OFF"
+    - button "咕咕 · 破阵中！ 冲出 180 · 清开面前敌群" [disabled]:
+      - generic: 咕咕 · 破阵中！
+      - generic: 冲出 180 · 清开面前敌群
+- complementary:
+  - button "原生触摸回归" [active]
+  - button "盾阵近景"
+  - button "骑射近景"
+  - button "汉骑突击"
+  - button "完整战役回归"
+  - generic: PASS native touch continues beyond canvas PASS lift and re-press resume movement PASS empty cancel lists recover for next press PASS independent skill finger preserves movement PASS manual pause stops time PASS resume restores battlefield
