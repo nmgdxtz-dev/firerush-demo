@@ -1,0 +1,349 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,viewport-fit=cover"><meta name="theme-color" content="#123240"><title>火力突围 V0.13 · 万军演武</title><style>*{box-sizing:border-box}html,body{margin:0;width:100%;height:100%;overflow:hidden;overscroll-behavior:none;background:#111c22;color:#f9efd7;font-family:system-ui,-apple-system,"PingFang SC",sans-serif}body{display:grid;place-items:center}#game{position:relative;width:min(100vw,55.2632dvh);height:min(100dvh,180.9524vw);container-type:size;touch-action:none;user-select:none;-webkit-user-select:none;background:#314843;box-shadow:0 0 100px #8b9b7330}canvas{display:block;width:100%;height:100%;touch-action:none}button{font:inherit;border:0;cursor:pointer;touch-action:manipulation}#top{position:absolute;top:1.5%;right:3%;display:flex;gap:5px}#top button{background:#253c3e;color:#dfecd9;padding:6px 9px;font-size:10px;border:1px solid #536b63;border-radius:5px}#overlay{position:absolute;inset:0;display:flex;flex-direction:column;justify-content:center;padding:8%;gap:14px;background:linear-gradient(#152a30e8,#162830f5)}#overlay[hidden],#controls[hidden]{display:none}.eyebrow{font-size:10px;letter-spacing:4px;color:#a4d9b7}.title{font-size:clamp(29px,8vw,46px);font-weight:950;line-height:1.13;margin:0;color:#f8e8c7}.title em{font-style:normal;color:#f4b970}.subtitle{margin:0;font-size:14px;color:#b6d8bd;letter-spacing:3px}.rule{border:1px solid #63776680;border-left:3px solid #a6d6b5;padding:12px;font-size:12px;line-height:1.9;color:#d4e2cd;background:#2f474855}.rule b{color:#f6c984}.primary{background:#f6c984;color:#223231;padding:16px;border-radius:9px;box-shadow:0 4px 0 #9e7849;font-size:18px;font-weight:900}.secondary{padding:12px;background:#365450;color:#dae9d3;border-radius:7px}.fine{font-size:10px;line-height:1.7;color:#96b4ac;margin:0}.stats{display:flex;gap:7px}.stats div{border:1px solid #526f64;padding:10px;flex:1;font-size:11px;color:#a3c6b0}.stats strong{font-size:24px;display:block;color:#f5d79d}#controls{position:absolute;bottom:max(2%,env(safe-area-inset-bottom));right:3%;width:35%;pointer-events:none}#controls span{display:none}#skill{pointer-events:auto;width:100%;min-height:58px;background:#f2c67f;color:#273d38;border:2px solid #ffe7b0;border-radius:12px;box-shadow:0 4px 0 #8a704c;padding:7px 4px}#skill b{font-size:14px;display:block}#skill small{font-size:9px;display:block;margin-top:3px}#skill:disabled{background:#354d49;color:#9bb2a4;border-color:#5b7466;box-shadow:0 3px 0 #233b37}button:focus-visible{outline:3px solid white}@container(max-height:650px){#overlay{padding:6%;gap:8px}.eyebrow{font-size:8px;letter-spacing:2px}.title{font-size:32px}.subtitle{font-size:12px}.rule{font-size:10px;padding:8px;line-height:1.7}.primary{font-size:15px;padding:12px}.fine{font-size:9px}.secondary{padding:9px}.stats strong{font-size:20px}}
+html,body{background:#0b1722;color:#f7ecdb}#game{background:#163d42;box-shadow:0 0 90px #56c9bf33}#overlay{background:linear-gradient(#0c2534eb,#102c36f5)}.title em{color:#ffcb99}.eyebrow{color:#8ee8db}.rule{background:#244a5155;border-color:#5c9a9560;border-left-color:#8ee8db}.primary{background:#ffd3a0;color:#173943}#controls{width:37%}#skill{background:#ffd2a0;border-color:#fff0c1;color:#183c44}#skill.risk{background:#c67768;color:#fff0db;border-color:#ffc09f}#skill:disabled{background:#27444d;color:#8fb6b7;border-color:#4b7278}.stats strong{color:#ffd2a0}
+
+#formation{position:absolute;top:22.7%;left:3.5%;width:93%;height:8.4%;display:flex;gap:4%}#formation[hidden]{display:none}#formation button{width:48%;background:transparent;color:transparent;border:0;padding:0}
+</style></head><body><main id="game"><canvas id="c" aria-label="汉代演武：左右拖动跑线，自动射击，点咕咕冲锋"></canvas><div id="top"><button id="pause" aria-label="暂停">Ⅱ</button><button id="sound">音效 OFF</button></div><section id="overlay" aria-live="polite"></section><div id="formation" hidden><button aria-label="汉弩贯甲：增强穿透与破盾">汉弩贯甲</button><button aria-label="汉骑掠阵：清扫近身侧翼">汉骑掠阵</button></div><div id="controls" hidden><button id="skill"><b>咕咕 · 破阵冲锋</b><small>随时开路 · 执旗冲阵 · 消耗 45</small></button></div></main><script type="module">// A crowded coastal road: aim through the tide, then steer around physical obstacles.
+const W=420,H=760,GOAL=14400,MAX_ENEMIES=420,LIMIT=300;
+const clamp=(n,a,b)=>Math.max(a,Math.min(b,n));
+function rng(seed){return()=>{let t=seed+=0x6d2b79f5;t=Math.imul(t^t>>>15,t|1);t^=t+Math.imul(t^t>>>7,t|61);return((t^t>>>14)>>>0)/4294967296;};}
+const tier=p=>p>=70?2:p>=40?1:0;
+function road(z){const center=210+Math.sin(z*.0024)*20,bridge=z>=9600,half=bridge?144:156;return{center,left:center-half,right:center+half,half,biome:Math.min(2,Math.floor(Math.max(0,z)/4800))};}
+function obstacleX(s,o){return o.type==='cart'?o.x+Math.sin(s.time*.95+o.phase)*54:o.x;}
+function obstacleAhead(s,range=290){return s.obstacles.find(o=>!o.passed&&o.z>s.distance-40&&o.z<s.distance+range);}
+const weapons=['汉弩齐射','强弩列阵','弩骑协同'];
+const chapters=[{name:'盾阵平原',enemy:'罗马式盾阵',tip:'强弩破甲，冲锋扰阵'},{name:'骑射隘口',enemy:'帕提亚式骑射',tip:'看落点，避箭雨，留好冲锋'},{name:'营垒决战',enemy:'罗马式营垒',tip:'带着战损夺下最后的军旗'}];
+function note(s,text,color='#ffe3a4'){s.notices.push({text,color,life:2.4});if(s.notices.length>2)s.notices.shift();}
+function createGame(seed=Date.now()){
+ const s={seed,random:rng(seed),mode:'play',time:0,distance:0,camera:0,x:210,target:210,hull:100,power:26,width:1,tension:100,rear:0,kills:0,cleanRushes:0,hardRushes:0,cooldown:0,fire:0,spawn:.65,phase:0,dash:null,pulse:0,invulnerable:0,streak:0,serial:0,enemies:[],traces:[],particles:[],notices:[],choice:null,nextChoice:480,history:[],fronts:[],peak:0,weaponTier:0,reason:'',wakes:[],rings:[],chain:0,chainWindow:0,explosions:0,wakeKills:0,obstacles:[],obstacleHits:0,dodged:0,impact:0,obstacleGrace:0,nearMisses:0,tailwind:0,windRushes:0,footprints:[],footTimer:0,campHistory:[],nextCamp:4800,arrows:[],nextVolley:2,arrowHits:0,shieldBlocks:0,nextSurge:11,surges:0,wallHits:0,build:[0,0],choiceNumber:0,grid:new Uint16Array(30*52)};
+ let previous=210;for(let i=0;i<12;i++){let x=70+s.random()*280;if(Math.abs(x-previous)<95)x=previous<210?315:105;s.fronts.push({z:720+i*1100,x,baseX:x,hp:100+i*10,max:100+i*10,open:0,breached:false,phase:s.random()*6.28});previous=x;}
+ s.fronts[11].z=14400;s.fronts[11].mobile=true;s.fronts[11].hp=s.fronts[11].max=850;
+ for(let i=0;i<9;i++){const z=980+i*1440,r=road(z);s.obstacles.push({z,x:r.center+((i+((seed>>>0)%2))%2?64:-64),width:i%3===1?76:96,type:i%3===1?'cart':'barrier',phase:i*1.7+((seed>>>0)%13)*.3,passed:false});}
+ for(let row=0;row<12;row++)spawnRow(s,160+row*28,0);
+ note(s,'汉弩营出阵！墨墨掌弩，咕咕执旗');return s;
+}
+function spawnEnemy(s,x,z,type='swarm'){
+ if(s.enemies.length>=MAX_ENEMIES)return;
+ const hp=type==='lantern'?16:type==='heavy'?32+s.phase*3:10+s.phase;
+ s.enemies.push({id:++s.serial,x:clamp(x,road(z).left+9,road(z).right-9),z,hp,max:hp,type,shield:type==='heavy'&&s.phase!==1?20:0,stun:0,phase:s.random()*6.28,dead:false});
+}
+function spawnRow(s,z,phase=s.phase){
+ const r=road(z),shift=Math.sin(z*.008)*4;
+ for(let col=0;col<17;col++){const x=r.left+13+col*(r.right-r.left-26)/16+shift+(s.random()-.5)*4;spawnEnemy(s,x,z+Math.sin(col*.28+z*.012)*20+(s.random()-.5)*7,s.random()<.035?'lantern':s.random()<.06+phase*.065?'heavy':'swarm');}
+}
+function burst(s,x,z,color,n=5){for(let i=0;i<n&&s.particles.length<90;i++)s.particles.push({x,z,vx:(s.random()-.5)*130,vz:(s.random()-.5)*130,life:.2+s.random()*.25,color});}
+function kill(s,e){if(e.dead)return;e.dead=true;s.kills++;s.tension=Math.min(100,s.tension+.25);if(s.kills%24===0)s.power=Math.min(99,s.power+1);burst(s,e.x,e.z,e.type==='swarm'?'#94e6cc':'#ffb478',2);
+ if(e.type==='lantern'){
+  // Mark dead before cascading: a bounded chain can visit each creature only once.
+  s.explosions++;s.rings.push({x:e.x,z:e.z,life:.55});if(s.rings.length>24)s.rings.shift();
+  burst(s,e.x,e.z,'#ffd28b',12);
+  for(const other of s.enemies)if(!other.dead&&Math.hypot(other.x-e.x,(other.z-e.z)*.8)<62){other.hp-=25;other.stun=.65;if(other.hp<=0)kill(s,other);}
+  for(const f of s.fronts)if(!f.breached&&!f.held&&f.open<=0&&Math.hypot(f.x-e.x,f.z-e.z)<90){f.hp-=55;if(f.hp<=0){f.open=99;note(s,'灯蛹炸开潮眼！趁现在拉弦','#ffd28b');}}
+ }
+}
+function seam(s,x=s.x){
+ const radius=22*s.width;let mass=0,count=0;
+ for(const e of s.enemies)if(!e.dead&&e.z>s.distance+22&&e.z<s.distance+242&&Math.abs(e.x-x)<radius){count++;mass+=e.type==='heavy'?2:1;}
+ for(const f of s.fronts)if(!f.breached&&f.z>s.distance&&f.z<s.distance+270&&((f.open<=0&&!f.held)||Math.abs(x-f.x)>33))mass+=24;
+ return{mass,count,ready:mass<=7,clarity:clamp(Math.round(100-Math.max(0,mass-7)*5),0,100),radius};
+}
+const choices=[
+ {name:'汉弩贯甲',op:'穿透 ×2 / 射幅 ÷1.15',factor:1/1.15,description:'强弩破盾，正面贯甲'},
+ {name:'汉骑掠阵',op:'侧翼伤害 + / 射幅 ×1.08',factor:1.08,description:'骑队掠过侧翼，清扫近身敌人'},
+];
+function formationPreview(s,side){const width=clamp(s.width*choices[side].factor,.7,1.25);return{width,damage:1/width};}
+function chooseFormation(s,side){if(!s.choice)return false;const p=formationPreview(s,side);s.width=p.width;s.build[side]++;s.power=Math.min(99,s.power+12);s.history.push(choices[side].name);s.choice=null;note(s,choices[side].name+'就位！','#ffe3a4');return true;}
+const rushCost=()=>45;
+const skillCost=()=>45;
+function rush(s){
+ if(s.mode!=='play'||s.dash||s.cooldown>0||s.tension<45)return false;
+ s.tension-=45;s.chain=s.chainWindow>0?s.chain+1:1;s.chainWindow=0;
+ const windy=s.tailwind>0;if(windy){s.tailwind=0;s.windRushes++;}const length=windy?230:180;
+ s.cooldown=.28;s.invulnerable=.65;s.pulse=.5;
+ const wake={points:[{x:s.x,z:s.distance}],life:2.5};s.wakes.push(wake);if(s.wakes.length>2)s.wakes.shift();
+ s.dash={from:s.distance,to:s.distance+length,age:0,duration:.45,clean:true,x:s.x,wake};
+ for(const f of s.fronts)if(!f.mobile&&!f.breached&&f.z>s.distance&&f.z<s.distance+length&&Math.abs(s.x-f.x)<50){f.open=99;f.hp=0;}
+ for(const e of s.enemies)if(!e.dead&&Math.abs(e.x-s.x)<70&&e.z>s.distance-30&&e.z<s.distance+100){e.hp-=30;e.stun=.6;if(e.hp<=0)kill(s,e);}
+ s.cleanRushes++;s.streak++;s.rear=Math.max(0,s.rear-12);
+ note(s,windy?'借着海风，一口气冲出去！':'咕咕：牵紧，交给我！','#a7ffe1');return true;
+}
+function fire(s){
+ const count=4+tier(s.power)*2+Math.min(2,Math.floor(s.kills/600))*2,fan=18*s.width,damage=(12+s.power*.06)/s.width;
+ const front=s.fronts.find(f=>!f.breached&&f.z>s.distance&&f.z<s.distance+325);
+ const candidates=s.enemies.filter(e=>!e.dead&&e.z>s.distance+10&&e.z<s.distance+325&&(!front||e.z<front.z)).sort((a,b)=>a.z-b.z);
+ for(let i=0;i<count;i++){
+  const start=s.x+(i%2?1:-1)*19*s.width,spread=(i-(count-1)/2)*fan;
+  let hits=0,tx=s.x+spread,tz=s.distance+325;
+  for(const e of candidates){if(e.dead)continue;const along=(e.z-s.distance)/325,rayx=start+(tx-start)*along;if(Math.abs(e.x-rayx)>8)continue;
+   let hit=damage;if(e.shield>0){if(s.build[0]>0){e.shield=Math.max(0,e.shield-hit);hit*=.85;}else{e.shield=Math.max(0,e.shield-hit*.4);hit*=.3;s.shieldBlocks++;}}e.hp-=hit;e.z+=2.2*s.width;if(e.hp<=0)kill(s,e);hits++;tz=e.z;if(e.type==='heavy'&&e.hp>0)break;if(hits>=2+tier(s.power)+s.build[0]*2)break;
+  }
+  if(front&&hits<2+tier(s.power)+s.build[0]*2){const along=(front.z-s.distance)/325,hitx=start+(tx-start)*along;tz=front.z;if(front.open<=0&&!front.held&&Math.abs(hitx-front.x)<29){front.hp-=damage;if(front.hp<=0){front.open=99;burst(s,front.x,front.z,'#ffd89e',30);note(s,'缝眼破裂！一路向前！','#b1ffdc');}}}
+  if(s.traces.length<130)s.traces.push({x:start,z:s.distance+15,tx,tz,life:.13,color:tier(s.power)>0?'#ffdf9d':'#a5f9df'});
+ }
+}
+function resolveObstacles(s,beforeZ,beforeX=s.x){
+ for(const o of s.obstacles){
+  const radius=22*s.width+8,near=o.z-28;
+  if(o.passed||beforeZ>o.z+30)continue;
+  if(s.distance>=near&&beforeZ<=o.z+28){
+   const f=s.distance===beforeZ?1:clamp((near-beforeZ)/(s.distance-beforeZ),0,1),crossX=beforeX+(s.x-beforeX)*f;
+   if(Math.abs(crossX-obstacleX(s,o))<o.width/2+radius){
+    s.dash=null;s.chain=0;s.chainWindow=0;s.cooldown=Math.max(s.cooldown,.3);
+    if(s.obstacleGrace<=0){s.hull=Math.max(0,s.hull-16);s.tension=Math.max(0,s.tension-8);s.obstacleGrace=1.1;s.impact=.5;s.obstacleHits++;o.hit=true;o.passed=true;s.x=clamp(obstacleX(s,o)+(s.x<obstacleX(s,o)?-1:1)*(o.width/2+radius+5),road(s.distance).left+radius,road(s.distance).right-radius);s.invulnerable=1.1;note(s,'撞上'+(o.type==='cart'?'横移货箱':'倒塌路障')+'！继续跑，下一个绕过去','#ffb09a');burst(s,s.x,s.distance,'#ffbc9f',15);}
+   }else{o.clearance=Math.min(o.clearance??Infinity,Math.abs(crossX-obstacleX(s,o))-o.width/2-radius);if(s.distance>o.z+28){o.passed=true;s.dodged++;s.tension=Math.min(100,s.tension+7);if(!o.hit&&o.clearance<22){s.nearMisses++;s.tailwind=4;s.tension=Math.min(100,s.tension+7);s.cooldown=Math.max(0,s.cooldown-.6);burst(s,s.x,s.distance,'#fff1a5',20);note(s,'漂亮擦边！尾风 4 秒 · 下一冲 +50','#fff0ad');}else note(s,'成功绕行 · 蓄弦 +7','#c0ffde');}}
+  }
+ }
+}
+function crowd(s,dt){
+ s.grid.fill(0);const rangeStart=s.distance-90;
+ for(const e of s.enemies){const xx=clamp(Math.floor(e.x/14),0,29),zz=clamp(Math.floor((e.z-rangeStart)/18),0,51);s.grid[zz*30+xx]++;}
+ const crest=.5+.5*Math.sin(s.time*.72),speed=39+s.phase*8+crest*22;
+ let contacts=0;
+ for(const e of s.enemies){if(e.dead)continue;e.phase+=dt;e.stun=Math.max(0,e.stun-dt);
+  if(e.stun<=0){const xx=clamp(Math.floor(e.x/14),1,28),zz=clamp(Math.floor((e.z-rangeStart)/18),0,51),index=zz*30+xx;
+   const disperse=clamp((s.grid[index-1]-s.grid[index+1])*3,-14,14);
+   const close=e.z<s.distance+210?clamp((s.x-e.x)*.09,-14,14):Math.sin(e.phase+s.time*.25)*6;
+   const er=road(e.z);e.x=clamp(e.x+(disperse+close)*dt,er.left+9,er.right-9);e.z-=speed*dt*(e.type==='heavy'?.75:1);
+  }
+  if(s.build[1]>0&&Math.abs(e.z-s.distance)<70&&Math.abs(e.x-s.x)<78){e.hp-=s.build[1]*24*dt;if(e.hp<=0){kill(s,e);continue;}}
+  let caught=false;if(e.z<s.distance+24)for(const w of s.wakes){for(let i=1;i<w.points.length;i+=3){const p=w.points[i];if(Math.abs(e.z-p.z)<18&&Math.abs(e.x-p.x)<23*s.width){e.hp-=70*dt;e.stun=.15;caught=true;break;}}if(caught)break;}if(e.hp<=0){s.wakeKills++;kill(s,e);continue;}
+  if(s.dash&&e.z>s.distance-28&&e.z<s.distance+55){const dx=e.x-s.dash.x;if(Math.abs(dx)<29*s.width){kill(s,e);continue;}if(Math.abs(dx)<90){e.x=clamp(e.x+Math.sign(dx)*90*dt,15,405);e.stun=.45;}}
+  if(e.z<s.distance+16&&e.z>s.distance-20&&Math.abs(e.x-s.x)<28*s.width){contacts+=e.type==='heavy'?2:1;if(s.invulnerable<=0){e.z=s.distance+17;e.hp-=35*dt;if(e.hp<=0)kill(s,e);}}
+  if(e.z<s.distance-85){e.dead=true;s.rear=Math.min(100,s.rear+.14);}
+ }
+ if(s.invulnerable<=0)s.hull=Math.max(0,s.hull-Math.min(16,contacts)*.34*dt-Math.max(0,s.rear-35)*.025*dt);
+ s.enemies=s.enemies.filter(e=>!e.dead);
+}
+function chooseCamp(s,option){if(s.mode!=='camp'||(option!==0&&option!==1))return false;if(option===0){s.hull=Math.min(100,s.hull+28);s.campHistory.push('整补军心');}else{s.build[0]++;s.power=Math.min(99,s.power+8);s.campHistory.push('整训强弩');}s.tension=100;s.arrows=[];s.mode='play';note(s,option===0?'军心重振，继续进军！':'强弩整训完成，带伤破阵！');return true;}
+function result(s){
+ const score=Math.max(0,Math.floor(s.distance*2+s.dodged*150+s.nearMisses*250+s.cleanRushes*50+Math.min(2000,s.kills)*.5-s.obstacleHits*400-s.time*30+(s.mode==='win'?10000+s.hull*20:0)));
+ const grade=s.mode!=='win'?'未完成':s.obstacleHits===0&&s.nearMisses>=4?'S':s.obstacleHits<=2?'A':'B';return{score,grade};
+}
+function step(s,dt){
+ if(s.mode!=='play')return;dt=clamp(dt,0,.04);s.time+=dt;
+ const beforeZ=s.distance,beforeX=s.x;const r=road(s.distance),edge=22*s.width+12;const squeeze=Math.max(0,s.rear-65)*.12;s.x+=(clamp(s.target,r.left+edge+squeeze,r.right-edge-squeeze)-s.x)*(1-Math.exp(-15*dt));
+ s.footTimer-=dt;if(s.footTimer<=0){s.footTimer=.12;s.footprints.push({x:s.x+(Math.floor(s.time*8)%2?10:-10),z:s.distance-10,life:2});if(s.footprints.length>45)s.footprints.shift();}for(const p of s.footprints)p.life-=dt;s.footprints=s.footprints.filter(p=>p.life>0);
+ s.tension=Math.min(100,s.tension+10*dt);s.chainWindow=Math.max(0,s.chainWindow-dt);for(const w of s.wakes)w.life-=dt;s.wakes=s.wakes.filter(w=>w.life>0);for(const r of s.rings)r.life-=dt;s.rings=s.rings.filter(r=>r.life>0);
+ s.tailwind=Math.max(0,s.tailwind-dt);s.obstacleGrace=Math.max(0,s.obstacleGrace-dt);s.impact=Math.max(0,s.impact-dt);
+ s.cooldown=Math.max(0,s.cooldown-dt);s.invulnerable=Math.max(0,s.invulnerable-dt);s.pulse=Math.max(0,s.pulse-dt);
+ for(const a of s.traces)a.life-=dt;s.traces=s.traces.filter(a=>a.life>0);
+ for(const p of s.particles){p.x+=p.vx*dt;p.z+=p.vz*dt;p.life-=dt;}s.particles=s.particles.filter(p=>p.life>0);
+ for(const n of s.notices)n.life-=dt;s.notices=s.notices.filter(n=>n.life>0);
+ if(s.dash){const d=s.dash;d.age+=dt;const f=clamp(d.age/d.duration,0,1);s.distance=d.from+(d.to-d.from)*f;d.x=s.x;if(d.wake.points.length<48)d.wake.points.push({x:s.x,z:s.distance});if(f>=1){s.dash=null;s.chainWindow=1.8;}}
+ else s.distance+=(72+s.phase*7)*dt;
+ resolveObstacles(s,beforeZ,beforeX);
+ for(const f of s.fronts){if(f.mobile&&s.distance>=13200&&f.hp>0){f.z=s.distance+235;f.baseX=210+Math.sin(s.time*.8)*90;if(!f.active){f.active=true;note(s,'军团弩车挡住出口！瞄准橙色绞盘！','#ffd89e');}}const rr=road(f.z);f.x=f.held?f.holderX:clamp(f.baseX+Math.sin(s.time*.65+f.phase)*20,rr.left+54,rr.right-54);if(f.open>0){f.open-=dt;if(f.open<=0&&!f.breached&&!f.held){f.hp=f.max*.55;note(s,'裂口合拢了，再打一次缝眼','#ffb09a');}}if(!f.breached&&s.distance>=f.z){if(f.open<=0){s.hull=Math.max(0,s.hull-18);s.wallHits++;s.impact=.35;note(s,'潮墙擦伤！提前瞄准橙色弱点','#ffb09a');}else{s.tension=Math.min(100,s.tension+15);burst(s,f.x,f.z,'#ffd89e',20);}f.breached=true;f.held=false;}}
+ s.camera+=(s.distance-s.camera)*(1-Math.exp(-15*dt));
+ const phase=Math.min(2,Math.floor(s.distance/4800));if(phase!==s.phase){s.phase=phase;s.rear=Math.max(0,s.rear-8);note(s,phase===1?'骑射隘口：注意地面箭雨落点':'营垒决战：夺旗，击破军团弩车','#ffbd9e');for(let i=0;i<3;i++)spawnRow(s,s.distance+350+i*32,phase);}
+ if(s.choiceNumber<6&&s.distance>=s.nextChoice&&!s.choice){s.choice={remaining:6};note(s,'武器补给到手，触选一种新武器！');s.choiceNumber++;s.nextChoice=[480,2600,5200,7400,10000,12200,99999][s.choiceNumber];}
+ if(s.choice){s.choice.remaining-=dt;if(s.choice.remaining<=0)chooseFormation(s,0);}
+ if(s.time>=s.nextSurge){s.nextSurge+=11;s.surges++;note(s,'潮涌来袭！打爆金色灯蛹清路！','#ffcf9e');for(let i=0;i<4;i++)spawnRow(s,s.distance+360+i*26);}
+ s.spawn-=dt;if(s.spawn<=0){s.spawn=.52-s.phase*.045;spawnRow(s,s.distance+560+Math.sin(s.time)*22);}
+ if(s.phase===1){s.nextVolley-=dt;if(s.nextVolley<=0){s.nextVolley=3.6;const center=s.x;for(const dx of [-62,0,62])s.arrows.push({x:clamp(center+dx,80,340),z:s.distance+165,age:0,hit:false});}}
+ for(const a of s.arrows){a.age+=dt;if(!a.hit&&a.age>.75&&Math.abs(a.z-s.distance)<30&&Math.abs(a.x-s.x)<24&&s.invulnerable<=0){s.hull=Math.max(0,s.hull-10);s.arrowHits++;a.hit=true;s.impact=.2;}}
+ s.arrows=s.arrows.filter(a=>a.age<3.4&&a.z>s.distance-80);
+ s.fire-=dt;if(s.fire<=0){s.fire=.13;fire(s);}
+ crowd(s,dt);
+ if(s.hull<=0){s.mode='lose';s.reason='军心耗尽，远征暂止；下次试试战间整补';}
+ else if(s.distance>=GOAL&&s.fronts.some(f=>f.mobile&&f.hp>0)){s.mode='lose';s.reason='出口还被军团弩车堵住，下一次提前集火橙色绞盘';}
+ else if(s.distance>=GOAL){s.mode='win';s.reason='连破三阵，带着这支队伍走完了远征';}
+ else if(s.time>=LIMIT){s.mode='lose';s.reason='停留太久，整片潮墙合拢；需要主动穿过缺口';}
+ if(s.mode==='play'&&s.distance>=s.nextCamp&&s.nextCamp<GOAL){s.mode='camp';s.dash=null;s.choice=null;s.nextCamp+=4800;}
+ s.peak=Math.max(s.peak,s.enemies.length);
+ const level=tier(s.power);if(level!==s.weaponTier){s.weaponTier=level;note(s,'心弦进化：'+weapons[level]);}
+}
+
+// Native Touch Events are the phone's primary input. No pointer capture.
+// Track one movement finger; the skill button may use a second finger independently.
+function bindInput({area,canvas,skill,host=window,active,onMove,onSkill}){
+ let finger=null,mouse=false,lastTouch=-Infinity,lastSkillTouch=-Infinity;
+ const move=clientX=>{if(!active())return;const r=canvas.getBoundingClientRect();if(r.width)onMove((clientX-r.left)*420/r.width);};
+ const ignored=target=>!!target?.closest?.('button,#overlay,#top');
+ const find=(list,id)=>Array.from(list||[]).find(t=>t.identifier===id);
+ function reset(){finger=null;mouse=false;}
+ area.addEventListener('touchstart',e=>{if(finger!==null&&e.touches&&!find(e.touches,finger))finger=null;if(!active()||finger!==null||ignored(e.target))return;const t=e.changedTouches[0];if(!t)return;finger=t.identifier;lastTouch=Date.now();move(t.clientX);if(e.cancelable)e.preventDefault();},{passive:false});
+ host.addEventListener('touchmove',e=>{if(finger===null||!active())return;const t=find(e.touches,finger);if(t){move(t.clientX);if(e.cancelable)e.preventDefault();}},{passive:false,capture:true});
+ const finish=e=>{if(finger!==null&&(find(e.changedTouches,finger)||(e.touches&&!find(e.touches,finger)))){finger=null;lastTouch=Date.now();}};
+ host.addEventListener('touchend',finish,{passive:true,capture:true});
+ host.addEventListener('touchcancel',finish,{passive:true,capture:true});
+ skill.addEventListener('touchstart',e=>{lastTouch=Date.now();lastSkillTouch=Date.now();if(e.cancelable)e.preventDefault();e.stopPropagation();if(active()&&!skill.disabled)onSkill();},{passive:false});
+ skill.addEventListener('click',()=>{if(Date.now()-lastSkillTouch>700&&active())onSkill();});
+ area.addEventListener('pointerdown',e=>{if(e.pointerType==='touch'||Date.now()-lastTouch<800||!active()||ignored(e.target))return;mouse=true;move(e.clientX);});
+ host.addEventListener('pointermove',e=>{if(mouse&&active())move(e.clientX);});
+ host.addEventListener('pointerup',()=>mouse=false);
+ host.addEventListener('pointercancel',()=>mouse=false);
+ host.addEventListener('blur',reset);
+ return {reset,trackedFinger:()=>finger};
+}
+
+// A one-way per-page pixel budget: avoid repeated quality oscillation on slow phones.
+class RenderBudget{
+ constructor(dpr=1){this.scale=Math.max(1,Math.min(dpr,1.5));this.seconds=0;this.slow=0;}
+ observe(elapsed,active){
+  if(!active){this.seconds=0;this.slow=0;return false;}
+  this.seconds+=Math.min(elapsed,.1);if(elapsed>.025)this.slow++;
+  if(this.seconds<1)return false;
+  const before=this.scale;if(this.slow>=9)this.scale=Math.max(1,this.scale-.25);
+  this.seconds=0;this.slow=0;return this.scale!==before;
+ }
+}
+
+const canvas=document.querySelector('#c'),overlay=document.querySelector('#overlay'),controls=document.querySelector('#controls'),skill=document.querySelector('#skill');
+let g=canvas.getContext('2d');
+const formation=document.querySelector('#formation'),skillTitle=skill.querySelector('b'),skillHint=skill.querySelector('small');
+let s=createGame(),view='menu',keys={},last=0,freeze=false,hidden=document.hidden,muted=true,audio,lastPop=0,best=0,bestScore=0;
+try{best=+localStorage.getItem('fr013best')||0;bestScore=+localStorage.getItem('fr013score')||0;}catch{}
+const C={mint:'#9ffff0',gold:'#ffda9e',coral:'#ffad99',ink:'#12313a',pale:'#e8f4df'};
+const box=(x,y,w,h,c,r=0)=>{g.fillStyle=c;g.beginPath();g.roundRect(x,y,w,h,r);g.fill();};
+const circle=(x,y,r,c)=>{g.fillStyle=c;g.beginPath();g.arc(x,y,r,0,Math.PI*2);g.fill();};
+const line=(x,y,xx,yy,c,w=1)=>{g.strokeStyle=c;g.lineWidth=w;g.beginPath();g.moveTo(x,y);g.lineTo(xx,yy);g.stroke();};
+function text(a,x,y,size=12,color=C.pale,align='center'){g.fillStyle=color;g.font=`800 ${size}px system-ui`;g.textAlign=align;g.fillText(a,x,y);}
+const renderBudget=new RenderBudget(devicePixelRatio||1);
+function resize(){const d=renderBudget.scale;canvas.width=W*d;canvas.height=H*d;g.setTransform(d,0,0,d,0,0);}resize();addEventListener('resize',resize);
+const screen=z=>550-(z-s.camera)*.79;
+// Original procedural sprites are cached once; crowd rendering uses drawImage, not hundreds of paths.
+const sprites={};
+for(const type of ['swarm','heavy','lantern','horse-swarm','horse-heavy','horse-lantern']){const c=document.createElement('canvas');c.width=c.height=40;const q=c.getContext('2d');q.fillStyle='#05262a70';q.beginPath();q.ellipse(20,29,14,7,0,0,Math.PI*2);q.fill();q.fillStyle=type==='heavy'?'#b4b4a4':'#438e85';q.beginPath();q.moveTo(8,25);q.quadraticCurveTo(5,3,19,5);q.quadraticCurveTo(35,1,33,24);q.lineTo(29,32);q.lineTo(23,28);q.lineTo(18,33);q.lineTo(12,28);q.fill();q.fillStyle=type==='heavy'?'#545d66':'#1b5b60';q.fillRect(10,12,20,7);q.fillStyle=type==='heavy'?'#ffc38e':'#c1ffdc';q.fillRect(13,14,4,3);q.fillRect(24,14,4,3);if(type==='heavy'){q.fillStyle='#d7c0ab';q.fillRect(16,6,7,4);q.fillRect(11,25,18,5);}if(type==='lantern'){q.fillStyle='#ffbe62';q.beginPath();q.arc(20,19,12,0,Math.PI*2);q.fill();q.fillStyle='#fff0bb';q.fillRect(17,8,6,20);q.fillRect(9,16,22,5);}q.clearRect(0,0,40,40);const horse=type.startsWith('horse'),oil=type.endsWith('lantern');
+ if(oil){q.fillStyle='#805a37';q.fillRect(6,15,29,17);q.fillStyle='#d8ab61';q.fillRect(10,18,21,11);q.fillStyle='#f3c469';q.beginPath();q.arc(20,10,7,0,7);q.fill();q.fillStyle='#f18f57';q.fillRect(18,1,5,10);}
+ else{if(horse){q.fillStyle='#ac8558';q.fillRect(6,25,28,9);q.fillRect(28,16,7,13);q.fillRect(9,31,4,8);q.fillRect(26,31,4,8);}q.fillStyle=horse?'#d3ae80':'#bcb9a5';q.beginPath();q.arc(20,12,8,0,7);q.fill();q.fillRect(12,16,16,12);q.fillStyle=horse?'#6f4478':'#a4473d';q.fillRect(13,4,14,4);q.fillRect(18,0,4,6);if(!horse){q.fillStyle=type==='heavy'?'#a23d34':'#8c5043';q.fillRect(10,17,21,19);q.strokeStyle='#deb879';q.lineWidth=2;q.strokeRect(11,18,19,17);q.fillStyle='#e4bb75';q.fillRect(18,20,4,13);}else{q.strokeStyle='#ebd0a2';q.lineWidth=2;q.beginPath();q.arc(29,17,9,-1.3,1.3);q.stroke();}}
+ sprites[type]=c;}
+function cat(x,y,k=1){g.save();g.translate(x,y);g.scale(k,k);circle(0,5,13,'#152b3b');g.fillStyle='#152b3b';g.beginPath();g.moveTo(-12,1);g.lineTo(-14,-17);g.lineTo(-3,-9);g.lineTo(11,-17);g.lineTo(13,3);g.fill();box(-9,-1,5,3,C.mint,1);box(4,-1,5,3,C.mint,1);box(-11,15,23,5,C.mint,2);g.restore();}
+function dog(x,y,k=1){g.save();g.translate(x,y);g.scale(k,k);circle(-12,-4,8,'#b07b58');circle(12,-4,8,'#b07b58');circle(0,5,15,'#ffcf92');circle(-5,2,2,C.ink);circle(5,2,2,C.ink);circle(0,8,3,C.ink);box(-12,17,24,5,'#f29991',2);g.restore();}
+const districtNames=['一战 / 盾阵平原 · 罗马式盾阵','二战 / 骑射隘口 · 帕提亚骑射','三战 / 营垒决战 · 罗马式营垒'];
+const terrain=[['#697456','#bba675','#d9c58b','#7e805f'],['#b38b60','#d0b17d','#dfc69a','#a28a65'],['#58615d','#798581','#b6c8c6','#797d73']];
+function polygon(points,color){g.fillStyle=color;g.beginPath();points.forEach((p,i)=>i?g.lineTo(...p):g.moveTo(...p));g.closePath();g.fill();}
+function scenicProp(z,side,index){const y=screen(z);if(y<-400||y>1200)return;const r=road(z),x=side<0?r.left-25:r.right+25;
+ if(r.biome===0){if(index%3===0){polygon([[x-26,y+15],[x,y-33],[x+26,y+15]],'#c7b18b');polygon([[x,y-33],[x+4,y+15],[x+26,y+15]],'#9c805d');line(x,y-33,x,y+16,'#5e5143',3);}else{line(x,y+16,x,y-57,'#715940',4);polygon([[x,y-55],[x+side*28,y-50],[x+side*23,y-17],[x,y-22]],side<0?'#a03d37':'#79515d');text(side<0?'漢':'阵',x+side*13,y-31,13,'#e3c58a');}}
+ else if(r.biome===1){polygon([[x-27,y+15],[x-17,y-24],[x+2,y-39],[x+22,y-13],[x+28,y+15]],'#c8a576');line(x-20,y+4,x+14,y-8,'#9d7c58',3);if(index%2===0){line(x,y+18,x,y-45,'#66533c',3);polygon([[x,y-43],[x+26,y-37],[x+21,y-15],[x,y-20]],'#785275');}}
+ else{box(x-18,y-60,36,78,'#a6a493',2);box(x-24,y-62,48,10,'#d1c5a5',2);for(let j=0;j<3;j++)box(x-21+j*17,y-74,10,15,'#bbb7a1');box(x-7,y-31,14,24,'#3f4c49',3);line(x,y-75,x,y-100,'#62533b',3);polygon([[x,y-99],[x+24,y-94],[x+19,y-77],[x,y-81]],'#a4473d');}}
+function staticGround(){
+ box(0,0,W,H,'#286e67');
+ const start=Math.floor((s.camera-500)/24)*24;
+ for(let z=start;z<s.camera+1100;z+=24){const r=road(z),n=road(z+24),y=screen(z),yy=screen(z+24),p=terrain[r.biome];
+  box(0,yy,W,y-yy+1,p[0]);box(r.right+8,yy,W-r.right,y-yy+1,p[1]);
+  if(r.biome===0){line(r.right+18,y,r.right+39,y-4,'#9cd8c095',2);}
+  if(r.biome===2){line(0,y+4,r.left-9,y-7,'#69b2c65c',3);line(r.right+8,y,W,y-7,'#a0d1d660',3);}
+  polygon([[r.left-9,y],[r.right+9,y],[n.right+9,yy],[n.left-9,yy]],'#172f3b70');
+  polygon([[r.left,y],[r.right,y],[n.right,yy],[n.left,yy]],p[3]);
+ }
+ for(let z=Math.floor((s.camera-500)/42)*42;z<s.camera+1100;z+=42){const r=road(z),y=screen(z),p=terrain[r.biome];
+  const curb='#b6a482';line(r.left,y,r.left,screen(z+33),curb,5);line(r.right,y,r.right,screen(z+33),curb,5);
+  for(const off of [-48,48])line(r.center+off,y,r.center+off,screen(z+42),'#614f3838',2);
+  if(Math.floor(z/42)%4===0)box(r.center+Math.sin(z)*25,y,7,3,'#d6c9a655',1);
+ }
+ for(let z=Math.floor((s.camera-500)/155)*155;z<s.camera+1100;z+=155){scenicProp(z,-1,Math.floor(z/155));scenicProp(z+70,1,Math.floor(z/155)+1);}
+}
+const groundTiles=new Map();
+function tile(key){
+ if(groundTiles.has(key))return groundTiles.get(key);
+ const layer=document.createElement('canvas');layer.width=W;layer.height=1160;
+ const savedG=g,savedCamera=s.camera;g=layer.getContext('2d');g.translate(0,400);s.camera=key*360;staticGround();g=savedG;s.camera=savedCamera;
+ groundTiles.set(key,layer);if(groundTiles.size>3)groundTiles.delete(groundTiles.keys().next().value);return layer;
+}
+function ground(){const key=Math.floor(s.camera/360),image=tile(key);g.drawImage(image,0,-400+(s.camera-key*360)*.79);
+ for(const p of s.footprints){g.globalAlpha=p.life*.15;box(p.x-3,screen(p.z),5,9,C.gold,2);}g.globalAlpha=1;
+ if(s.rear>45){const inset=(s.rear-45)*.42;box(0,130,inset,630,'#e4979540');box(W-inset,130,inset,630,'#e4979540');}
+ if(s.dash){for(let i=0;i<14;i++){const x=(i*79+31)%420,y=(i*113+s.time*1800)%730;line(x,y,x,y+48,C.gold+'60',2);}}
+
+}
+function obstacles(){
+ for(const o of s.obstacles){const y=screen(o.z),x=obstacleX(s,o);if(y<110||y>790)continue;const near=o.z-s.distance;
+  if(near>0&&near<360){g.globalAlpha=.32+.1*Math.sin(s.time*8);box(x-o.width/2-8,y+24,o.width+16,65,'#ffb498',4);g.globalAlpha=1;for(let i=0;i<3;i++){line(x-8,y+43+i*17,x,y+36+i*17,C.gold,2);line(x,y+36+i*17,x+8,y+43+i*17,C.gold,2);}}
+  box(x-o.width/2-5,y-5,o.width+10,39,'#142d3c90',7);
+  if(o.type==='cart'){
+   const r=road(o.z);line(r.left+20,y,r.right-20,y,'#f9d39855',2);for(const dx of [-25,25]){circle(x+dx,y+15,8,'#20343b');circle(x+dx,y+15,3,'#c6d0bd');}
+   box(x-o.width/2,y-27,o.width,38,'#b67c54',3);box(x-o.width/2+5,y-23,o.width-10,28,'#deac72',2);line(x-29,y-20,x+29,y+2,'#916c51',4);line(x+29,y-20,x-29,y+2,'#916c51',4);
+   const direction=Math.cos(s.time*.95+o.phase)>0?1:-1;text(direction>0?'辎重 →':'← 辎重',x,y-36,11,C.gold);
+  }else{
+   for(let dx=-o.width/2;dx<=o.width/2;dx+=19){line(x+dx-7,y+20,x+dx+5,y-23,'#604b35',6);polygon([[x+dx+2,y-22],[x+dx+8,y-29],[x+dx+8,y-17]],'#c5ac7c');}line(x-o.width/2-5,y,x+o.width/2+5,y,'#a58b5e',5);text('拒马 · 绕行',x,y-35,11,C.gold);
+
+  }
+ }
+}
+function sea(){
+ // Fixed-size cached sprites need neither a per-frame sort nor a large clipping path.
+ for(const e of s.enemies){const y=screen(e.z);if(y<115||y>715)continue;const size=e.type==='heavy'?27:23;g.drawImage(sprites[(s.phase===1?'horse-':'')+e.type],e.x-size/2,y-size/2,size,size);}
+}
+function fronts(){
+ for(const f of s.fronts){const rr=road(f.z),y=screen(f.z);if(y<135||y>710)continue;
+  if(f.mobile){if(f.hp<=0)continue;const cx=road(f.z).center;for(const side of [-1,1]){circle(cx+side*70,y+18,15,'#473e32');circle(cx+side*70,y+18,7,'#b18a55');}box(cx-77,y-13,154,34,'#8b663e',5);line(cx-84,y-22,cx,y+5,'#d0b484',9);line(cx,y+5,cx+84,y-22,'#d0b484',9);line(cx-84,y-22,cx+84,y-22,'#d8c7a0',2);line(cx,y+12,cx,y-43,'#614b32',8);polygon([[cx-8,y-39],[cx,y-55],[cx+8,y-39]],'#b9c3bb');circle(f.x,y,15,'#d4b67b');circle(f.x,y,7,'#a53e35');box(cx-85,y+42,170,7,'#473e32',3);box(cx-85,y+42,170*Math.max(0,f.hp/f.max),7,C.coral,3);text('军团弩车 · 击碎绞盘',cx,y-62,14,C.gold);continue;}
+  if(f.breached){line(rr.left,y,f.x-42,y,'#a1f4d650',5);line(f.x+42,y,rr.right,y,'#a1f4d650',5);continue;}
+  const open=f.open>0||f.held;
+  g.strokeStyle=s.phase===1?'#cb8b9c':'#7bb1a5';g.lineWidth=17;g.beginPath();
+  for(let x=rr.left+2;x<=rr.right-2;x+=8){if(open&&Math.abs(x-f.x)<40){g.moveTo(x,y);continue;}const wave=Math.sin(x*.06+s.time*2)*4;if(x===rr.left+2)g.moveTo(x,y+wave);else g.lineTo(x,y+wave);}g.stroke();
+  for(let x=rr.left+8;x<rr.right-4;x+=17){if(open&&Math.abs(x-f.x)<40)continue;g.drawImage(sprites[s.phase===1?'horse-heavy':'heavy'],x-14,y-16,28,28);}
+  if(open){g.fillStyle='#ffdc9c33';g.beginPath();g.moveTo(f.x-32,y);g.lineTo(f.x+32,y);g.lineTo(s.x+32,550);g.lineTo(s.x-32,550);g.closePath();g.fill();line(f.x-35,y-22,f.x-35,y+20,C.gold,3);line(f.x+35,y-22,f.x+35,y+20,C.gold,3);text(f.held?'咕咕撑住了！':'打穿了！',f.x,y-32,14,C.gold);}
+  else{circle(f.x,y,21,'#ffce9360');circle(f.x,y,12,C.coral);circle(f.x,y,6,C.gold);box(f.x-27,y+25,54,5,'#12313a',2);box(f.x-27,y+25,54*Math.max(0,f.hp/f.max),5,C.gold,2);text('击碎缝眼',f.x,y-29,11,C.gold);}
+ }
+}
+function render(){formation.hidden=!s.choice||view!=='play';ground();
+ for(const w of s.wakes){g.globalAlpha=Math.min(1,w.life);g.strokeStyle='#ffe0a0';g.lineWidth=13;g.lineCap='round';g.beginPath();w.points.forEach((p,i)=>i?g.lineTo(p.x,screen(p.z)):g.moveTo(p.x,screen(p.z)));g.stroke();g.strokeStyle='#fff5dc';g.lineWidth=3;g.stroke();g.globalAlpha=1;}
+ sea();obstacles();fronts();
+ for(const a of s.arrows){const y=screen(a.z);if(y<130||y>730)continue;g.globalAlpha=a.hit?.2:.65;circle(a.x,y,25,a.age<.75?'#efd08d':'#c45b48');g.globalAlpha=1;line(a.x-12,y-12,a.x+12,y+12,C.gold,2);line(a.x+12,y-12,a.x-12,y+12,C.gold,2);if(a.age>=.75){for(let i=0;i<3;i++)line(a.x-12+i*12,y-42,a.x-8+i*12,y,'#efd9a7',2);}}
+
+ for(const z of [480,2600,5200,7400,10000,12200])if(z>s.distance){const y=screen(z),x=road(z).center;if(y>140&&y<700){circle(x,y,26,'#ffe3a440');box(x-18,y-15,36,30,'#ffe3a4',4);box(x-13,y-10,26,20,'#345a60',3);line(x-8,y,x+8,y,C.mint,4);line(x,y-8,x,y+8,C.mint,4);text('武器补给',x,y-29,11,C.gold);}}
+
+ for(const r of s.rings){g.globalAlpha=Math.max(0,r.life/.55);g.strokeStyle='#ffdc96';g.lineWidth=4;g.beginPath();g.ellipse(r.x,screen(r.z),(1-r.life/.6)*78,(1-r.life/.6)*54,0,0,Math.PI*2);g.stroke();g.globalAlpha=1;}
+ if(s.impact>0){g.globalAlpha=s.impact*.35;box(0,125,W,H-125,'#ff8d76');g.globalAlpha=1;}
+ if(s.tailwind>0)text('尾风 '+s.tailwind.toFixed(1)+'s · 冲锋更远',210,195,12,'#fff3b3');
+ if(s.chainWindow>0)text('接力 ×'+s.chain+' · '+s.chainWindow.toFixed(1)+'s',s.x,screen(s.distance)-42,14,C.gold);
+
+ const playerY=screen(s.distance),span=22*s.width,run=s.dash?0:Math.sin(s.time*20)*2;
+ for(const t of s.traces){const f=1-t.life/.13,yy=screen(t.z+(t.tz-t.z)*f),xx=t.x+(t.tx-t.x)*f;g.globalAlpha=clamp(t.life*10,0,1);line(xx,yy,xx+(t.tx-t.x)*.2,yy-(t.tz-t.z)*.79*.18,t.color,2);}
+ g.globalAlpha=1;
+ for(const p of s.particles){g.globalAlpha=Math.min(1,p.life*3);box(p.x,screen(p.z),3,3,p.color,1);}g.globalAlpha=1;
+ if(view!=='menu'){
+  if(s.dash){g.fillStyle='#ffce9250';g.beginPath();g.moveTo(s.dash.x-26*s.width,screen(s.dash.from));g.lineTo(s.dash.x+26*s.width,screen(s.dash.from));g.lineTo(s.x+span,playerY);g.lineTo(s.x-span,playerY);g.closePath();g.fill();}
+  circle(s.x-span,playerY+19,11,'#09292d80');circle(s.x+span,playerY+19,12,'#09292d80');
+  line(s.x-span,playerY+12,s.x,playerY+19,C.gold,s.dash?5:2);line(s.x,playerY+19,s.x+span,playerY+11,C.gold,s.dash?5:2);
+  // Feet, scarves and a ground shadow distinguish running from a floating craft.
+  line(s.x-span-4,playerY+17,s.x-span-6,playerY+24+run,'#152b3b',5);line(s.x-span+4,playerY+17,s.x-span+6,playerY+24-run,'#152b3b',5);
+  line(s.x+span-5,playerY+18,s.x+span-7,playerY+24-run,'#bb895b',5);line(s.x+span+5,playerY+18,s.x+span+7,playerY+24+run,'#bb895b',5);
+  if(s.build[1]){const a=s.time*7;line(s.x-Math.cos(a)*62,playerY+Math.sin(a)*25,s.x+Math.cos(a)*62,playerY-Math.sin(a)*25,C.mint,5);circle(s.x+Math.cos(a)*62,playerY-Math.sin(a)*25,7,C.gold);}
+  for(let i=0;i<Math.min(12,4+Math.floor(s.kills/140));i++){const xx=s.x+(i%4-1.5)*15,yy=playerY+36+Math.floor(i/4)*15;if(s.build[1]){box(xx-7,yy+6,15,6,'#9e7448',2);line(xx-5,yy+10,xx-5,yy+16,'#735337',2);line(xx+5,yy+10,xx+5,yy+16,'#735337',2);}circle(xx,yy,5,'#b5b6a2');box(xx-4,yy+3,8,8,'#9c4239',1);line(xx-6,yy+4,xx+6,yy+4,C.gold,1);}
+  line(s.x+span+8,playerY,s.x+span+8,playerY-46,'#a58350',2);polygon([[s.x+span+8,playerY-46],[s.x+span+32,playerY-41],[s.x+span+28,playerY-24],[s.x+span+8,playerY-27]],'#a83d39');
+  cat(s.x-span,playerY+run,1.1);dog(s.x+span,playerY-run,1);
+  line(s.x-span-13,playerY+12,s.x-span-30,playerY+18+run,C.mint,4);line(s.x+span+12,playerY+13,s.x+span+26,playerY+20-run,C.coral,4);
+ }
+ if(s.pulse>0){g.globalAlpha=s.pulse*.5;g.strokeStyle=C.gold;g.lineWidth=5;g.beginPath();g.ellipse(s.x,playerY,35+(1-s.pulse)*120,17+(1-s.pulse)*45,0,0,Math.PI*2);g.stroke();g.globalAlpha=1;}
+ // Persistent forward progress is the hero of the dashboard.
+ box(0,0,420,125,'#102c39f5');text('公元1世纪 · 架空演武',17,24,11,C.mint,'left');text('万军演武 V0.13',17,44,10,'#a3c7c8','left');text(Math.min(GOAL,Math.floor(s.distance))+' / '+GOAL,398,72,23,C.gold,'right');
+ text('军心',17,70,10,C.pale,'left');box(48,61,107,9,'#325562',4);box(48,61,107*s.hull/100,9,s.hull<30?C.coral:C.mint,4);text(Math.ceil(s.hull),162,71,12,C.pale,'left');
+ box(17,86,386,4,'#2c4d59',2);box(17,86,386*Math.min(1,s.distance/GOAL),4,C.gold,2);
+ text('战功 '+s.kills+' · 兵力 '+Math.min(18,6+Math.floor(s.kills/100)),17,111,11,C.pale,'left');text('连爆 '+s.explosions+' 次',399,111,11,s.rear>65?C.coral:C.mint,'right');
+ text(districtNames[s.phase],18,147,11,C.mint,'left');text(weapons[tier(s.power)],400,147,11,C.gold,'right');
+ if(view==='play'){
+ const hazard=obstacleAhead(s,280);const next=s.fronts.find(f=>!f.breached&&f.z-s.distance<300);const msg=s.time<3?'汉弩列阵 · 左右拖动 · 点咕咕冲锋':hazard?'绕开'+(hazard.type==='cart'?'横移货箱':'路障')+' · 擦边有尾风':next?'瞄准橙色弱点，打穿敌阵':'前进！击破火油车引发连锁';
+ box(30,610,360,27,'#102d38cf',7);text(msg,210,628,11,C.pale);
+ text('咕咕蓄力 '+Math.floor(s.tension)+'%',19,662,11,C.mint,'left');text(s.tension>=45?'执旗冲阵':'自动回充中',19,683,10,s.tension>=45?C.gold:C.pale,'left');
+ }
+ if(s.choice){for(let i=0;i<2;i++){const x=15+i*203,selected=(s.x<210?0:1)===i,p=formationPreview(s,i);box(x,173,187,63,selected?'#285562f2':'#123543ef',7);if(selected){g.strokeStyle=C.gold;g.lineWidth=2;g.strokeRect(x+1,174,185,61);}text('触选 · '+choices[i].name,x+93,196,15,C.gold);text('伤害 ×'+p.damage.toFixed(2)+' / 宽度 ×'+p.width.toFixed(2),x+93,219,11,C.pale);text('可选强化 · '+Math.ceil(s.choice.remaining)+'s',x+93,233,10,selected?C.mint:C.coral);}}
+ const n=s.notices.at(-1);if(n&&!s.choice){g.globalAlpha=Math.min(1,n.life);box(10,157,400,22,'#102c39d9',5);text(n.text,210,172,10,n.color);}g.globalAlpha=1;
+}
+function show(html){overlay.innerHTML=html;overlay.hidden=false;controls.hidden=true;}
+function menu(){view='menu';show(`<div class="eyebrow">V0.13 · 第一卷 / 汉弩西行</div><h1 class="title">火力突围<br><em>万军演武</em></h1><p class="subtitle">墨墨掌弩，咕咕执旗。带一支军队走完远征。</p><div class="rule"><b>盾阵平原 → 骑射隘口 → 营垒决战</b><br>对盾阵，选择强弩贯甲；对骑射，看落点躲箭雨。<br>战间选择整补军心或整训强弩，损耗带入下一战。<br>左右拖动自动射击，另一根手指点冲锋。</div><button class="primary" id="start">汉弩营，出阵 →</button><button class="secondary" id="lore">史料原型与架空设定</button><p class="fine">公元1世纪 · 兵种原型参考史料，对阵为架空演武<br>本次实装汉代三战 · 全程 14400 · 最高战绩 ${bestScore}<br>不是历史战力排名 · 原生触摸 · 独立双指</p>`);document.querySelector('#start').onclick=()=>start();document.querySelector('#lore').onclick=lore;}
+function lore(){view='lore';show(`<div class="eyebrow">史料原型 / 游戏演绎</div><h1 class="title">同代军队，沙盘相逢</h1><div class="rule"><b>汉弩</b>：史密森尼馆藏有断代为 1–3 世纪的东汉弩机。游戏以此作为强弩兵器的原型。<br><b>罗马军团</b>：参考军团装备与盾牌传统，画面并非 1 世纪军备的精确复原。<br><b>帕提亚骑射</b>：参考骑马射击与回身射击的特点，以落点预警表达机动压迫。<br><br>汉军与这些对手的三场交锋为架空演武，不是曾发生的西征。阵型加成、火油车连锁与伤害数值均为玩法设计。</div><button class="primary" id="back-lore">回到演武台 →</button>`);document.querySelector('#back-lore').onclick=menu;}
+function camp(){view='camp';input.reset();keys={};const index=Math.min(2,Math.floor(s.distance/4800));show(`<div class="eyebrow">行军休整 · 下一战 ${index+1}/3</div><h1 class="title">${chapters[index].name}</h1><div class="rule"><b>侦察：${chapters[index].enemy}</b><br>${chapters[index].tip}<br>${s.hull<45?'咕咕：旗还在，先照顾伤兵。':'墨墨：整补队伍，还是再加强弩？'}<br>当前军心 ${Math.ceil(s.hull)} · 已积累战功 ${s.kills}<br>整补恢复 28 军心；整训增加一层穿透，保留战损。</div><button class="primary" id="repair">整补军心 +28 →</button><button class="secondary" id="drill">整训强弩 · 穿透 +1 →</button><p class="fine">这是一场连续远征，已有武器、战损和战功均保留。</p>`);const go=option=>{chooseCamp(s,option);view='play';overlay.hidden=true;controls.hidden=false;last=performance.now();};document.querySelector('#repair').onclick=()=>go(0);document.querySelector('#drill').onclick=()=>go(1);}
+function start(seed){s=createGame(typeof seed==='number'?seed:Date.now());view='play';overlay.hidden=true;controls.hidden=false;input.reset();keys={};lastPop=0;last=performance.now();}
+function end(){if(s.mode==='camp'){camp();return;}view=s.mode;input.reset();const finish=result(s),record=finish.score>bestScore;bestScore=Math.max(bestScore,finish.score);best=Math.max(best,s.kills);try{localStorage.setItem('fr013best',best);localStorage.setItem('fr013score',bestScore);}catch{}
+ show(`<div class="eyebrow">${record?'新的个人纪录 · ':''}${finish.grade} / HAN CAMPAIGN</div><h1 class="title">${s.mode==='win'?'三战告捷，军旗还在':'兵势未尽，重整再来'}</h1><div class="stats"><div>路线得分<strong>${finish.score}</strong></div><div>漂亮擦边<strong>${s.nearMisses}</strong></div><div>撞障<strong>${s.obstacleHits}</strong></div></div><div class="rule">${s.reason}<br>前进 ${Math.floor(s.distance)} / 14400 · 用时 ${Math.floor(s.time)}s<br>击破 ${s.kills} · 火油车引爆 ${s.explosions} · 绕行 ${s.dodged}/9<br><b>${s.obstacleHits?'提前看地面警示，绕向空侧继续跑。':s.nearMisses<4?'下次试着贴近路障绕过，攒尾风，挑战 S 级。':'漂亮！再换一条海岸线，看看还能冲多快。'}</b><br>最高战绩 ${bestScore}</div><button class="primary" id="again">再开一卷远征 ↻</button><button class="secondary" id="practice">重演此役 · 调整兵法</button><button class="secondary" id="back">返回出发点</button>`);
+ document.querySelector('#again').onclick=()=>start();document.querySelector('#practice').onclick=()=>start(s.seed);document.querySelector('#back').onclick=menu;
+}
+function pause(){if(view==='pause'){resume();return;}if(view!=='play')return;view='pause';input.reset();keys={};show('<div class="eyebrow">STILL HOLDING HANDS</div><h1 class="title">等你，潮也停了</h1><div class="rule">战场已暂停。<br>聚束钻头穿透前方重甲，回旋双翼清扫侧翼。<br>冲锋消耗 45 蓄力，击杀与时间都会回充。</div><button class="primary" id="resume">继续向前 →</button><button class="secondary" id="restart">重新出发</button>');document.querySelector('#resume').onclick=resume;document.querySelector('#restart').onclick=()=>start();}
+function resume(){view='play';overlay.hidden=true;controls.hidden=false;last=performance.now();}
+function sound(kind='rush'){if(muted)return;try{audio??=new(window.AudioContext||window.webkitAudioContext)();audio.resume();const o=audio.createOscillator(),a=audio.createGain();o.type='triangle';o.frequency.setValueAtTime(kind==='pop'?80:kind==='wind'?440:130,audio.currentTime);o.frequency.exponentialRampToValueAtTime(kind==='pop'?35:kind==='wind'?880:600,audio.currentTime+.2);a.gain.setValueAtTime(.035,audio.currentTime);a.gain.exponentialRampToValueAtTime(.001,audio.currentTime+.3);o.connect(a).connect(audio.destination);o.start();o.stop(audio.currentTime+.3);}catch{}}
+function useSkill(){if(rush(s))sound();}
+for(const [i,button] of [...document.querySelectorAll('#formation button')].entries())button.onclick=()=>{if(view==='play')chooseFormation(s,i);};
+const input=bindInput({area:document.querySelector('#game'),canvas,skill,active:()=>view==='play',onMove:x=>s.target=clamp(x,29,391),onSkill:useSkill});
+document.querySelector('#pause').onclick=pause;document.querySelector('#sound').onclick=()=>{muted=!muted;document.querySelector('#sound').textContent='音效 '+(muted?'OFF':'ON');sound();};
+addEventListener('keydown',e=>{if(['ArrowLeft','ArrowRight',' '].includes(e.key))e.preventDefault();keys[e.key.toLowerCase()]=true;if(!e.repeat){if(e.key===' '&&view==='play')useSkill();if(e.key.toLowerCase()==='p')pause();}});addEventListener('keyup',e=>keys[e.key.toLowerCase()]=false);addEventListener('blur',()=>keys={});document.addEventListener('visibilitychange',()=>{hidden=document.hidden;input.reset();keys={};lastPop=0;last=performance.now();});
+let accumulator=0,lastUI=0,lastLabel='',lastHint='';
+function frame(now){const elapsed=clamp((now-last)/1000,0,.1);last=now;if(renderBudget.observe(elapsed,view==='play'&&!freeze&&!hidden))resize();
+ if(view==='play'&&!freeze&&!hidden){accumulator+=elapsed;let ticks=0;while(accumulator>=1/60&&ticks++<6){const d=(keys.d||keys.arrowright?1:0)-(keys.a||keys.arrowleft?1:0);if(d)s.target=clamp(s.target+d*370/60,29,391);const pops=s.explosions,near=s.nearMisses;step(s,1/60);if(s.nearMisses>near)sound('wind');else if(s.explosions>pops&&s.time-lastPop>.18){lastPop=s.time;sound('pop');}accumulator-=1/60;if(s.mode!=='play'){end();break;}}}else accumulator=0;
+ const disabled=!!s.dash||s.cooldown>0||s.tension<45;if(skill.disabled!==disabled)skill.disabled=disabled;
+ if(now-lastUI>100){lastUI=now;skill.classList.remove('risk');const label=s.dash?'咕咕 · 破阵中！':s.tension<45?'回充 '+Math.floor(s.tension)+' / 45':'咕咕 · 执旗冲阵';const hint=s.tailwind>0?'借尾风冲出 230':'冲出 180 · 清开面前敌群';if(label!==lastLabel){skillTitle.textContent=label;lastLabel=label;}if(hint!==lastHint){skillHint.textContent=hint;lastHint=hint;}}
+ render();requestAnimationFrame(frame);
+}
+menu();requestAnimationFrame(frame);
+if(new URLSearchParams(location.search).has('test'))window.__game={stats:()=>({renderScale:renderBudget.scale,tiles:groundTiles.size,cachePixels:groundTiles.size*420*1160,canvasPixels:canvas.width*canvas.height}),state:()=>s,start,pause,resume,input,step:dt=>step(s,dt),rush:useSkill,freeze:v=>{freeze=v;accumulator=0;},render:()=>{render();if(s.mode!=='play'&&view==='play')end();}};
+
+</script></body></html>
