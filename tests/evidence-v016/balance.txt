@@ -1,0 +1,2753 @@
+
+> firerush-siege@0.16.0 balance
+> node scripts/balance-v016.mjs
+
+{
+  "smart": [
+    {
+      "seed": 1,
+      "style": "smart",
+      "mode": "win",
+      "time": 193.2,
+      "distance": 21600,
+      "army": 180,
+      "hull": 100,
+      "crossed": 12,
+      "kills": 1152,
+      "retreated": 0,
+      "maxEmptyTime": 1.4999999999999996,
+      "peak": 192,
+      "history": [
+        {
+          "layer": 0,
+          "lane": 1,
+          "before": 24,
+          "after": 36,
+          "raw": 36,
+          "formula": "÷2 → +24",
+          "time": 5.149999999999987
+        },
+        {
+          "layer": 0,
+          "lane": 2,
+          "before": 36,
+          "after": 45,
+          "raw": 45,
+          "formula": "+17 → −8",
+          "time": 11.750000000000163
+        },
+        {
+          "layer": 0,
+          "lane": 0,
+          "before": 45,
+          "after": 66,
+          "raw": 66,
+          "formula": "×2 → −24",
+          "time": 21.283333333333406
+        },
+        {
+          "layer": 1,
+          "lane": 0,
+          "before": 66,
+          "after": 59,
+          "raw": 59,
+          "formula": "÷2 → +26",
+          "time": 26.966666666666416
+        },
+        {
+          "layer": 1,
+          "lane": 1,
+          "before": 59,
+          "after": 67,
+          "raw": 67,
+          "formula": "+15 → −7",
+          "time": 31.183333333332843
+        },
+        {
+          "layer": 1,
+          "lane": 2,
+          "before": 67,
+          "after": 99,
+          "raw": 99,
+          "formula": "×2 → −35",
+          "time": 38.33333333333244
+        },
+        {
+          "layer": 2,
+          "lane": 0,
+          "before": 99,
+          "after": 72,
+          "raw": 72,
+          "formula": "÷2 → +23",
+          "time": 42.91666666666551
+        },
+        {
+          "layer": 2,
+          "lane": 1,
+          "before": 72,
+          "after": 81,
+          "raw": 81,
+          "formula": "+16 → −7",
+          "time": 47.13333333333194
+        },
+        {
+          "layer": 2,
+          "lane": 2,
+          "before": 81,
+          "after": 126,
+          "raw": 126,
+          "formula": "×2 → −36",
+          "time": 53.36666666666492
+        },
+        {
+          "layer": 3,
+          "lane": 2,
+          "before": 126,
+          "after": 89,
+          "raw": 89,
+          "formula": "÷2 → +26",
+          "time": 57.94999999999799
+        },
+        {
+          "layer": 3,
+          "lane": 0,
+          "before": 89,
+          "after": 101,
+          "raw": 101,
+          "formula": "+18 → −6",
+          "time": 61.43333333333113
+        },
+        {
+          "layer": 3,
+          "lane": 1,
+          "before": 101,
+          "after": 169,
+          "raw": 169,
+          "formula": "×2 → −33",
+          "time": 66.7499999999975
+        },
+        {
+          "layer": 4,
+          "lane": 2,
+          "before": 169,
+          "after": 180,
+          "raw": 181,
+          "formula": "+17 → −5",
+          "time": 70.59999999999728
+        },
+        {
+          "layer": 4,
+          "lane": 1,
+          "before": 180,
+          "after": 114,
+          "raw": 114,
+          "formula": "÷2 → +24",
+          "time": 73.1666666666638
+        },
+        {
+          "layer": 4,
+          "lane": 0,
+          "before": 114,
+          "after": 180,
+          "raw": 193,
+          "formula": "×2 → −35",
+          "time": 79.03333333333013
+        },
+        {
+          "layer": 5,
+          "lane": 0,
+          "before": 180,
+          "after": 180,
+          "raw": 189,
+          "formula": "+16 → −7",
+          "time": 82.88333333332992
+        },
+        {
+          "layer": 5,
+          "lane": 2,
+          "before": 180,
+          "after": 115,
+          "raw": 115,
+          "formula": "÷2 → +25",
+          "time": 86.51666666666304
+        },
+        {
+          "layer": 5,
+          "lane": 1,
+          "before": 115,
+          "after": 180,
+          "raw": 200,
+          "formula": "×2 → −30",
+          "time": 92.96666666666268
+        },
+        {
+          "layer": 6,
+          "lane": 0,
+          "before": 180,
+          "after": 180,
+          "raw": 192,
+          "formula": "+19 → −7",
+          "time": 97.36666666666243
+        },
+        {
+          "layer": 6,
+          "lane": 2,
+          "before": 180,
+          "after": 109,
+          "raw": 109,
+          "formula": "÷2 → +19",
+          "time": 101.03333333332888
+        },
+        {
+          "layer": 6,
+          "lane": 1,
+          "before": 109,
+          "after": 180,
+          "raw": 188,
+          "formula": "×2 → −30",
+          "time": 108.18333333332848
+        },
+        {
+          "layer": 7,
+          "lane": 2,
+          "before": 180,
+          "after": 180,
+          "raw": 187,
+          "formula": "+14 → −7",
+          "time": 112.3999999999949
+        },
+        {
+          "layer": 7,
+          "lane": 1,
+          "before": 180,
+          "after": 110,
+          "raw": 110,
+          "formula": "÷2 → +20",
+          "time": 116.24999999999469
+        },
+        {
+          "layer": 7,
+          "lane": 0,
+          "before": 110,
+          "after": 180,
+          "raw": 194,
+          "formula": "×2 → −26",
+          "time": 123.5833333333276
+        },
+        {
+          "layer": 8,
+          "lane": 1,
+          "before": 180,
+          "after": 180,
+          "raw": 190,
+          "formula": "+15 → −5",
+          "time": 127.98333333332735
+        },
+        {
+          "layer": 8,
+          "lane": 0,
+          "before": 180,
+          "after": 112,
+          "raw": 112,
+          "formula": "÷2 → +22",
+          "time": 131.6499999999969
+        },
+        {
+          "layer": 8,
+          "lane": 2,
+          "before": 112,
+          "after": 180,
+          "raw": 190,
+          "formula": "×2 → −34",
+          "time": 139.53333333333651
+        },
+        {
+          "layer": 9,
+          "lane": 1,
+          "before": 180,
+          "after": 180,
+          "raw": 187,
+          "formula": "+15 → −8",
+          "time": 144.1166666666735
+        },
+        {
+          "layer": 9,
+          "lane": 0,
+          "before": 180,
+          "after": 112,
+          "raw": 112,
+          "formula": "÷2 → +22",
+          "time": 147.96666666667656
+        },
+        {
+          "layer": 9,
+          "lane": 2,
+          "before": 112,
+          "after": 180,
+          "raw": 199,
+          "formula": "×2 → −25",
+          "time": 156.03333333334965
+        },
+        {
+          "layer": 10,
+          "lane": 2,
+          "before": 180,
+          "after": 180,
+          "raw": 192,
+          "formula": "+19 → −7",
+          "time": 161.16666666668706
+        },
+        {
+          "layer": 10,
+          "lane": 1,
+          "before": 180,
+          "after": 111,
+          "raw": 111,
+          "formula": "÷2 → +21",
+          "time": 165.75000000002404
+        },
+        {
+          "layer": 10,
+          "lane": 0,
+          "before": 111,
+          "after": 180,
+          "raw": 189,
+          "formula": "×2 → −33",
+          "time": 174.916666666698
+        },
+        {
+          "layer": 11,
+          "lane": 2,
+          "before": 180,
+          "after": 180,
+          "raw": 193,
+          "formula": "+20 → −7",
+          "time": 180.05000000003542
+        },
+        {
+          "layer": 11,
+          "lane": 1,
+          "before": 180,
+          "after": 110,
+          "raw": 110,
+          "formula": "÷2 → +20",
+          "time": 183.716666666705
+        },
+        {
+          "layer": 11,
+          "lane": 0,
+          "before": 110,
+          "after": 180,
+          "raw": 196,
+          "formula": "×2 → −24",
+          "time": 192.33333333337853
+        }
+      ]
+    },
+    {
+      "seed": 2,
+      "style": "smart",
+      "mode": "win",
+      "time": 204.4,
+      "distance": 21600,
+      "army": 180,
+      "hull": 100,
+      "crossed": 12,
+      "kills": 1152,
+      "retreated": 0,
+      "maxEmptyTime": 1.5499999999999994,
+      "peak": 192,
+      "history": [
+        {
+          "layer": 0,
+          "lane": 1,
+          "before": 24,
+          "after": 33,
+          "raw": 33,
+          "formula": "÷2 → +21",
+          "time": 5.149999999999987
+        },
+        {
+          "layer": 0,
+          "lane": 2,
+          "before": 33,
+          "after": 44,
+          "raw": 44,
+          "formula": "+19 → −8",
+          "time": 11.750000000000163
+        },
+        {
+          "layer": 0,
+          "lane": 0,
+          "before": 44,
+          "after": 54,
+          "raw": 54,
+          "formula": "×2 → −34",
+          "time": 21.283333333333406
+        },
+        {
+          "layer": 1,
+          "lane": 1,
+          "before": 54,
+          "after": 45,
+          "raw": 45,
+          "formula": "÷2 → +18",
+          "time": 27.88333333333303
+        },
+        {
+          "layer": 1,
+          "lane": 2,
+          "before": 45,
+          "after": 52,
+          "raw": 52,
+          "formula": "+15 → −8",
+          "time": 34.11666666666601
+        },
+        {
+          "layer": 1,
+          "lane": 0,
+          "before": 52,
+          "after": 80,
+          "raw": 80,
+          "formula": "×2 → −24",
+          "time": 42.366666666665544
+        },
+        {
+          "layer": 2,
+          "lane": 0,
+          "before": 80,
+          "after": 60,
+          "raw": 60,
+          "formula": "÷2 → +20",
+          "time": 47.31666666666526
+        },
+        {
+          "layer": 2,
+          "lane": 1,
+          "before": 60,
+          "after": 67,
+          "raw": 67,
+          "formula": "+14 → −7",
+          "time": 52.63333333333163
+        },
+        {
+          "layer": 2,
+          "lane": 2,
+          "before": 67,
+          "after": 110,
+          "raw": 110,
+          "formula": "×2 → −24",
+          "time": 60.14999999999787
+        },
+        {
+          "layer": 3,
+          "lane": 0,
+          "before": 110,
+          "after": 76,
+          "raw": 76,
+          "formula": "÷2 → +21",
+          "time": 65.09999999999759
+        },
+        {
+          "layer": 3,
+          "lane": 1,
+          "before": 76,
+          "after": 86,
+          "raw": 86,
+          "formula": "+17 → −7",
+          "time": 70.23333333333063
+        },
+        {
+          "layer": 3,
+          "lane": 2,
+          "before": 86,
+          "after": 147,
+          "raw": 147,
+          "formula": "×2 → −25",
+          "time": 77.38333333333023
+        },
+        {
+          "layer": 4,
+          "lane": 0,
+          "before": 147,
+          "after": 92,
+          "raw": 92,
+          "formula": "÷2 → +19",
+          "time": 81.9666666666633
+        },
+        {
+          "layer": 4,
+          "lane": 1,
+          "before": 92,
+          "after": 103,
+          "raw": 103,
+          "formula": "+16 → −5",
+          "time": 85.81666666666308
+        },
+        {
+          "layer": 4,
+          "lane": 2,
+          "before": 103,
+          "after": 172,
+          "raw": 172,
+          "formula": "×2 → −34",
+          "time": 92.04999999999606
+        },
+        {
+          "layer": 5,
+          "lane": 2,
+          "before": 172,
+          "after": 180,
+          "raw": 186,
+          "formula": "+19 → −5",
+          "time": 95.89999999999584
+        },
+        {
+          "layer": 5,
+          "lane": 1,
+          "before": 180,
+          "after": 115,
+          "raw": 115,
+          "formula": "÷2 → +25",
+          "time": 98.83333333332901
+        },
+        {
+          "layer": 5,
+          "lane": 0,
+          "before": 115,
+          "after": 180,
+          "raw": 201,
+          "formula": "×2 → −29",
+          "time": 105.06666666666199
+        },
+        {
+          "layer": 6,
+          "lane": 1,
+          "before": 180,
+          "after": 180,
+          "raw": 186,
+          "formula": "+14 → −8",
+          "time": 109.28333333332841
+        },
+        {
+          "layer": 6,
+          "lane": 0,
+          "before": 180,
+          "after": 108,
+          "raw": 108,
+          "formula": "÷2 → +18",
+          "time": 112.76666666666155
+        },
+        {
+          "layer": 6,
+          "lane": 2,
+          "before": 108,
+          "after": 180,
+          "raw": 182,
+          "formula": "×2 → −34",
+          "time": 119.91666666666114
+        },
+        {
+          "layer": 7,
+          "lane": 0,
+          "before": 180,
+          "after": 180,
+          "raw": 194,
+          "formula": "+19 → −5",
+          "time": 123.94999999999425
+        },
+        {
+          "layer": 7,
+          "lane": 2,
+          "before": 178,
+          "after": 113,
+          "raw": 113,
+          "formula": "÷2 → +24",
+          "time": 127.79999999999403
+        },
+        {
+          "layer": 7,
+          "lane": 1,
+          "before": 113,
+          "after": 180,
+          "raw": 194,
+          "formula": "×2 → −32",
+          "time": 135.133333333333
+        },
+        {
+          "layer": 8,
+          "lane": 1,
+          "before": 180,
+          "after": 180,
+          "raw": 188,
+          "formula": "+15 → −7",
+          "time": 139.71666666667
+        },
+        {
+          "layer": 8,
+          "lane": 0,
+          "before": 180,
+          "after": 115,
+          "raw": 115,
+          "formula": "÷2 → +25",
+          "time": 143.2000000000061
+        },
+        {
+          "layer": 8,
+          "lane": 2,
+          "before": 115,
+          "after": 180,
+          "raw": 196,
+          "formula": "×2 → −34",
+          "time": 150.90000000001223
+        },
+        {
+          "layer": 9,
+          "lane": 0,
+          "before": 180,
+          "after": 180,
+          "raw": 194,
+          "formula": "+19 → −5",
+          "time": 155.4833333333492
+        },
+        {
+          "layer": 9,
+          "lane": 2,
+          "before": 180,
+          "after": 111,
+          "raw": 111,
+          "formula": "÷2 → +21",
+          "time": 159.33333333335227
+        },
+        {
+          "layer": 9,
+          "lane": 1,
+          "before": 111,
+          "after": 180,
+          "raw": 192,
+          "formula": "×2 → −30",
+          "time": 167.40000000002536
+        },
+        {
+          "layer": 10,
+          "lane": 2,
+          "before": 180,
+          "after": 180,
+          "raw": 189,
+          "formula": "+14 → −5",
+          "time": 172.53333333336278
+        },
+        {
+          "layer": 10,
+          "lane": 1,
+          "before": 180,
+          "after": 116,
+          "raw": 116,
+          "formula": "÷2 → +26",
+          "time": 177.11666666669976
+        },
+        {
+          "layer": 10,
+          "lane": 0,
+          "before": 116,
+          "after": 180,
+          "raw": 208,
+          "formula": "×2 → −24",
+          "time": 185.73333333337328
+        },
+        {
+          "layer": 11,
+          "lane": 1,
+          "before": 180,
+          "after": 180,
+          "raw": 193,
+          "formula": "+18 → −5",
+          "time": 191.05000000004418
+        },
+        {
+          "layer": 11,
+          "lane": 0,
+          "before": 180,
+          "after": 110,
+          "raw": 110,
+          "formula": "÷2 → +20",
+          "time": 194.71666666671376
+        },
+        {
+          "layer": 11,
+          "lane": 2,
+          "before": 110,
+          "after": 180,
+          "raw": 195,
+          "formula": "×2 → −25",
+          "time": 203.3333333333873
+        }
+      ]
+    },
+    {
+      "seed": 3,
+      "style": "smart",
+      "mode": "win",
+      "time": 195.1,
+      "distance": 21600,
+      "army": 180,
+      "hull": 100,
+      "crossed": 12,
+      "kills": 1152,
+      "retreated": 0,
+      "maxEmptyTime": 1.5333333333333328,
+      "peak": 192,
+      "history": [
+        {
+          "layer": 0,
+          "lane": 1,
+          "before": 24,
+          "after": 35,
+          "raw": 35,
+          "formula": "÷2 → +23",
+          "time": 5.149999999999987
+        },
+        {
+          "layer": 0,
+          "lane": 2,
+          "before": 35,
+          "after": 45,
+          "raw": 45,
+          "formula": "+15 → −5",
+          "time": 11.750000000000163
+        },
+        {
+          "layer": 0,
+          "lane": 0,
+          "before": 45,
+          "after": 57,
+          "raw": 57,
+          "formula": "×2 → −33",
+          "time": 21.283333333333406
+        },
+        {
+          "layer": 1,
+          "lane": 2,
+          "before": 57,
+          "after": 56,
+          "raw": 56,
+          "formula": "÷2 → +28",
+          "time": 27.88333333333303
+        },
+        {
+          "layer": 1,
+          "lane": 0,
+          "before": 56,
+          "after": 70,
+          "raw": 70,
+          "formula": "+19 → −5",
+          "time": 32.83333333333275
+        },
+        {
+          "layer": 1,
+          "lane": 1,
+          "before": 70,
+          "after": 109,
+          "raw": 109,
+          "formula": "×2 → −31",
+          "time": 39.6166666666657
+        },
+        {
+          "layer": 2,
+          "lane": 1,
+          "before": 109,
+          "after": 81,
+          "raw": 81,
+          "formula": "÷2 → +27",
+          "time": 44.3833333333321
+        },
+        {
+          "layer": 2,
+          "lane": 2,
+          "before": 81,
+          "after": 89,
+          "raw": 89,
+          "formula": "+15 → −7",
+          "time": 48.59999999999852
+        },
+        {
+          "layer": 2,
+          "lane": 0,
+          "before": 89,
+          "after": 145,
+          "raw": 145,
+          "formula": "×2 → −33",
+          "time": 54.09999999999821
+        },
+        {
+          "layer": 3,
+          "lane": 0,
+          "before": 145,
+          "after": 95,
+          "raw": 95,
+          "formula": "÷2 → +23",
+          "time": 58.683333333331284
+        },
+        {
+          "layer": 3,
+          "lane": 1,
+          "before": 95,
+          "after": 101,
+          "raw": 101,
+          "formula": "+14 → −8",
+          "time": 62.89999999999771
+        },
+        {
+          "layer": 3,
+          "lane": 2,
+          "before": 101,
+          "after": 168,
+          "raw": 168,
+          "formula": "×2 → −34",
+          "time": 68.0166666666641
+        },
+        {
+          "layer": 4,
+          "lane": 1,
+          "before": 168,
+          "after": 180,
+          "raw": 180,
+          "formula": "+20 → −8",
+          "time": 72.43333333333051
+        },
+        {
+          "layer": 4,
+          "lane": 0,
+          "before": 180,
+          "after": 111,
+          "raw": 111,
+          "formula": "÷2 → +21",
+          "time": 74.63333333333038
+        },
+        {
+          "layer": 4,
+          "lane": 2,
+          "before": 111,
+          "after": 180,
+          "raw": 191,
+          "formula": "×2 → −31",
+          "time": 80.3166666666634
+        },
+        {
+          "layer": 5,
+          "lane": 2,
+          "before": 180,
+          "after": 180,
+          "raw": 189,
+          "formula": "+16 → −7",
+          "time": 84.16666666666318
+        },
+        {
+          "layer": 5,
+          "lane": 1,
+          "before": 180,
+          "after": 112,
+          "raw": 112,
+          "formula": "÷2 → +22",
+          "time": 87.28333333332967
+        },
+        {
+          "layer": 5,
+          "lane": 0,
+          "before": 112,
+          "after": 180,
+          "raw": 190,
+          "formula": "×2 → −34",
+          "time": 93.88333333332929
+        },
+        {
+          "layer": 6,
+          "lane": 1,
+          "before": 180,
+          "after": 180,
+          "raw": 187,
+          "formula": "+14 → −7",
+          "time": 97.9166666666624
+        },
+        {
+          "layer": 6,
+          "lane": 0,
+          "before": 180,
+          "after": 110,
+          "raw": 110,
+          "formula": "÷2 → +20",
+          "time": 101.39999999999553
+        },
+        {
+          "layer": 6,
+          "lane": 2,
+          "before": 110,
+          "after": 180,
+          "raw": 196,
+          "formula": "×2 → −24",
+          "time": 108.54999999999512
+        },
+        {
+          "layer": 7,
+          "lane": 1,
+          "before": 180,
+          "after": 180,
+          "raw": 193,
+          "formula": "+19 → −6",
+          "time": 112.58333333332823
+        },
+        {
+          "layer": 7,
+          "lane": 0,
+          "before": 180,
+          "after": 108,
+          "raw": 108,
+          "formula": "÷2 → +18",
+          "time": 116.43333333332801
+        },
+        {
+          "layer": 7,
+          "lane": 2,
+          "before": 108,
+          "after": 180,
+          "raw": 185,
+          "formula": "×2 → −31",
+          "time": 124.13333333332757
+        },
+        {
+          "layer": 8,
+          "lane": 2,
+          "before": 180,
+          "after": 180,
+          "raw": 191,
+          "formula": "+19 → −8",
+          "time": 128.71666666666124
+        },
+        {
+          "layer": 8,
+          "lane": 1,
+          "before": 180,
+          "after": 112,
+          "raw": 112,
+          "formula": "÷2 → +22",
+          "time": 132.19999999999735
+        },
+        {
+          "layer": 8,
+          "lane": 0,
+          "before": 112,
+          "after": 180,
+          "raw": 196,
+          "formula": "×2 → −28",
+          "time": 139.90000000000347
+        },
+        {
+          "layer": 9,
+          "lane": 0,
+          "before": 180,
+          "after": 180,
+          "raw": 189,
+          "formula": "+14 → −5",
+          "time": 144.48333333334045
+        },
+        {
+          "layer": 9,
+          "lane": 2,
+          "before": 180,
+          "after": 109,
+          "raw": 109,
+          "formula": "÷2 → +19",
+          "time": 148.33333333334352
+        },
+        {
+          "layer": 9,
+          "lane": 1,
+          "before": 109,
+          "after": 180,
+          "raw": 187,
+          "formula": "×2 → −31",
+          "time": 156.21666666668312
+        },
+        {
+          "layer": 10,
+          "lane": 1,
+          "before": 180,
+          "after": 180,
+          "raw": 186,
+          "formula": "+14 → −8",
+          "time": 161.35000000002054
+        },
+        {
+          "layer": 10,
+          "lane": 0,
+          "before": 180,
+          "after": 113,
+          "raw": 113,
+          "formula": "÷2 → +23",
+          "time": 165.93333333335752
+        },
+        {
+          "layer": 10,
+          "lane": 2,
+          "before": 113,
+          "after": 180,
+          "raw": 202,
+          "formula": "×2 → −24",
+          "time": 174.55000000003105
+        },
+        {
+          "layer": 11,
+          "lane": 2,
+          "before": 180,
+          "after": 180,
+          "raw": 186,
+          "formula": "+14 → −8",
+          "time": 179.83333333336859
+        },
+        {
+          "layer": 11,
+          "lane": 1,
+          "before": 180,
+          "after": 110,
+          "raw": 110,
+          "formula": "÷2 → +20",
+          "time": 184.81666666670588
+        },
+        {
+          "layer": 11,
+          "lane": 0,
+          "before": 110,
+          "after": 180,
+          "raw": 189,
+          "formula": "×2 → −31",
+          "time": 194.16666666671333
+        }
+      ]
+    },
+    {
+      "seed": 4,
+      "style": "smart",
+      "mode": "win",
+      "time": 200.9,
+      "distance": 21600,
+      "army": 180,
+      "hull": 100,
+      "crossed": 12,
+      "kills": 1152,
+      "retreated": 0,
+      "maxEmptyTime": 1.4999999999999996,
+      "peak": 192,
+      "history": [
+        {
+          "layer": 0,
+          "lane": 2,
+          "before": 24,
+          "after": 38,
+          "raw": 38,
+          "formula": "÷2 → +26",
+          "time": 5.149999999999987
+        },
+        {
+          "layer": 0,
+          "lane": 0,
+          "before": 38,
+          "after": 46,
+          "raw": 46,
+          "formula": "+14 → −6",
+          "time": 11.750000000000163
+        },
+        {
+          "layer": 0,
+          "lane": 1,
+          "before": 46,
+          "after": 58,
+          "raw": 58,
+          "formula": "×2 → −34",
+          "time": 21.283333333333406
+        },
+        {
+          "layer": 1,
+          "lane": 0,
+          "before": 58,
+          "after": 50,
+          "raw": 50,
+          "formula": "÷2 → +21",
+          "time": 28.066666666666354
+        },
+        {
+          "layer": 1,
+          "lane": 1,
+          "before": 50,
+          "after": 57,
+          "raw": 57,
+          "formula": "+14 → −7",
+          "time": 33.016666666666076
+        },
+        {
+          "layer": 1,
+          "lane": 2,
+          "before": 57,
+          "after": 89,
+          "raw": 89,
+          "formula": "×2 → −25",
+          "time": 41.083333333332284
+        },
+        {
+          "layer": 2,
+          "lane": 0,
+          "before": 89,
+          "after": 65,
+          "raw": 65,
+          "formula": "÷2 → +21",
+          "time": 46.216666666665326
+        },
+        {
+          "layer": 2,
+          "lane": 1,
+          "before": 65,
+          "after": 73,
+          "raw": 73,
+          "formula": "+16 → −8",
+          "time": 50.616666666665076
+        },
+        {
+          "layer": 2,
+          "lane": 2,
+          "before": 73,
+          "after": 113,
+          "raw": 113,
+          "formula": "×2 → −33",
+          "time": 58.31666666666464
+        },
+        {
+          "layer": 3,
+          "lane": 0,
+          "before": 113,
+          "after": 84,
+          "raw": 84,
+          "formula": "÷2 → +28",
+          "time": 62.89999999999771
+        },
+        {
+          "layer": 3,
+          "lane": 1,
+          "before": 84,
+          "after": 92,
+          "raw": 92,
+          "formula": "+16 → −8",
+          "time": 66.38333333333085
+        },
+        {
+          "layer": 3,
+          "lane": 2,
+          "before": 92,
+          "after": 149,
+          "raw": 149,
+          "formula": "×2 → −35",
+          "time": 72.79999999999715
+        },
+        {
+          "layer": 4,
+          "lane": 1,
+          "before": 149,
+          "after": 159,
+          "raw": 159,
+          "formula": "+15 → −5",
+          "time": 76.64999999999694
+        },
+        {
+          "layer": 4,
+          "lane": 0,
+          "before": 159,
+          "after": 106,
+          "raw": 106,
+          "formula": "÷2 → +27",
+          "time": 79.39999999999678
+        },
+        {
+          "layer": 4,
+          "lane": 2,
+          "before": 106,
+          "after": 180,
+          "raw": 181,
+          "formula": "×2 → −31",
+          "time": 85.63333333332976
+        },
+        {
+          "layer": 5,
+          "lane": 2,
+          "before": 180,
+          "after": 180,
+          "raw": 193,
+          "formula": "+19 → −6",
+          "time": 89.48333333332954
+        },
+        {
+          "layer": 5,
+          "lane": 1,
+          "before": 180,
+          "after": 108,
+          "raw": 108,
+          "formula": "÷2 → +18",
+          "time": 92.78333333332935
+        },
+        {
+          "layer": 5,
+          "lane": 0,
+          "before": 108,
+          "after": 180,
+          "raw": 180,
+          "formula": "×2 → −36",
+          "time": 99.5666666666623
+        },
+        {
+          "layer": 6,
+          "lane": 2,
+          "before": 180,
+          "after": 180,
+          "raw": 190,
+          "formula": "+15 → −5",
+          "time": 103.5999999999954
+        },
+        {
+          "layer": 6,
+          "lane": 1,
+          "before": 180,
+          "after": 116,
+          "raw": 116,
+          "formula": "÷2 → +26",
+          "time": 107.08333333332854
+        },
+        {
+          "layer": 6,
+          "lane": 0,
+          "before": 116,
+          "after": 180,
+          "raw": 205,
+          "formula": "×2 → −27",
+          "time": 114.23333333332813
+        },
+        {
+          "layer": 7,
+          "lane": 2,
+          "before": 180,
+          "after": 180,
+          "raw": 193,
+          "formula": "+20 → −7",
+          "time": 118.26666666666124
+        },
+        {
+          "layer": 7,
+          "lane": 1,
+          "before": 180,
+          "after": 114,
+          "raw": 114,
+          "formula": "÷2 → +24",
+          "time": 122.11666666666102
+        },
+        {
+          "layer": 7,
+          "lane": 0,
+          "before": 114,
+          "after": 180,
+          "raw": 192,
+          "formula": "×2 → −36",
+          "time": 129.44999999999516
+        },
+        {
+          "layer": 8,
+          "lane": 0,
+          "before": 180,
+          "after": 180,
+          "raw": 195,
+          "formula": "+20 → −5",
+          "time": 133.84999999999866
+        },
+        {
+          "layer": 8,
+          "lane": 2,
+          "before": 180,
+          "after": 108,
+          "raw": 108,
+          "formula": "÷2 → +18",
+          "time": 137.51666666666824
+        },
+        {
+          "layer": 8,
+          "lane": 1,
+          "before": 108,
+          "after": 180,
+          "raw": 180,
+          "formula": "×2 → −36",
+          "time": 145.40000000000785
+        },
+        {
+          "layer": 9,
+          "lane": 1,
+          "before": 180,
+          "after": 180,
+          "raw": 187,
+          "formula": "+14 → −7",
+          "time": 149.98333333334483
+        },
+        {
+          "layer": 9,
+          "lane": 0,
+          "before": 180,
+          "after": 111,
+          "raw": 111,
+          "formula": "÷2 → +21",
+          "time": 153.8333333333479
+        },
+        {
+          "layer": 9,
+          "lane": 2,
+          "before": 111,
+          "after": 180,
+          "raw": 187,
+          "formula": "×2 → −35",
+          "time": 161.7166666666875
+        },
+        {
+          "layer": 10,
+          "lane": 1,
+          "before": 180,
+          "after": 180,
+          "raw": 190,
+          "formula": "+18 → −8",
+          "time": 166.85000000002492
+        },
+        {
+          "layer": 10,
+          "lane": 0,
+          "before": 180,
+          "after": 109,
+          "raw": 109,
+          "formula": "÷2 → +19",
+          "time": 171.4333333333619
+        },
+        {
+          "layer": 10,
+          "lane": 2,
+          "before": 109,
+          "after": 180,
+          "raw": 194,
+          "formula": "×2 → −24",
+          "time": 180.60000000003586
+        },
+        {
+          "layer": 11,
+          "lane": 0,
+          "before": 180,
+          "after": 180,
+          "raw": 188,
+          "formula": "+16 → −8",
+          "time": 185.73333333337328
+        },
+        {
+          "layer": 11,
+          "lane": 2,
+          "before": 180,
+          "after": 118,
+          "raw": 118,
+          "formula": "÷2 → +28",
+          "time": 190.68333333337722
+        },
+        {
+          "layer": 11,
+          "lane": 1,
+          "before": 118,
+          "after": 180,
+          "raw": 209,
+          "formula": "×2 → −27",
+          "time": 199.85000000005118
+        }
+      ]
+    },
+    {
+      "seed": 5,
+      "style": "smart",
+      "mode": "win",
+      "time": 193,
+      "distance": 21600,
+      "army": 180,
+      "hull": 100,
+      "crossed": 12,
+      "kills": 1152,
+      "retreated": 0,
+      "maxEmptyTime": 1.4999999999999996,
+      "peak": 192,
+      "history": [
+        {
+          "layer": 0,
+          "lane": 1,
+          "before": 24,
+          "after": 37,
+          "raw": 37,
+          "formula": "÷2 → +25",
+          "time": 5.149999999999987
+        },
+        {
+          "layer": 0,
+          "lane": 2,
+          "before": 37,
+          "after": 49,
+          "raw": 49,
+          "formula": "+20 → −8",
+          "time": 11.750000000000163
+        },
+        {
+          "layer": 0,
+          "lane": 0,
+          "before": 49,
+          "after": 62,
+          "raw": 62,
+          "formula": "×2 → −36",
+          "time": 19.6333333333335
+        },
+        {
+          "layer": 1,
+          "lane": 2,
+          "before": 62,
+          "after": 56,
+          "raw": 56,
+          "formula": "÷2 → +25",
+          "time": 26.59999999999977
+        },
+        {
+          "layer": 1,
+          "lane": 0,
+          "before": 56,
+          "after": 68,
+          "raw": 68,
+          "formula": "+20 → −8",
+          "time": 31.733333333332812
+        },
+        {
+          "layer": 1,
+          "lane": 1,
+          "before": 68,
+          "after": 112,
+          "raw": 112,
+          "formula": "×2 → −24",
+          "time": 38.88333333333241
+        },
+        {
+          "layer": 2,
+          "lane": 2,
+          "before": 112,
+          "after": 74,
+          "raw": 74,
+          "formula": "÷2 → +18",
+          "time": 42.73333333333219
+        },
+        {
+          "layer": 2,
+          "lane": 0,
+          "before": 74,
+          "after": 86,
+          "raw": 86,
+          "formula": "+18 → −6",
+          "time": 46.94999999999862
+        },
+        {
+          "layer": 2,
+          "lane": 1,
+          "before": 86,
+          "after": 142,
+          "raw": 142,
+          "formula": "×2 → −30",
+          "time": 52.99999999999827
+        },
+        {
+          "layer": 3,
+          "lane": 1,
+          "before": 142,
+          "after": 90,
+          "raw": 90,
+          "formula": "÷2 → +19",
+          "time": 56.849999999998055
+        },
+        {
+          "layer": 3,
+          "lane": 2,
+          "before": 90,
+          "after": 96,
+          "raw": 96,
+          "formula": "+14 → −8",
+          "time": 60.51666666666451
+        },
+        {
+          "layer": 3,
+          "lane": 0,
+          "before": 96,
+          "after": 161,
+          "raw": 161,
+          "formula": "×2 → −31",
+          "time": 66.01666666666421
+        },
+        {
+          "layer": 4,
+          "lane": 1,
+          "before": 161,
+          "after": 173,
+          "raw": 173,
+          "formula": "+17 → −5",
+          "time": 69.68333333333067
+        },
+        {
+          "layer": 4,
+          "lane": 0,
+          "before": 173,
+          "after": 109,
+          "raw": 109,
+          "formula": "÷2 → +23",
+          "time": 72.79999999999715
+        },
+        {
+          "layer": 4,
+          "lane": 2,
+          "before": 109,
+          "after": 180,
+          "raw": 187,
+          "formula": "×2 → −31",
+          "time": 78.84999999999681
+        },
+        {
+          "layer": 5,
+          "lane": 1,
+          "before": 180,
+          "after": 180,
+          "raw": 190,
+          "formula": "+17 → −7",
+          "time": 82.88333333332992
+        },
+        {
+          "layer": 5,
+          "lane": 0,
+          "before": 180,
+          "after": 109,
+          "raw": 109,
+          "formula": "÷2 → +19",
+          "time": 86.51666666666304
+        },
+        {
+          "layer": 5,
+          "lane": 2,
+          "before": 109,
+          "after": 180,
+          "raw": 192,
+          "formula": "×2 → −26",
+          "time": 93.33333333332932
+        },
+        {
+          "layer": 6,
+          "lane": 0,
+          "before": 180,
+          "after": 180,
+          "raw": 188,
+          "formula": "+16 → −8",
+          "time": 97.54999999999575
+        },
+        {
+          "layer": 6,
+          "lane": 2,
+          "before": 180,
+          "after": 110,
+          "raw": 110,
+          "formula": "÷2 → +20",
+          "time": 101.2166666666622
+        },
+        {
+          "layer": 6,
+          "lane": 1,
+          "before": 108,
+          "after": 180,
+          "raw": 190,
+          "formula": "×2 → −26",
+          "time": 108.3666666666618
+        },
+        {
+          "layer": 7,
+          "lane": 1,
+          "before": 180,
+          "after": 180,
+          "raw": 187,
+          "formula": "+14 → −7",
+          "time": 112.58333333332823
+        },
+        {
+          "layer": 7,
+          "lane": 0,
+          "before": 180,
+          "after": 111,
+          "raw": 111,
+          "formula": "÷2 → +21",
+          "time": 116.43333333332801
+        },
+        {
+          "layer": 7,
+          "lane": 2,
+          "before": 111,
+          "after": 180,
+          "raw": 193,
+          "formula": "×2 → −29",
+          "time": 123.76666666666092
+        },
+        {
+          "layer": 8,
+          "lane": 0,
+          "before": 180,
+          "after": 180,
+          "raw": 190,
+          "formula": "+17 → −7",
+          "time": 128.34999999999428
+        },
+        {
+          "layer": 8,
+          "lane": 2,
+          "before": 180,
+          "after": 111,
+          "raw": 111,
+          "formula": "÷2 → +21",
+          "time": 131.8333333333304
+        },
+        {
+          "layer": 8,
+          "lane": 1,
+          "before": 111,
+          "after": 180,
+          "raw": 186,
+          "formula": "×2 → −36",
+          "time": 139.71666666667
+        },
+        {
+          "layer": 9,
+          "lane": 0,
+          "before": 180,
+          "after": 180,
+          "raw": 187,
+          "formula": "+14 → −7",
+          "time": 144.30000000000697
+        },
+        {
+          "layer": 9,
+          "lane": 2,
+          "before": 180,
+          "after": 108,
+          "raw": 108,
+          "formula": "÷2 → +18",
+          "time": 148.15000000001004
+        },
+        {
+          "layer": 9,
+          "lane": 1,
+          "before": 108,
+          "after": 180,
+          "raw": 183,
+          "formula": "×2 → −33",
+          "time": 156.03333333334965
+        },
+        {
+          "layer": 10,
+          "lane": 0,
+          "before": 180,
+          "after": 180,
+          "raw": 188,
+          "formula": "+15 → −7",
+          "time": 161.16666666668706
+        },
+        {
+          "layer": 10,
+          "lane": 2,
+          "before": 180,
+          "after": 112,
+          "raw": 112,
+          "formula": "÷2 → +22",
+          "time": 165.75000000002404
+        },
+        {
+          "layer": 10,
+          "lane": 1,
+          "before": 112,
+          "after": 180,
+          "raw": 196,
+          "formula": "×2 → −28",
+          "time": 174.36666666669757
+        },
+        {
+          "layer": 11,
+          "lane": 1,
+          "before": 180,
+          "after": 180,
+          "raw": 190,
+          "formula": "+18 → −8",
+          "time": 179.68333333336847
+        },
+        {
+          "layer": 11,
+          "lane": 0,
+          "before": 180,
+          "after": 110,
+          "raw": 110,
+          "formula": "÷2 → +20",
+          "time": 183.35000000003805
+        },
+        {
+          "layer": 11,
+          "lane": 2,
+          "before": 110,
+          "after": 180,
+          "raw": 184,
+          "formula": "×2 → −36",
+          "time": 191.96666666671157
+        }
+      ]
+    },
+    {
+      "seed": 6,
+      "style": "smart",
+      "mode": "win",
+      "time": 206.5,
+      "distance": 21600,
+      "army": 180,
+      "hull": 100,
+      "crossed": 12,
+      "kills": 1152,
+      "retreated": 0,
+      "maxEmptyTime": 1.4999999999999996,
+      "peak": 192,
+      "history": [
+        {
+          "layer": 0,
+          "lane": 2,
+          "before": 24,
+          "after": 30,
+          "raw": 30,
+          "formula": "÷2 → +18",
+          "time": 5.149999999999987
+        },
+        {
+          "layer": 0,
+          "lane": 0,
+          "before": 30,
+          "after": 37,
+          "raw": 37,
+          "formula": "+15 → −8",
+          "time": 13.950000000000273
+        },
+        {
+          "layer": 0,
+          "lane": 1,
+          "before": 37,
+          "after": 45,
+          "raw": 45,
+          "formula": "×2 → −29",
+          "time": 23.48333333333328
+        },
+        {
+          "layer": 1,
+          "lane": 0,
+          "before": 45,
+          "after": 41,
+          "raw": 41,
+          "formula": "÷2 → +19",
+          "time": 31.183333333332843
+        },
+        {
+          "layer": 1,
+          "lane": 1,
+          "before": 41,
+          "after": 53,
+          "raw": 53,
+          "formula": "+17 → −5",
+          "time": 38.14999999999912
+        },
+        {
+          "layer": 1,
+          "lane": 2,
+          "before": 53,
+          "after": 78,
+          "raw": 78,
+          "formula": "×2 → −28",
+          "time": 46.39999999999865
+        },
+        {
+          "layer": 2,
+          "lane": 1,
+          "before": 78,
+          "after": 64,
+          "raw": 64,
+          "formula": "÷2 → +25",
+          "time": 52.63333333333163
+        },
+        {
+          "layer": 2,
+          "lane": 2,
+          "before": 64,
+          "after": 74,
+          "raw": 74,
+          "formula": "+17 → −7",
+          "time": 57.03333333333138
+        },
+        {
+          "layer": 2,
+          "lane": 0,
+          "before": 74,
+          "after": 115,
+          "raw": 115,
+          "formula": "×2 → −33",
+          "time": 64.3666666666643
+        },
+        {
+          "layer": 3,
+          "lane": 0,
+          "before": 115,
+          "after": 78,
+          "raw": 78,
+          "formula": "÷2 → +21",
+          "time": 68.94999999999737
+        },
+        {
+          "layer": 3,
+          "lane": 1,
+          "before": 78,
+          "after": 91,
+          "raw": 91,
+          "formula": "+20 → −7",
+          "time": 72.98333333333048
+        },
+        {
+          "layer": 3,
+          "lane": 2,
+          "before": 91,
+          "after": 155,
+          "raw": 155,
+          "formula": "×2 → −27",
+          "time": 79.21666666666346
+        },
+        {
+          "layer": 4,
+          "lane": 0,
+          "before": 155,
+          "after": 165,
+          "raw": 165,
+          "formula": "+17 → −7",
+          "time": 83.06666666666324
+        },
+        {
+          "layer": 4,
+          "lane": 2,
+          "before": 165,
+          "after": 101,
+          "raw": 101,
+          "formula": "÷2 → +19",
+          "time": 85.63333333332976
+        },
+        {
+          "layer": 4,
+          "lane": 1,
+          "before": 101,
+          "after": 178,
+          "raw": 178,
+          "formula": "×2 → −24",
+          "time": 91.86666666666274
+        },
+        {
+          "layer": 5,
+          "lane": 0,
+          "before": 178,
+          "after": 180,
+          "raw": 188,
+          "formula": "+17 → −7",
+          "time": 95.71666666666252
+        },
+        {
+          "layer": 5,
+          "lane": 2,
+          "before": 180,
+          "after": 118,
+          "raw": 118,
+          "formula": "÷2 → +28",
+          "time": 98.83333333332901
+        },
+        {
+          "layer": 5,
+          "lane": 1,
+          "before": 118,
+          "after": 180,
+          "raw": 203,
+          "formula": "×2 → −33",
+          "time": 105.06666666666199
+        },
+        {
+          "layer": 6,
+          "lane": 1,
+          "before": 180,
+          "after": 180,
+          "raw": 188,
+          "formula": "+14 → −6",
+          "time": 109.28333333332841
+        },
+        {
+          "layer": 6,
+          "lane": 0,
+          "before": 180,
+          "after": 112,
+          "raw": 112,
+          "formula": "÷2 → +22",
+          "time": 112.76666666666155
+        },
+        {
+          "layer": 6,
+          "lane": 2,
+          "before": 112,
+          "after": 180,
+          "raw": 200,
+          "formula": "×2 → −24",
+          "time": 119.91666666666114
+        },
+        {
+          "layer": 7,
+          "lane": 0,
+          "before": 180,
+          "after": 180,
+          "raw": 190,
+          "formula": "+16 → −6",
+          "time": 123.94999999999425
+        },
+        {
+          "layer": 7,
+          "lane": 2,
+          "before": 178,
+          "after": 107,
+          "raw": 107,
+          "formula": "÷2 → +18",
+          "time": 127.79999999999403
+        },
+        {
+          "layer": 7,
+          "lane": 1,
+          "before": 107,
+          "after": 180,
+          "raw": 182,
+          "formula": "×2 → −32",
+          "time": 135.49999999999997
+        },
+        {
+          "layer": 8,
+          "lane": 2,
+          "before": 180,
+          "after": 180,
+          "raw": 192,
+          "formula": "+17 → −5",
+          "time": 140.08333333333695
+        },
+        {
+          "layer": 8,
+          "lane": 1,
+          "before": 180,
+          "after": 110,
+          "raw": 110,
+          "formula": "÷2 → +20",
+          "time": 143.56666666667306
+        },
+        {
+          "layer": 8,
+          "lane": 0,
+          "before": 110,
+          "after": 180,
+          "raw": 195,
+          "formula": "×2 → −25",
+          "time": 151.26666666667919
+        },
+        {
+          "layer": 9,
+          "lane": 2,
+          "before": 180,
+          "after": 180,
+          "raw": 192,
+          "formula": "+18 → −6",
+          "time": 155.85000000001617
+        },
+        {
+          "layer": 9,
+          "lane": 1,
+          "before": 180,
+          "after": 111,
+          "raw": 111,
+          "formula": "÷2 → +21",
+          "time": 159.70000000001923
+        },
+        {
+          "layer": 9,
+          "lane": 0,
+          "before": 111,
+          "after": 180,
+          "raw": 186,
+          "formula": "×2 → −36",
+          "time": 167.58333333335884
+        },
+        {
+          "layer": 10,
+          "lane": 0,
+          "before": 180,
+          "after": 180,
+          "raw": 188,
+          "formula": "+15 → −7",
+          "time": 172.53333333336278
+        },
+        {
+          "layer": 10,
+          "lane": 2,
+          "before": 180,
+          "after": 108,
+          "raw": 108,
+          "formula": "÷2 → +18",
+          "time": 177.11666666669976
+        },
+        {
+          "layer": 10,
+          "lane": 1,
+          "before": 108,
+          "after": 180,
+          "raw": 186,
+          "formula": "×2 → −30",
+          "time": 186.28333333337372
+        },
+        {
+          "layer": 11,
+          "lane": 0,
+          "before": 180,
+          "after": 180,
+          "raw": 193,
+          "formula": "+20 → −7",
+          "time": 191.41666666671114
+        },
+        {
+          "layer": 11,
+          "lane": 2,
+          "before": 180,
+          "after": 118,
+          "raw": 118,
+          "formula": "÷2 → +28",
+          "time": 196.36666666671508
+        },
+        {
+          "layer": 11,
+          "lane": 1,
+          "before": 118,
+          "after": 180,
+          "raw": 211,
+          "formula": "×2 → −25",
+          "time": 205.53333333338904
+        }
+      ]
+    }
+  ],
+  "idle": {
+    "seed": 3,
+    "style": "idle",
+    "mode": "lose",
+    "time": 59.2,
+    "distance": 610,
+    "army": 11,
+    "hull": 0,
+    "crossed": 0,
+    "kills": 32,
+    "retreated": 0,
+    "maxEmptyTime": 0,
+    "peak": 192,
+    "history": [
+      {
+        "layer": 0,
+        "lane": 1,
+        "before": 20,
+        "after": 33,
+        "raw": 33,
+        "formula": "÷2 → +23",
+        "time": 13.583333333333588
+      }
+    ]
+  },
+  "multiply": {
+    "seed": 3,
+    "style": "multiply",
+    "mode": "win",
+    "time": 226,
+    "distance": 21600,
+    "army": 116,
+    "hull": 100,
+    "crossed": 12,
+    "kills": 1152,
+    "retreated": 0,
+    "maxEmptyTime": 1.4999999999999996,
+    "peak": 192,
+    "history": [
+      {
+        "layer": 0,
+        "lane": 0,
+        "before": 24,
+        "after": 15,
+        "raw": 15,
+        "formula": "×2 → −33",
+        "time": 10.283333333333424
+      },
+      {
+        "layer": 0,
+        "lane": 1,
+        "before": 15,
+        "after": 30,
+        "raw": 30,
+        "formula": "÷2 → +23",
+        "time": 20.36666666666679
+      },
+      {
+        "layer": 0,
+        "lane": 2,
+        "before": 30,
+        "after": 40,
+        "raw": 40,
+        "formula": "+15 → −5",
+        "time": 29.71666666666626
+      },
+      {
+        "layer": 1,
+        "lane": 1,
+        "before": 40,
+        "after": 49,
+        "raw": 49,
+        "formula": "×2 → −31",
+        "time": 40.89999999999896
+      },
+      {
+        "layer": 1,
+        "lane": 0,
+        "before": 49,
+        "after": 63,
+        "raw": 63,
+        "formula": "+19 → −5",
+        "time": 46.58333333333197
+      },
+      {
+        "layer": 1,
+        "lane": 2,
+        "before": 63,
+        "after": 59,
+        "raw": 59,
+        "formula": "÷2 → +28",
+        "time": 52.449999999998305
+      },
+      {
+        "layer": 2,
+        "lane": 0,
+        "before": 59,
+        "after": 85,
+        "raw": 85,
+        "formula": "×2 → −33",
+        "time": 62.89999999999771
+      },
+      {
+        "layer": 2,
+        "lane": 1,
+        "before": 85,
+        "after": 69,
+        "raw": 69,
+        "formula": "÷2 → +27",
+        "time": 67.29999999999747
+      },
+      {
+        "layer": 2,
+        "lane": 2,
+        "before": 69,
+        "after": 77,
+        "raw": 77,
+        "formula": "+15 → −7",
+        "time": 71.88333333333054
+      },
+      {
+        "layer": 3,
+        "lane": 2,
+        "before": 77,
+        "after": 120,
+        "raw": 120,
+        "formula": "×2 → −34",
+        "time": 81.41666666666333
+      },
+      {
+        "layer": 3,
+        "lane": 0,
+        "before": 120,
+        "after": 83,
+        "raw": 83,
+        "formula": "÷2 → +23",
+        "time": 85.08333333332979
+      },
+      {
+        "layer": 3,
+        "lane": 1,
+        "before": 83,
+        "after": 89,
+        "raw": 89,
+        "formula": "+14 → −8",
+        "time": 88.56666666666293
+      },
+      {
+        "layer": 4,
+        "lane": 2,
+        "before": 89,
+        "after": 147,
+        "raw": 147,
+        "formula": "×2 → −31",
+        "time": 96.63333333332913
+      },
+      {
+        "layer": 4,
+        "lane": 0,
+        "before": 145,
+        "after": 93,
+        "raw": 93,
+        "formula": "÷2 → +21",
+        "time": 100.29999999999559
+      },
+      {
+        "layer": 4,
+        "lane": 1,
+        "before": 93,
+        "after": 105,
+        "raw": 105,
+        "formula": "+20 → −8",
+        "time": 105.24999999999531
+      },
+      {
+        "layer": 5,
+        "lane": 0,
+        "before": 105,
+        "after": 176,
+        "raw": 176,
+        "formula": "×2 → −34",
+        "time": 113.31666666666152
+      },
+      {
+        "layer": 5,
+        "lane": 1,
+        "before": 176,
+        "after": 110,
+        "raw": 110,
+        "formula": "÷2 → +22",
+        "time": 116.61666666666133
+      },
+      {
+        "layer": 5,
+        "lane": 2,
+        "before": 110,
+        "after": 119,
+        "raw": 119,
+        "formula": "+16 → −7",
+        "time": 120.46666666666111
+      },
+      {
+        "layer": 6,
+        "lane": 2,
+        "before": 119,
+        "after": 180,
+        "raw": 214,
+        "formula": "×2 → −24",
+        "time": 128.34999999999428
+      },
+      {
+        "layer": 6,
+        "lane": 0,
+        "before": 180,
+        "after": 110,
+        "raw": 110,
+        "formula": "÷2 → +20",
+        "time": 131.46666666666343
+      },
+      {
+        "layer": 6,
+        "lane": 1,
+        "before": 110,
+        "after": 117,
+        "raw": 117,
+        "formula": "+14 → −7",
+        "time": 135.3166666666665
+      },
+      {
+        "layer": 7,
+        "lane": 2,
+        "before": 117,
+        "after": 180,
+        "raw": 203,
+        "formula": "×2 → −31",
+        "time": 143.75000000000654
+      },
+      {
+        "layer": 7,
+        "lane": 0,
+        "before": 180,
+        "after": 108,
+        "raw": 108,
+        "formula": "÷2 → +18",
+        "time": 146.86666666667568
+      },
+      {
+        "layer": 7,
+        "lane": 1,
+        "before": 108,
+        "after": 121,
+        "raw": 121,
+        "formula": "+19 → −6",
+        "time": 150.90000000001223
+      },
+      {
+        "layer": 8,
+        "lane": 0,
+        "before": 121,
+        "after": 180,
+        "raw": 214,
+        "formula": "×2 → −28",
+        "time": 159.70000000001923
+      },
+      {
+        "layer": 8,
+        "lane": 1,
+        "before": 180,
+        "after": 112,
+        "raw": 112,
+        "formula": "÷2 → +22",
+        "time": 163.91666666668925
+      },
+      {
+        "layer": 8,
+        "lane": 2,
+        "before": 112,
+        "after": 123,
+        "raw": 123,
+        "formula": "+19 → −8",
+        "time": 168.8666666666932
+      },
+      {
+        "layer": 9,
+        "lane": 1,
+        "before": 123,
+        "after": 180,
+        "raw": 215,
+        "formula": "×2 → −31",
+        "time": 178.21666666670063
+      },
+      {
+        "layer": 9,
+        "lane": 0,
+        "before": 180,
+        "after": 180,
+        "raw": 189,
+        "formula": "+14 → −5",
+        "time": 181.33333333336978
+      },
+      {
+        "layer": 9,
+        "lane": 2,
+        "before": 180,
+        "after": 109,
+        "raw": 109,
+        "formula": "÷2 → +19",
+        "time": 185.36666666670632
+      },
+      {
+        "layer": 10,
+        "lane": 2,
+        "before": 109,
+        "after": 180,
+        "raw": 194,
+        "formula": "×2 → −24",
+        "time": 195.45000000004768
+      },
+      {
+        "layer": 10,
+        "lane": 0,
+        "before": 180,
+        "after": 113,
+        "raw": 113,
+        "formula": "÷2 → +23",
+        "time": 200.03333333338466
+      },
+      {
+        "layer": 10,
+        "lane": 1,
+        "before": 113,
+        "after": 119,
+        "raw": 119,
+        "formula": "+14 → −8",
+        "time": 204.9833333333886
+      },
+      {
+        "layer": 11,
+        "lane": 0,
+        "before": 119,
+        "after": 180,
+        "raw": 207,
+        "formula": "×2 → −31",
+        "time": 215.06666666672996
+      },
+      {
+        "layer": 11,
+        "lane": 1,
+        "before": 180,
+        "after": 110,
+        "raw": 110,
+        "formula": "÷2 → +20",
+        "time": 219.65000000006694
+      },
+      {
+        "layer": 11,
+        "lane": 2,
+        "before": 110,
+        "after": 116,
+        "raw": 116,
+        "formula": "+14 → −8",
+        "time": 224.96666666673784
+      }
+    ]
+  },
+  "left": {
+    "seed": 3,
+    "style": "left",
+    "mode": "win",
+    "time": 231.5,
+    "distance": 21600,
+    "army": 116,
+    "hull": 100,
+    "crossed": 12,
+    "kills": 1152,
+    "retreated": 0,
+    "maxEmptyTime": 1.4999999999999996,
+    "peak": 192,
+    "history": [
+      {
+        "layer": 0,
+        "lane": 0,
+        "before": 24,
+        "after": 15,
+        "raw": 15,
+        "formula": "×2 → −33",
+        "time": 10.283333333333424
+      },
+      {
+        "layer": 0,
+        "lane": 1,
+        "before": 15,
+        "after": 30,
+        "raw": 30,
+        "formula": "÷2 → +23",
+        "time": 20.36666666666679
+      },
+      {
+        "layer": 0,
+        "lane": 2,
+        "before": 30,
+        "after": 40,
+        "raw": 40,
+        "formula": "+15 → −5",
+        "time": 29.71666666666626
+      },
+      {
+        "layer": 1,
+        "lane": 0,
+        "before": 40,
+        "after": 54,
+        "raw": 54,
+        "formula": "+19 → −5",
+        "time": 35.94999999999924
+      },
+      {
+        "layer": 1,
+        "lane": 1,
+        "before": 54,
+        "after": 77,
+        "raw": 77,
+        "formula": "×2 → −31",
+        "time": 45.11666666666539
+      },
+      {
+        "layer": 1,
+        "lane": 2,
+        "before": 77,
+        "after": 66,
+        "raw": 66,
+        "formula": "÷2 → +28",
+        "time": 49.14999999999849
+      },
+      {
+        "layer": 2,
+        "lane": 0,
+        "before": 66,
+        "after": 99,
+        "raw": 99,
+        "formula": "×2 → −33",
+        "time": 57.583333333331346
+      },
+      {
+        "layer": 2,
+        "lane": 1,
+        "before": 99,
+        "after": 76,
+        "raw": 76,
+        "formula": "÷2 → +27",
+        "time": 61.06666666666448
+      },
+      {
+        "layer": 2,
+        "lane": 2,
+        "before": 76,
+        "after": 84,
+        "raw": 84,
+        "formula": "+15 → −7",
+        "time": 65.83333333333088
+      },
+      {
+        "layer": 3,
+        "lane": 0,
+        "before": 84,
+        "after": 65,
+        "raw": 65,
+        "formula": "÷2 → +23",
+        "time": 72.06666666666386
+      },
+      {
+        "layer": 3,
+        "lane": 1,
+        "before": 65,
+        "after": 71,
+        "raw": 71,
+        "formula": "+14 → −8",
+        "time": 77.01666666666358
+      },
+      {
+        "layer": 3,
+        "lane": 2,
+        "before": 71,
+        "after": 108,
+        "raw": 108,
+        "formula": "×2 → −34",
+        "time": 85.26666666666311
+      },
+      {
+        "layer": 4,
+        "lane": 0,
+        "before": 108,
+        "after": 75,
+        "raw": 75,
+        "formula": "÷2 → +21",
+        "time": 90.58333333332948
+      },
+      {
+        "layer": 4,
+        "lane": 1,
+        "before": 75,
+        "after": 87,
+        "raw": 87,
+        "formula": "+20 → −8",
+        "time": 96.26666666666249
+      },
+      {
+        "layer": 4,
+        "lane": 2,
+        "before": 87,
+        "after": 143,
+        "raw": 143,
+        "formula": "×2 → −31",
+        "time": 103.5999999999954
+      },
+      {
+        "layer": 5,
+        "lane": 0,
+        "before": 143,
+        "after": 180,
+        "raw": 252,
+        "formula": "×2 → −34",
+        "time": 110.19999999999503
+      },
+      {
+        "layer": 5,
+        "lane": 1,
+        "before": 180,
+        "after": 112,
+        "raw": 112,
+        "formula": "÷2 → +22",
+        "time": 113.86666666666149
+      },
+      {
+        "layer": 5,
+        "lane": 2,
+        "before": 112,
+        "after": 121,
+        "raw": 121,
+        "formula": "+16 → −7",
+        "time": 116.98333333332798
+      },
+      {
+        "layer": 6,
+        "lane": 0,
+        "before": 121,
+        "after": 80,
+        "raw": 80,
+        "formula": "÷2 → +20",
+        "time": 122.29999999999434
+      },
+      {
+        "layer": 6,
+        "lane": 1,
+        "before": 80,
+        "after": 87,
+        "raw": 87,
+        "formula": "+14 → −7",
+        "time": 127.06666666666074
+      },
+      {
+        "layer": 6,
+        "lane": 2,
+        "before": 87,
+        "after": 150,
+        "raw": 150,
+        "formula": "×2 → −24",
+        "time": 135.3166666666665
+      },
+      {
+        "layer": 7,
+        "lane": 0,
+        "before": 150,
+        "after": 93,
+        "raw": 93,
+        "formula": "÷2 → +18",
+        "time": 140.81666666667087
+      },
+      {
+        "layer": 7,
+        "lane": 1,
+        "before": 93,
+        "after": 106,
+        "raw": 106,
+        "formula": "+19 → −6",
+        "time": 145.9500000000083
+      },
+      {
+        "layer": 7,
+        "lane": 2,
+        "before": 106,
+        "after": 180,
+        "raw": 181,
+        "formula": "×2 → −31",
+        "time": 153.46666666668094
+      },
+      {
+        "layer": 8,
+        "lane": 0,
+        "before": 180,
+        "after": 180,
+        "raw": 332,
+        "formula": "×2 → −28",
+        "time": 160.0666666666862
+      },
+      {
+        "layer": 8,
+        "lane": 1,
+        "before": 180,
+        "after": 112,
+        "raw": 112,
+        "formula": "÷2 → +22",
+        "time": 164.10000000002273
+      },
+      {
+        "layer": 8,
+        "lane": 2,
+        "before": 112,
+        "after": 123,
+        "raw": 123,
+        "formula": "+19 → −8",
+        "time": 169.05000000002667
+      },
+      {
+        "layer": 9,
+        "lane": 0,
+        "before": 123,
+        "after": 132,
+        "raw": 132,
+        "formula": "+14 → −5",
+        "time": 175.10000000003149
+      },
+      {
+        "layer": 9,
+        "lane": 1,
+        "before": 132,
+        "after": 180,
+        "raw": 233,
+        "formula": "×2 → −31",
+        "time": 182.8000000000376
+      },
+      {
+        "layer": 9,
+        "lane": 2,
+        "before": 180,
+        "after": 109,
+        "raw": 109,
+        "formula": "÷2 → +19",
+        "time": 186.65000000004068
+      },
+      {
+        "layer": 10,
+        "lane": 0,
+        "before": 109,
+        "after": 77,
+        "raw": 77,
+        "formula": "÷2 → +23",
+        "time": 193.4333333333794
+      },
+      {
+        "layer": 10,
+        "lane": 1,
+        "before": 77,
+        "after": 83,
+        "raw": 83,
+        "formula": "+14 → −8",
+        "time": 200.03333333338466
+      },
+      {
+        "layer": 10,
+        "lane": 2,
+        "before": 83,
+        "after": 142,
+        "raw": 142,
+        "formula": "×2 → −24",
+        "time": 211.2166666667269
+      },
+      {
+        "layer": 11,
+        "lane": 0,
+        "before": 142,
+        "after": 180,
+        "raw": 253,
+        "formula": "×2 → −31",
+        "time": 220.56666666673433
+      },
+      {
+        "layer": 11,
+        "lane": 1,
+        "before": 180,
+        "after": 110,
+        "raw": 110,
+        "formula": "÷2 → +20",
+        "time": 225.15000000007132
+      },
+      {
+        "layer": 11,
+        "lane": 2,
+        "before": 110,
+        "after": 116,
+        "raw": 116,
+        "formula": "+14 → −8",
+        "time": 230.4666666667422
+      }
+    ]
+  }
+}
