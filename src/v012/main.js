@@ -152,7 +152,8 @@ addEventListener('keydown',e=>{if(['ArrowLeft','ArrowRight',' '].includes(e.key)
 let accumulator=0,lastUI=0,lastLabel='',lastHint='';
 function frame(now){const elapsed=clamp((now-last)/1000,0,.1);last=now;if(renderBudget.observe(elapsed,view==='play'&&!freeze&&!hidden))resize();
  if(view==='play'&&!freeze&&!hidden){accumulator+=elapsed;let ticks=0;while(accumulator>=1/60&&ticks++<6){const d=(keys.d||keys.arrowright?1:0)-(keys.a||keys.arrowleft?1:0);if(d)s.target=clamp(s.target+d*370/60,29,391);const pops=s.explosions,near=s.nearMisses;step(s,1/60);if(s.nearMisses>near)sound('wind');else if(s.explosions>pops&&s.time-lastPop>.18){lastPop=s.time;sound('pop');}accumulator-=1/60;if(s.mode!=='play'){end();break;}}}else accumulator=0;
- if(now-lastUI>100){lastUI=now;skill.disabled=!!s.dash||s.cooldown>0||s.tension<45;skill.classList.remove('risk');const label=s.dash?'咕咕 · 破阵中！':s.tension<45?'回充 '+Math.floor(s.tension)+' / 45':'咕咕 · 破阵冲锋';const hint=s.tailwind>0?'借尾风冲出 230':'冲出 180 · 清开面前敌群';if(label!==lastLabel){skillTitle.textContent=label;lastLabel=label;}if(hint!==lastHint){skillHint.textContent=hint;lastHint=hint;}}
+ const disabled=!!s.dash||s.cooldown>0||s.tension<45;if(skill.disabled!==disabled)skill.disabled=disabled;
+ if(now-lastUI>100){lastUI=now;skill.classList.remove('risk');const label=s.dash?'咕咕 · 破阵中！':s.tension<45?'回充 '+Math.floor(s.tension)+' / 45':'咕咕 · 破阵冲锋';const hint=s.tailwind>0?'借尾风冲出 230':'冲出 180 · 清开面前敌群';if(label!==lastLabel){skillTitle.textContent=label;lastLabel=label;}if(hint!==lastHint){skillHint.textContent=hint;lastHint=hint;}}
  render();requestAnimationFrame(frame);
 }
 menu();requestAnimationFrame(frame);
