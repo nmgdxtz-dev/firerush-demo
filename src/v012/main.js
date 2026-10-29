@@ -4,7 +4,7 @@ import {bindInput} from './input.js';
 const canvas=document.querySelector('#c'),overlay=document.querySelector('#overlay'),controls=document.querySelector('#controls'),skill=document.querySelector('#skill');
 let g=canvas.getContext('2d');
 const formation=document.querySelector('#formation'),skillTitle=skill.querySelector('b'),skillHint=skill.querySelector('small');
-let s=createGame(),view='menu',keys={},last=0,freeze=false,hidden=false,muted=true,audio,lastPop=0,best=0,bestScore=0;
+let s=createGame(),view='menu',keys={},last=0,freeze=false,hidden=document.hidden,muted=true,audio,lastPop=0,best=0,bestScore=0;
 try{best=+localStorage.getItem('fr012best')||0;bestScore=+localStorage.getItem('fr012score')||0;}catch{}
 const C={mint:'#9ffff0',gold:'#ffda9e',coral:'#ffad99',ink:'#12313a',pale:'#e8f4df'};
 const box=(x,y,w,h,c,r=0)=>{g.fillStyle=c;g.beginPath();g.roundRect(x,y,w,h,r);g.fill();};
