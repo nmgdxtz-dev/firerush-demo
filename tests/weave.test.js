@@ -1,0 +1,10 @@
+import test from 'node:test';
+import assert from 'node:assert/strict';
+import {createGame,step,rush,spawnEnemy,rushCost} from '../src/v010/game.js';
+import {simulate} from '../scripts/balance-v010.mjs';
+const empty=()=>{const s=createGame(3);s.enemies=[];s.fronts=[];s.spawn=99;s.fire=99;return s;};
+test('clean rush leaves a curved damaging wake and opens discounted chain',()=>{const s=empty();assert(rush(s));s.target=320;for(let i=0;i<50;i++)step(s,1/60);assert(s.wakes[0].points.at(-1).x>290);assert(s.chainWindow>0);assert.equal(rushCost(s),22);const p=s.wakes[0].points[10];spawnEnemy(s,p.x,p.z);s.enemies[0].hp=.1;step(s,1/60);assert.equal(s.wakeKills,1);});
+test('third rush ends chain and requires recovery',()=>{const s=empty();s.tension=100;for(let n=0;n<3;n++){s.tension=100;assert(rush(s));for(let i=0;i<61;i++)step(s,1/60);}assert.equal(s.chain,3);assert.equal(s.chainWindow,0);assert(s.cooldown>5);});
+test('lantern cascade kills locally without global clearing',()=>{const s=empty();spawnEnemy(s,210,25,'lantern');spawnEnemy(s,220,35,'lantern');spawnEnemy(s,230,40);spawnEnemy(s,390,200);s.enemies[0].hp=1;s.fire=0;for(let i=0;i<20;i++)step(s,1/60);assert.equal(s.explosions,2);assert(s.enemies.some(e=>e.x>380&&!e.dead));});
+test('blocked skill is defensive, cannot teleport through a closed ridge',()=>{const s=createGame(2);s.enemies=[];s.distance=400;const z=s.distance;assert(rush(s));assert.equal(s.dash,null);assert.equal(s.tension,24);assert.equal(s.distance,z);assert.equal(s.hull,100);});
+test('nine-ridge escape is achievable while idle and button spam fail',()=>{assert.equal(simulate(3).mode,'win');assert.equal(simulate(12,'idle').mode,'lose');assert.equal(simulate(12,'reckless').mode,'lose');});

@@ -1,0 +1,20 @@
+{
+  "name": "firerush-siege",
+  "version": "0.12.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "python3 -m http.server 4173",
+    "test": "node --test tests/*.test.js",
+    "build": "node scripts/build-v012.mjs",
+    "balance": "node scripts/balance-v012.mjs",
+    "build:v08": "node scripts/build.mjs",
+    "balance:v08": "node scripts/balance.mjs",
+    "build:v09": "node scripts/build-v09.mjs",
+    "balance:v09": "node scripts/balance-v09.mjs",
+    "build:v010": "node scripts/build-v010.mjs",
+    "balance:v010": "node scripts/balance-v010.mjs",
+    "build:v011": "node scripts/build-v011.mjs",
+    "balance:v011": "node scripts/balance-v011.mjs"
+  }
+}
