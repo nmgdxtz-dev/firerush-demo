@@ -1,0 +1,16 @@
+import test from 'node:test';import assert from 'node:assert/strict';
+import{createGame,step,rush,resolveObstacles,chooseFormation,spawnEnemy,MAX_ENEMIES}from'../src/v012/game.js';
+import{simulate}from'../scripts/balance-v012.mjs';
+const empty=()=>{const s=createGame(3);s.enemies=[];s.fronts=[];s.obstacles=[];s.spawn=99;s.fire=99;return s;};
+test('flow opening starts with 204 creatures and advances without a skill press',()=>{const s=createGame(3);assert.equal(s.enemies.length,204);for(let i=0;i<60;i++)step(s,1/60);assert(s.distance>70);assert(s.kills>0);});
+test('same dash works inside a blocked crowd; no hidden defensive skill substitution',()=>{const s=createGame(3);assert(rush(s));assert(s.dash);assert.equal(s.hardRushes,0);assert.equal(s.tension,55);});
+test('charges recharge independently of kills',()=>{const s=empty();s.tension=0;for(let i=0;i<300;i++)step(s,1/60);assert(s.tension>=45);assert(rush(s));});
+test('obstacle hit costs health and deflects but never deadlocks forward travel',()=>{const s=empty();s.obstacles=[{x:210,z:120,width:80,type:'barrier',passed:false}];s.x=210;s.distance=160;resolveObstacles(s,0,210);assert.equal(s.distance,160);assert.equal(s.hull,84);assert(s.obstacles[0].passed);const before=s.hull;for(let i=0;i<120;i++)step(s,1/60);assert(s.distance>300);assert.equal(s.hull,before);});
+test('closed tide wall punishes missed aim once without stopping the run',()=>{const s=empty();s.fronts=[{z:1,x:100,baseX:100,hp:100,max:100,open:0,breached:false,phase:0}];step(s,1/60);assert.equal(s.wallHits,1);assert.equal(s.hull,82);assert(s.distance>1);for(let i=0;i<60;i++)step(s,1/60);assert.equal(s.wallHits,1);});
+test('first equipment station arrives in the opening seconds and has an explicit upgrade',()=>{const s=empty();for(let i=0;i<410;i++)step(s,1/60);assert(s.choice);chooseFormation(s,0);assert.equal(s.build[0],1);assert(s.width<1);assert(s.power>26);});
+test('wing build damages flanking enemies without needing alignment',()=>{const s=empty();s.choice={remaining:6};chooseFormation(s,1);spawnEnemy(s,s.x+65,s.distance+10);s.enemies[0].hp=.2;step(s,1/60);assert.equal(s.kills,1);});
+test('surge creates timed enemy pressure and entity cap survives repeated spawns',()=>{const s=empty();s.time=10.99;step(s,.02);assert.equal(s.surges,1);assert(s.enemies.length>=60);for(let i=0;i<1000;i++)spawnEnemy(s,210,100);assert.equal(s.enemies.length,MAX_ENEMIES);});
+test('dash is linear and steering is free, removing the aperture direction lock',()=>{const s=empty();rush(s);s.target=300;for(let i=0;i<12;i++)step(s,1/60);assert(Math.abs(s.distance-80)<.01);assert(s.x>280);});
+test('two distinct builds can complete and mindless play still loses',()=>{assert.equal(simulate(3).mode,'win');assert.equal(simulate(3,'wings').mode,'win');assert.equal(simulate(3,'idle').mode,'lose');assert.equal(simulate(3,'spam').mode,'lose');});
+test('mobile exit guardian follows road while alive and must actually be defeated',()=>{const s=createGame(3);s.enemies=[];s.obstacles=[];s.fire=99;s.spawn=99;s.distance=5399;for(const f of s.fronts)f.breached=!f.mobile;step(s,.04);assert.equal(s.mode,'lose');assert(s.reason.includes('封港蟹'));assert(s.fronts[8].z>s.distance+200);});
+test('both winning builds destroy the exit guardian',()=>{assert(simulate(3).bossHealth<=0);assert(simulate(3,'wings').bossHealth<=0);});

@@ -1,0 +1,934 @@
+
+> firerush-siege@0.15.0 balance
+> node scripts/balance-v015.mjs
+
+{
+  "smart": [
+    {
+      "seed": 1,
+      "style": "smart",
+      "mode": "win",
+      "time": 198.2,
+      "distance": 21600,
+      "army": 180,
+      "hull": 100,
+      "crossed": 12,
+      "kills": 384,
+      "retreated": 704,
+      "maxEmptyTime": 0.55,
+      "peak": 256,
+      "history": [
+        {
+          "layer": 0,
+          "lane": 1,
+          "before": 24,
+          "after": 40,
+          "raw": 40,
+          "formula": "÷2 → +28",
+          "time": 10.483333333333434
+        },
+        {
+          "layer": 1,
+          "lane": 1,
+          "before": 40,
+          "after": 52,
+          "raw": 52,
+          "formula": "×2 → −28",
+          "time": 31.81666666666614
+        },
+        {
+          "layer": 2,
+          "lane": 0,
+          "before": 52,
+          "after": 76,
+          "raw": 76,
+          "formula": "×2 → −28",
+          "time": 53.51666666666491
+        },
+        {
+          "layer": 3,
+          "lane": 0,
+          "before": 76,
+          "after": 115,
+          "raw": 115,
+          "formula": "×2 → −37",
+          "time": 75.26666666666368
+        },
+        {
+          "layer": 4,
+          "lane": 1,
+          "before": 115,
+          "after": 180,
+          "raw": 192,
+          "formula": "×2 → −38",
+          "time": 91.28333333332944
+        },
+        {
+          "layer": 5,
+          "lane": 1,
+          "before": 180,
+          "after": 180,
+          "raw": 183,
+          "formula": "+19 → −16",
+          "time": 101.73333333332884
+        },
+        {
+          "layer": 6,
+          "lane": 2,
+          "before": 180,
+          "after": 179,
+          "raw": 179,
+          "formula": "+16 → −17",
+          "time": 112.18333333332825
+        },
+        {
+          "layer": 7,
+          "lane": 0,
+          "before": 179,
+          "after": 180,
+          "raw": 318,
+          "formula": "×2 → −40",
+          "time": 128.3333333333276
+        },
+        {
+          "layer": 8,
+          "lane": 2,
+          "before": 180,
+          "after": 179,
+          "raw": 179,
+          "formula": "+20 → −21",
+          "time": 138.7166666666692
+        },
+        {
+          "layer": 9,
+          "lane": 1,
+          "before": 179,
+          "after": 180,
+          "raw": 308,
+          "formula": "×2 → −50",
+          "time": 154.78333333334865
+        },
+        {
+          "layer": 10,
+          "lane": 2,
+          "before": 180,
+          "after": 180,
+          "raw": 316,
+          "formula": "×2 → −44",
+          "time": 176.51666666669928
+        },
+        {
+          "layer": 11,
+          "lane": 0,
+          "before": 180,
+          "after": 180,
+          "raw": 309,
+          "formula": "×2 → −51",
+          "time": 198.1833333333832
+        }
+      ]
+    },
+    {
+      "seed": 2,
+      "style": "smart",
+      "mode": "win",
+      "time": 203.9,
+      "distance": 21600,
+      "army": 180,
+      "hull": 100,
+      "crossed": 12,
+      "kills": 384,
+      "retreated": 704,
+      "maxEmptyTime": 0.55,
+      "peak": 256,
+      "history": [
+        {
+          "layer": 0,
+          "lane": 0,
+          "before": 24,
+          "after": 39,
+          "raw": 39,
+          "formula": "÷2 → +27",
+          "time": 10.483333333333434
+        },
+        {
+          "layer": 1,
+          "lane": 1,
+          "before": 39,
+          "after": 51,
+          "raw": 51,
+          "formula": "×2 → −27",
+          "time": 31.916666666666135
+        },
+        {
+          "layer": 2,
+          "lane": 0,
+          "before": 51,
+          "after": 71,
+          "raw": 71,
+          "formula": "×2 → −31",
+          "time": 53.616666666664905
+        },
+        {
+          "layer": 3,
+          "lane": 1,
+          "before": 71,
+          "after": 102,
+          "raw": 102,
+          "formula": "×2 → −40",
+          "time": 75.36666666666368
+        },
+        {
+          "layer": 4,
+          "lane": 2,
+          "before": 102,
+          "after": 161,
+          "raw": 161,
+          "formula": "×2 → −43",
+          "time": 91.38333333332943
+        },
+        {
+          "layer": 5,
+          "lane": 2,
+          "before": 161,
+          "after": 180,
+          "raw": 288,
+          "formula": "×2 → −34",
+          "time": 107.46666666666185
+        },
+        {
+          "layer": 6,
+          "lane": 2,
+          "before": 180,
+          "after": 180,
+          "raw": 317,
+          "formula": "×2 → −43",
+          "time": 123.5333333333276
+        },
+        {
+          "layer": 7,
+          "lane": 1,
+          "before": 180,
+          "after": 179,
+          "raw": 179,
+          "formula": "+20 → −21",
+          "time": 133.9833333333321
+        },
+        {
+          "layer": 8,
+          "lane": 1,
+          "before": 179,
+          "after": 177,
+          "raw": 177,
+          "formula": "+19 → −21",
+          "time": 144.4333333333404
+        },
+        {
+          "layer": 9,
+          "lane": 1,
+          "before": 177,
+          "after": 180,
+          "raw": 304,
+          "formula": "×2 → −50",
+          "time": 160.51666666668655
+        },
+        {
+          "layer": 10,
+          "lane": 1,
+          "before": 180,
+          "after": 180,
+          "raw": 315,
+          "formula": "×2 → −45",
+          "time": 182.25000000003718
+        },
+        {
+          "layer": 11,
+          "lane": 1,
+          "before": 180,
+          "after": 180,
+          "raw": 303,
+          "formula": "×2 → −57",
+          "time": 203.91666666672108
+        }
+      ]
+    },
+    {
+      "seed": 3,
+      "style": "smart",
+      "mode": "win",
+      "time": 203.9,
+      "distance": 21600,
+      "army": 180,
+      "hull": 100,
+      "crossed": 12,
+      "kills": 384,
+      "retreated": 704,
+      "maxEmptyTime": 0.55,
+      "peak": 256,
+      "history": [
+        {
+          "layer": 0,
+          "lane": 0,
+          "before": 24,
+          "after": 38,
+          "raw": 38,
+          "formula": "÷2 → +26",
+          "time": 10.483333333333434
+        },
+        {
+          "layer": 1,
+          "lane": 0,
+          "before": 38,
+          "after": 51,
+          "raw": 51,
+          "formula": "+20 → −7",
+          "time": 26.283333333333122
+        },
+        {
+          "layer": 2,
+          "lane": 2,
+          "before": 51,
+          "after": 66,
+          "raw": 66,
+          "formula": "×2 → −36",
+          "time": 47.98333333333189
+        },
+        {
+          "layer": 3,
+          "lane": 2,
+          "before": 66,
+          "after": 102,
+          "raw": 102,
+          "formula": "×2 → −30",
+          "time": 69.73333333333066
+        },
+        {
+          "layer": 4,
+          "lane": 1,
+          "before": 102,
+          "after": 162,
+          "raw": 162,
+          "formula": "×2 → −42",
+          "time": 85.76666666666308
+        },
+        {
+          "layer": 5,
+          "lane": 0,
+          "before": 162,
+          "after": 180,
+          "raw": 286,
+          "formula": "×2 → −38",
+          "time": 101.83333333332884
+        },
+        {
+          "layer": 6,
+          "lane": 1,
+          "before": 180,
+          "after": 177,
+          "raw": 177,
+          "formula": "+16 → −19",
+          "time": 112.28333333332824
+        },
+        {
+          "layer": 7,
+          "lane": 0,
+          "before": 177,
+          "after": 180,
+          "raw": 311,
+          "formula": "×2 → −43",
+          "time": 128.43333333332768
+        },
+        {
+          "layer": 8,
+          "lane": 2,
+          "before": 180,
+          "after": 180,
+          "raw": 314,
+          "formula": "×2 → −46",
+          "time": 144.4333333333404
+        },
+        {
+          "layer": 9,
+          "lane": 1,
+          "before": 180,
+          "after": 180,
+          "raw": 314,
+          "formula": "×2 → −46",
+          "time": 160.51666666668655
+        },
+        {
+          "layer": 10,
+          "lane": 1,
+          "before": 180,
+          "after": 180,
+          "raw": 312,
+          "formula": "×2 → −48",
+          "time": 182.25000000003718
+        },
+        {
+          "layer": 11,
+          "lane": 0,
+          "before": 180,
+          "after": 180,
+          "raw": 310,
+          "formula": "×2 → −50",
+          "time": 203.91666666672108
+        }
+      ]
+    },
+    {
+      "seed": 4,
+      "style": "smart",
+      "mode": "win",
+      "time": 209.4,
+      "distance": 21600,
+      "army": 180,
+      "hull": 100,
+      "crossed": 12,
+      "kills": 384,
+      "retreated": 704,
+      "maxEmptyTime": 0.55,
+      "peak": 256,
+      "history": [
+        {
+          "layer": 0,
+          "lane": 1,
+          "before": 24,
+          "after": 35,
+          "raw": 35,
+          "formula": "+16 → −5",
+          "time": 10.100000000000081
+        },
+        {
+          "layer": 1,
+          "lane": 1,
+          "before": 35,
+          "after": 43,
+          "raw": 43,
+          "formula": "+18 → −10",
+          "time": 26.183333333333128
+        },
+        {
+          "layer": 2,
+          "lane": 1,
+          "before": 43,
+          "after": 52,
+          "raw": 52,
+          "formula": "+19 → −10",
+          "time": 42.26666666666555
+        },
+        {
+          "layer": 3,
+          "lane": 0,
+          "before": 52,
+          "after": 68,
+          "raw": 68,
+          "formula": "×2 → −36",
+          "time": 69.58333333333067
+        },
+        {
+          "layer": 4,
+          "lane": 0,
+          "before": 68,
+          "after": 104,
+          "raw": 104,
+          "formula": "×2 → −32",
+          "time": 91.28333333332944
+        },
+        {
+          "layer": 5,
+          "lane": 2,
+          "before": 104,
+          "after": 174,
+          "raw": 174,
+          "formula": "×2 → −34",
+          "time": 107.36666666666186
+        },
+        {
+          "layer": 6,
+          "lane": 0,
+          "before": 174,
+          "after": 180,
+          "raw": 308,
+          "formula": "×2 → −40",
+          "time": 123.43333333332761
+        },
+        {
+          "layer": 7,
+          "lane": 0,
+          "before": 180,
+          "after": 178,
+          "raw": 178,
+          "formula": "+18 → −20",
+          "time": 133.88333333333202
+        },
+        {
+          "layer": 8,
+          "lane": 1,
+          "before": 178,
+          "after": 180,
+          "raw": 305,
+          "formula": "×2 → −51",
+          "time": 149.96666666667815
+        },
+        {
+          "layer": 9,
+          "lane": 0,
+          "before": 180,
+          "after": 180,
+          "raw": 317,
+          "formula": "×2 → −43",
+          "time": 166.0333333333576
+        },
+        {
+          "layer": 10,
+          "lane": 0,
+          "before": 180,
+          "after": 180,
+          "raw": 313,
+          "formula": "×2 → −47",
+          "time": 187.76666666670823
+        },
+        {
+          "layer": 11,
+          "lane": 0,
+          "before": 180,
+          "after": 180,
+          "raw": 302,
+          "formula": "×2 → −58",
+          "time": 209.43333333339214
+        }
+      ]
+    },
+    {
+      "seed": 5,
+      "style": "smart",
+      "mode": "win",
+      "time": 198.2,
+      "distance": 21600,
+      "army": 180,
+      "hull": 100,
+      "crossed": 12,
+      "kills": 384,
+      "retreated": 704,
+      "maxEmptyTime": 0.55,
+      "peak": 256,
+      "history": [
+        {
+          "layer": 0,
+          "lane": 1,
+          "before": 24,
+          "after": 38,
+          "raw": 38,
+          "formula": "+19 → −5",
+          "time": 10.100000000000081
+        },
+        {
+          "layer": 1,
+          "lane": 1,
+          "before": 38,
+          "after": 49,
+          "raw": 49,
+          "formula": "+18 → −7",
+          "time": 26.183333333333128
+        },
+        {
+          "layer": 2,
+          "lane": 1,
+          "before": 49,
+          "after": 68,
+          "raw": 68,
+          "formula": "×2 → −30",
+          "time": 47.8833333333319
+        },
+        {
+          "layer": 3,
+          "lane": 1,
+          "before": 68,
+          "after": 104,
+          "raw": 104,
+          "formula": "×2 → −32",
+          "time": 69.63333333333067
+        },
+        {
+          "layer": 4,
+          "lane": 2,
+          "before": 104,
+          "after": 169,
+          "raw": 169,
+          "formula": "×2 → −39",
+          "time": 85.66666666666309
+        },
+        {
+          "layer": 5,
+          "lane": 0,
+          "before": 169,
+          "after": 180,
+          "raw": 303,
+          "formula": "×2 → −35",
+          "time": 101.73333333332884
+        },
+        {
+          "layer": 6,
+          "lane": 1,
+          "before": 180,
+          "after": 180,
+          "raw": 180,
+          "formula": "+18 → −18",
+          "time": 112.18333333332825
+        },
+        {
+          "layer": 7,
+          "lane": 0,
+          "before": 180,
+          "after": 180,
+          "raw": 315,
+          "formula": "×2 → −45",
+          "time": 128.3333333333276
+        },
+        {
+          "layer": 8,
+          "lane": 0,
+          "before": 180,
+          "after": 177,
+          "raw": 177,
+          "formula": "+19 → −22",
+          "time": 138.7166666666692
+        },
+        {
+          "layer": 9,
+          "lane": 0,
+          "before": 177,
+          "after": 180,
+          "raw": 304,
+          "formula": "×2 → −50",
+          "time": 154.78333333334865
+        },
+        {
+          "layer": 10,
+          "lane": 2,
+          "before": 180,
+          "after": 180,
+          "raw": 304,
+          "formula": "×2 → −56",
+          "time": 176.51666666669928
+        },
+        {
+          "layer": 11,
+          "lane": 1,
+          "before": 180,
+          "after": 180,
+          "raw": 304,
+          "formula": "×2 → −56",
+          "time": 198.1833333333832
+        }
+      ]
+    },
+    {
+      "seed": 6,
+      "style": "smart",
+      "mode": "win",
+      "time": 209.4,
+      "distance": 21600,
+      "army": 180,
+      "hull": 100,
+      "crossed": 12,
+      "kills": 384,
+      "retreated": 704,
+      "maxEmptyTime": 0.55,
+      "peak": 256,
+      "history": [
+        {
+          "layer": 0,
+          "lane": 1,
+          "before": 24,
+          "after": 35,
+          "raw": 35,
+          "formula": "÷2 → +23",
+          "time": 10.483333333333434
+        },
+        {
+          "layer": 1,
+          "lane": 2,
+          "before": 35,
+          "after": 41,
+          "raw": 41,
+          "formula": "+15 → −9",
+          "time": 26.183333333333128
+        },
+        {
+          "layer": 2,
+          "lane": 1,
+          "before": 41,
+          "after": 51,
+          "raw": 51,
+          "formula": "+19 → −9",
+          "time": 42.26666666666555
+        },
+        {
+          "layer": 3,
+          "lane": 0,
+          "before": 51,
+          "after": 65,
+          "raw": 65,
+          "formula": "×2 → −37",
+          "time": 69.58333333333067
+        },
+        {
+          "layer": 4,
+          "lane": 1,
+          "before": 65,
+          "after": 97,
+          "raw": 97,
+          "formula": "×2 → −33",
+          "time": 91.28333333332944
+        },
+        {
+          "layer": 5,
+          "lane": 0,
+          "before": 97,
+          "after": 156,
+          "raw": 156,
+          "formula": "×2 → −38",
+          "time": 107.36666666666186
+        },
+        {
+          "layer": 6,
+          "lane": 2,
+          "before": 156,
+          "after": 180,
+          "raw": 273,
+          "formula": "×2 → −39",
+          "time": 123.43333333332761
+        },
+        {
+          "layer": 7,
+          "lane": 0,
+          "before": 180,
+          "after": 177,
+          "raw": 177,
+          "formula": "+19 → −22",
+          "time": 133.88333333333202
+        },
+        {
+          "layer": 8,
+          "lane": 0,
+          "before": 177,
+          "after": 180,
+          "raw": 303,
+          "formula": "×2 → −51",
+          "time": 149.96666666667815
+        },
+        {
+          "layer": 9,
+          "lane": 2,
+          "before": 180,
+          "after": 180,
+          "raw": 310,
+          "formula": "×2 → −50",
+          "time": 166.0333333333576
+        },
+        {
+          "layer": 10,
+          "lane": 2,
+          "before": 180,
+          "after": 180,
+          "raw": 310,
+          "formula": "×2 → −50",
+          "time": 187.76666666670823
+        },
+        {
+          "layer": 11,
+          "lane": 2,
+          "before": 180,
+          "after": 180,
+          "raw": 304,
+          "formula": "×2 → −56",
+          "time": 209.43333333339214
+        }
+      ]
+    }
+  ],
+  "idle": {
+    "seed": 3,
+    "style": "idle",
+    "mode": "lose",
+    "time": 37.3,
+    "distance": 610,
+    "army": 8,
+    "hull": 0,
+    "crossed": 0,
+    "kills": 32,
+    "retreated": 0,
+    "maxEmptyTime": 0,
+    "peak": 192,
+    "history": []
+  },
+  "multiply": {
+    "seed": 3,
+    "style": "multiply",
+    "mode": "lose",
+    "time": 93,
+    "distance": 5040,
+    "army": -10,
+    "hull": 55.8,
+    "crossed": 3,
+    "kills": 96,
+    "retreated": 128,
+    "maxEmptyTime": 0.55,
+    "peak": 256,
+    "history": [
+      {
+        "layer": 0,
+        "lane": 2,
+        "before": 24,
+        "after": 24,
+        "raw": 24,
+        "formula": "×2 → −24",
+        "time": 21.450000000000063
+      },
+      {
+        "layer": 1,
+        "lane": 1,
+        "before": 24,
+        "after": 11,
+        "raw": 11,
+        "formula": "×2 → −37",
+        "time": 54.41666666666486
+      },
+      {
+        "layer": 2,
+        "lane": 0,
+        "before": 11,
+        "after": -10,
+        "raw": -10,
+        "formula": "×2 → −32",
+        "time": 92.98333333332934
+      }
+    ]
+  },
+  "left": {
+    "seed": 3,
+    "style": "left",
+    "mode": "win",
+    "time": 265.9,
+    "distance": 21600,
+    "army": 65,
+    "hull": 97.8,
+    "crossed": 12,
+    "kills": 384,
+    "retreated": 704,
+    "maxEmptyTime": 0.55,
+    "peak": 256,
+    "history": [
+      {
+        "layer": 0,
+        "lane": 0,
+        "before": 24,
+        "after": 38,
+        "raw": 38,
+        "formula": "÷2 → +26",
+        "time": 10.483333333333434
+      },
+      {
+        "layer": 1,
+        "lane": 0,
+        "before": 38,
+        "after": 51,
+        "raw": 51,
+        "formula": "+20 → −7",
+        "time": 26.283333333333122
+      },
+      {
+        "layer": 2,
+        "lane": 0,
+        "before": 51,
+        "after": 49,
+        "raw": 49,
+        "formula": "÷2 → +24",
+        "time": 42.366666666665544
+      },
+      {
+        "layer": 3,
+        "lane": 0,
+        "before": 49,
+        "after": 49,
+        "raw": 49,
+        "formula": "÷2 → +25",
+        "time": 58.4333333333313
+      },
+      {
+        "layer": 4,
+        "lane": 0,
+        "before": 49,
+        "after": 54,
+        "raw": 54,
+        "formula": "÷2 → +30",
+        "time": 80.13333333333007
+      },
+      {
+        "layer": 5,
+        "lane": 0,
+        "before": 54,
+        "after": 52,
+        "raw": 52,
+        "formula": "+14 → −16",
+        "time": 101.83333333332884
+      },
+      {
+        "layer": 6,
+        "lane": 0,
+        "before": 52,
+        "after": 54,
+        "raw": 54,
+        "formula": "+20 → −18",
+        "time": 123.5333333333276
+      },
+      {
+        "layer": 7,
+        "lane": 0,
+        "before": 54,
+        "after": 65,
+        "raw": 65,
+        "formula": "×2 → −43",
+        "time": 162.11666666668782
+      },
+      {
+        "layer": 8,
+        "lane": 0,
+        "before": 65,
+        "after": 86,
+        "raw": 86,
+        "formula": "×2 → −44",
+        "time": 195.06666666671404
+      },
+      {
+        "layer": 9,
+        "lane": 0,
+        "before": 86,
+        "after": 75,
+        "raw": 75,
+        "formula": "÷2 → +32",
+        "time": 216.7666666667313
+      },
+      {
+        "layer": 10,
+        "lane": 0,
+        "before": 75,
+        "after": 67,
+        "raw": 67,
+        "formula": "÷2 → +30",
+        "time": 238.50000000008194
+      },
+      {
+        "layer": 11,
+        "lane": 0,
+        "before": 67,
+        "after": 65,
+        "raw": 65,
+        "formula": "÷2 → +32",
+        "time": 265.93333333342014
+      }
+    ]
+  }
+}

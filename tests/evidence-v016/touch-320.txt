@@ -1,0 +1,16 @@
+- iframe [id="app"]:
+  - main:
+    - generic "算阵破军：三列守军全部消灭后进入下一波，清列顺序决定数学运算"
+    - button "暂停": Ⅱ
+    - button "墨墨 · 集中齐射 消耗45 · 当前列全排受击" [disabled]:
+      - generic: 墨墨 · 集中齐射
+      - generic: 消耗45 · 当前列全排受击
+- complementary:
+  - button "原生触摸回归" [active]
+  - button "第一层交战"
+  - button "本波全部打光"
+  - button "穿过缺口"
+  - button "第七层纵深"
+  - button "逐帧推进"
+  - button "完整十二层回归"
+  - generic: PASS native touch continues beyond canvas PASS lift and re-press resume movement PASS empty cancel lists recover for next press PASS independent skill finger preserves movement PASS manual pause stops time PASS resume restores battlefield

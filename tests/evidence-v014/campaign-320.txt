@@ -1,0 +1,28 @@
+- iframe [id="app"]:
+  - main:
+    - generic "汉代演武：左右拖动跑线，自动射击，点咕咕冲锋"
+    - button "暂停": Ⅱ
+    - button "音效 OFF"
+    - generic: A / HAN CAMPAIGN
+    - heading "三战告捷，军旗还在" [level=1]
+    - text: 路线得分
+    - strong: "58387"
+    - text: 漂亮擦边
+    - strong: "0"
+    - text: 撞障
+    - strong: "1"
+    - text: 九段战线全部肃清，没有一名敌军被镜头跳过
+    - text: 前进 21600 / 21600 · 用时 232s
+    - text: 击破 2754 · 火油车引爆 89 · 绕行 8/9
+    - text: 提前看地面警示，绕向空侧继续跑。
+    - text: 最高战绩 58387
+    - button "再开一卷远征 ↻"
+    - button "重演此役 · 调整兵法"
+    - button "返回出发点"
+- complementary:
+  - button "原生触摸回归"
+  - button "盾阵近景"
+  - button "骑射近景"
+  - button "汉骑突击"
+  - button "完整战役回归" [active]
+  - generic: "{ \"mode\": \"win\", \"kills\": 2754, \"remaining\": 0, \"cleared\": 9, \"camps\": 2, \"time\": 232.01666666674345, \"cache\": { \"renderScale\": 1, \"tiles\": 3, \"cachePixels\": 1461600, \"canvasPixels\": 319200 } }"

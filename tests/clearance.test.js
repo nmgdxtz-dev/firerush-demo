@@ -1,0 +1,11 @@
+import test from 'node:test';
+import assert from 'node:assert/strict';
+import {createGame,step,spawnEnemy,chooseFormation} from '../src/v014/game.js';
+import {simulate} from '../scripts/balance-v014.mjs';
+test('rear enemies pursue instead of being deleted without a kill',()=>{const s=createGame(1);s.enemies=[];spawnEnemy(s,70,-180);const e=s.enemies[0];step(s,.02);assert.equal(e.dead,false);assert.equal(s.kills,0);assert.ok(e.z>-180);assert.equal(s.enemies.length,1);});
+test('uncleared sector stops movement and keeps residual enemy',()=>{const s=createGame(1);s.distance=2319;s.camera=2319;s.fronts=[];s.enemies=[];s.sectorSpawned=18;spawnEnemy(s,70,2400,'heavy');s.dash={from:2319,to:2549,age:0,duration:.45,wake:{points:[]}};step(s,.04);assert.equal(s.distance,2320);assert.equal(s.cleared,0);assert.equal(s.sector,0);assert.equal(s.mode,'play');});
+test('cleared sector advances only after every unit has been dispatched and killed',()=>{const s=createGame(1);s.distance=2320;s.enemies=[];s.fronts=[];s.sectorSpawned=17;step(s,.01);assert.equal(s.sector,0);s.sectorSpawned=18;step(s,.01);assert.equal(s.sector,1);assert.equal(s.cleared,1);assert.equal(s.distance,2400);});
+test('enemy army is assigned on spawn and survives chapter change',()=>{const s=createGame(1);s.phase=1;step(s,.01);assert.ok(s.enemies.every(e=>e.army===0));});
+test('cavalry upgrade dispatches real moving damaging units',()=>{const s=createGame(1);s.choice={remaining:6};chooseFormation(s,1);step(s,.01);assert.equal(s.cavalry.length,2);const z=s.cavalry[0].z;step(s,.02);assert.ok(s.cavalry[0].z>z);});
+test('final victory requires all nine sectors and all 2754 enemies killed',()=>{const r=simulate(2);assert.equal(r.mode,'win');assert.equal(r.kills,9*18*17);assert.ok(r.time>200);assert.ok(r.bossHealth<=0);assert.equal(r.camps.length,2);});
+test('idle player cannot complete campaign',()=>assert.equal(simulate(3,'idle').mode,'lose'));
