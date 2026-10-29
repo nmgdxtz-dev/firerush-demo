@@ -1,0 +1,16 @@
+- iframe [id="app"]:
+  - main:
+    - generic "算阵破军：三列守军全部消灭后进入下一波，清列顺序决定数学运算"
+    - button "暂停": Ⅱ
+    - button "墨墨 · 集中齐射 号令回充中" [disabled]:
+      - generic: 墨墨 · 集中齐射
+      - generic: 号令回充中
+- complementary:
+  - button "原生触摸回归"
+  - button "第一层交战"
+  - button "本波全部打光"
+  - button "穿过缺口"
+  - button "第七层纵深"
+  - button "逐帧推进" [active]
+  - button "完整十二层回归"
+  - generic: "{ \"mode\": \"play\", \"layer\": 2, \"crossed\": 1, \"time\": 22.42, \"distance\": 1490, \"army\": 54, \"kills\": 96, \"retreated\": 0, \"maxEmptyTime\": 1.1333333333333342, \"peak\": 192, \"calculations\": [ { \"layer\": 0, \"lane\": 1, \"before\": 24, \"after\": 33, \"raw\": 33, \"formula\": \"÷2 → +21\", \"time\": 5.149999999999987 }, { \"layer\": 0, \"lane\": 2, \"before\": 33, \"after\": 44, \"raw\": 44, \"formula\": \"+19 → −8\", \"time\": 11.750000000000163 }, { \"layer\": 0, \"lane\": 0, \"before\": 44, \"after\": 54, \"raw\": 54, \"formula\": \"×2 → −34\", \"time\": 21.283333333333406 } ], \"cache\": { \"renderScale\": 1, \"tiles\": 2, \"cachePixels\": 974400, \"canvasPixels\": 319200 } }"
