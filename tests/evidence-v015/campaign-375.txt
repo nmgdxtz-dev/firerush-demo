@@ -1,0 +1,26 @@
+- iframe [id="app"]:
+  - main:
+    - generic "算阵破军：看算式选一列，凿穿后突破下一层"
+    - button "暂停": Ⅱ
+    - generic: S · 算阵破军
+    - heading "十二阵，逐层凿穿" [level=1]
+    - text: 十二道防线逐列凿穿，兵力与军心带过每一道缺口
+    - text: 突破 12 / 12 · 剩余兵力 180 · 军心 100
+    - text: 击破 384 · 用时 203 秒 · 得分 30293
+    - text: 最近的运算
+    - text: 177 ×2 → −50 = 304（编制180）
+    - text: 180 ×2 → −45 = 315（编制180）
+    - text: 180 ×2 → −57 = 303（编制180）
+    - text: 下一次比较算式净收益，也要考虑厚甲守军的交战代价。
+    - button "换一场演武 ↻"
+    - button "重演此阵 · 换条路线"
+    - button "返回出发点"
+- complementary:
+  - button "原生触摸回归"
+  - button "第一层交战"
+  - button "缺口已凿穿"
+  - button "穿过缺口"
+  - button "第七层纵深"
+  - button "逐帧推进"
+  - button "完整十二层回归" [active]
+  - generic: "PASS twelve actual columns breached PASS all twelve route calculations match the real entering army PASS no empty road longer than two seconds PASS bounded crowd PASS wings withdraw instead of all-map cleanup PASS retry UI visible { \"mode\": \"win\", \"layer\": 13, \"crossed\": 12, \"time\": 203.92, \"distance\": 21600, \"army\": 180, \"kills\": 384, \"retreated\": 704, \"maxEmptyTime\": 0.55, \"peak\": 256, \"calculations\": [ { \"layer\": 0, \"lane\": 0, \"before\": 24, \"after\": 39, \"raw\": 39, \"formula\": \"÷2 → +27\", \"time\": 10.483333333333434 }, { \"layer\": 1, \"lane\": 1, \"before\": 39, \"after\": 51, \"raw\": 51, \"formula\": \"×2 → −27\", \"time\": 31.916666666666135 }, { \"layer\": 2, \"lane\": 0, \"before\": 51, \"after\": 71, \"raw\": 71, \"formula\": \"×2 → −31\", \"time\": 53.616666666664905 }, { \"layer\": 3, \"lane\": 1, \"before\": 71, \"after\": 102, \"raw\": 102, \"formula\": \"×2 → −40\", \"time\": 75.36666666666368 }, { \"layer\": 4, \"lane\": 2, \"before\": 102, \"after\": 161, \"raw\": 161, \"formula\": \"×2 → −43\", \"time\": 91.38333333332943 }, { \"layer\": 5, \"lane\": 2, \"before\": 161, \"after\": 180, \"raw\": 288, \"formula\": \"×2 → −34\", \"time\": 107.46666666666185 }, { \"layer\": 6, \"lane\": 2, \"before\": 180, \"after\": 180, \"raw\": 317, \"formula\": \"×2 → −43\", \"time\": 123.5333333333276 }, { \"layer\": 7, \"lane\": 1, \"before\": 180, \"after\": 179, \"raw\": 179, \"formula\": \"+20 → −21\", \"time\": 133.9833333333321 }, { \"layer\": 8, \"lane\": 1, \"before\": 179, \"after\": 177, \"raw\": 177, \"formula\": \"+19 → −21\", \"time\": 144.4333333333404 }, { \"layer\": 9, \"lane\": 1, \"before\": 177, \"after\": 180, \"raw\": 304, \"formula\": \"×2 → −50\", \"time\": 160.51666666668655 }, { \"layer\": 10, \"lane\": 1, \"before\": 180, \"after\": 180, \"raw\": 315, \"formula\": \"×2 → −45\", \"time\": 182.25000000003718 }, { \"layer\": 11, \"lane\": 1, \"before\": 180, \"after\": 180, \"raw\": 303, \"formula\": \"×2 → −57\", \"time\": 203.91666666672108 } ], \"cache\": { \"renderScale\": 1, \"tiles\": 3, \"cachePixels\": 1461600, \"canvasPixels\": 319200 } }"
