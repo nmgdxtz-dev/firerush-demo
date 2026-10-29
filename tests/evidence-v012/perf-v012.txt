@@ -1,0 +1,12 @@
+- iframe [id="app"]:
+  - main:
+    - generic "裂潮战场：滑动寻找橙色缝眼，击碎后牵手向前冲锋"
+    - button "暂停": Ⅱ
+    - button "音效 OFF"
+    - button "咕咕 · 破阵冲锋 冲出 180 · 清开面前敌群":
+      - generic: 咕咕 · 破阵冲锋
+      - generic: 冲出 180 · 清开面前敌群
+- complementary:
+  - button "V0.11 开局测量"
+  - button "V0.12 开局测量" [active]
+  - generic: "{ \"version\": \"v012\", \"frames\": 180, \"workP50\": 0.5, \"workP95\": 1, \"workMax\": 1.4000000953674316, \"intervalP50\": 16.699999999999818, \"intervalP95\": 18.299999999999955, \"over25ms\": 0, \"enemies\": 78, \"distance\": 515.9999999999987, \"kills\": 78 }"

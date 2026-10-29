@@ -1,0 +1,28 @@
+- iframe [id="app"]:
+  - main:
+    - generic "裂潮战场：滑动寻找橙色缝眼，击碎后牵手向前冲锋"
+    - button "暂停": Ⅱ
+    - button "音效 OFF"
+    - generic: WE TORE OPEN THE DAWN
+    - heading "天亮了，手还牵着" [level=1]
+    - text: 前进
+    - strong: "5400"
+    - text: 破浪
+    - strong: "21"
+    - text: 护身
+    - strong: "0"
+    - text: 把三重敌潮撕成一条路，两个人一起冲了出去
+    - text: 潮脊开口后只剩 3.6 秒；留好拉弦蓄力和冷却，才能抓住窗口。
+    - text: 击破 1208 · 用时 55s
+    - text: 阵型 展开成翼 / 收束成矛 / 收束成矛 / 收束成矛 / 收束成矛 / 收束成矛 / 收束成矛 / 收束成矛 / 收束成矛
+    - button "换一条裂口，再冲 ↻"
+    - button "返回出发点"
+- complementary:
+  - heading "V0.10 Tide QA" [level=2]
+  - paragraph: 真实密集敌潮、世界坐标冲锋、九道潮脊与原生触摸回归。
+  - button "触控与完整突破回归" [active]
+  - button "洪流压迫视图"
+  - button "潮脊破口视图"
+  - button "向前冲锋中"
+  - button "冲锋逐帧前进"
+  - generic: "PASS native touch continues beyond canvas PASS lift and re-press resume movement PASS empty cancel lists recover for next press PASS independent skill finger preserves movement PASS manual pause stops time PASS resume restores battlefield PASS reckless rushing fails and renders retry PASS retry resets world and touch state PASS rush moves world position and camera follows with visible lag PASS complete unmodified simulation reaches escape PASS all nine living ridges genuinely traversed PASS clean seam strategy succeeds against real crowd PASS victory UI offers another seam { \"seed\": 3, \"time\": 55.16666666666482, \"distance\": 5400.533333333433, \"hull\": 7.8638666666663495, \"kills\": 1208, \"clean\": 21, \"hard\": 0, \"peak\": 617, \"rear\": 94.86000000000003 }"

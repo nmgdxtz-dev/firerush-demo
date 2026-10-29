@@ -1,0 +1,22 @@
+- iframe [id="app"]:
+  - main:
+    - generic "汉代演武：左右拖动跑线，自动射击，点咕咕冲锋"
+    - button "暂停": Ⅱ
+    - button "音效 OFF"
+    - button "咕咕 · 执旗冲阵 冲出 180 · 清开面前敌群":
+      - generic: 咕咕 · 执旗冲阵
+      - generic: 冲出 180 · 清开面前敌群
+- complementary:
+  - heading "V0.13 Tide QA" [level=2]
+  - paragraph: 汉代三战、盾阵/骑射、战间休整、战损延续与原生触摸回归。
+  - button "触控与完整突破回归" [active]
+  - button "洪流压迫视图"
+  - button "潮脊破口视图"
+  - button "向前冲锋中"
+  - button "盾阵平原"
+  - button "骑射隘口"
+  - button "营垒决战"
+  - button "军团弩车"
+  - button "战间营地"
+  - button "参考路线逐帧前进"
+  - generic: "PASS native touch continues beyond canvas PASS lift and re-press resume movement PASS empty cancel lists recover for next press PASS independent skill finger preserves movement PASS manual pause stops time PASS resume restores battlefield PASS reckless rushing fails and renders retry PASS retry resets world and touch state PASS rush moves world position and camera follows with visible lag PASS complete unmodified simulation reaches escape PASS all twelve enemy lines genuinely traversed PASS exit guardian genuinely defeated PASS entity cap respected across full run PASS all nine physical obstacles avoided PASS six troop upgrades and timed surges occur PASS both camp decisions preserve the expedition PASS same-route practice available PASS static scenery cache remains bounded PASS personal route record persisted locally PASS practice preserves route and resets progress PASS victory UI offers another seam PASS tap formation selects without leaving firing line { \"seed\": 3, \"time\": 106.59999999999523, \"distance\": 14404.883333332224, \"hull\": 67.4446666666666, \"kills\": 2652, \"clean\": 43, \"hard\": 0, \"peak\": 199, \"rear\": 2.240000000000001, \"dodged\": 9, \"nearMisses\": 0, \"windRushes\": 0, \"bossHealth\": -21.37142857142797 }"
