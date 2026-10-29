@@ -1,0 +1,244 @@
+{
+  "idle": {
+    "seed": 12,
+    "style": "idle",
+    "mode": "lose",
+    "time": 12.9,
+    "base": 0,
+    "kills": 51,
+    "captures": 0,
+    "recaptures": 0,
+    "sector": 0,
+    "peak": 102,
+    "power": 24,
+    "towers": [
+      [
+        "left",
+        "enemy",
+        620
+      ],
+      [
+        "right",
+        "enemy",
+        620
+      ],
+      [
+        "core",
+        "enemy",
+        1700
+      ]
+    ]
+  },
+  "sweep": {
+    "seed": 12,
+    "style": "sweep",
+    "mode": "lose",
+    "time": 13.7,
+    "base": 0,
+    "kills": 62,
+    "captures": 0,
+    "recaptures": 0,
+    "sector": 0,
+    "peak": 113,
+    "power": 25,
+    "towers": [
+      [
+        "left",
+        "enemy",
+        620
+      ],
+      [
+        "right",
+        "enemy",
+        620
+      ],
+      [
+        "core",
+        "enemy",
+        1700
+      ]
+    ]
+  },
+  "active": [
+    {
+      "seed": 1,
+      "style": "siege",
+      "mode": "win",
+      "time": 66.6,
+      "base": 100,
+      "kills": 628,
+      "captures": 6,
+      "recaptures": 0,
+      "sector": 3,
+      "peak": 99,
+      "power": 99,
+      "towers": [
+        [
+          "left",
+          "ally",
+          37
+        ],
+        [
+          "right",
+          "ally",
+          160
+        ],
+        [
+          "core",
+          "enemy",
+          0
+        ]
+      ]
+    },
+    {
+      "seed": 2,
+      "style": "right",
+      "mode": "win",
+      "time": 102.7,
+      "base": 89.5,
+      "kills": 789,
+      "captures": 9,
+      "recaptures": 3,
+      "sector": 3,
+      "peak": 90,
+      "power": 82,
+      "towers": [
+        [
+          "left",
+          "ally",
+          160
+        ],
+        [
+          "right",
+          "ally",
+          26
+        ],
+        [
+          "core",
+          "enemy",
+          0
+        ]
+      ]
+    },
+    {
+      "seed": 3,
+      "style": "siege",
+      "mode": "lose",
+      "time": 18.2,
+      "base": 0,
+      "kills": 150,
+      "captures": 1,
+      "recaptures": 0,
+      "sector": 0,
+      "peak": 100,
+      "power": 29,
+      "towers": [
+        [
+          "left",
+          "ally",
+          160
+        ],
+        [
+          "right",
+          "enemy",
+          314
+        ],
+        [
+          "core",
+          "enemy",
+          1692
+        ]
+      ]
+    },
+    {
+      "seed": 4,
+      "style": "right",
+      "mode": "win",
+      "time": 96.1,
+      "base": 94,
+      "kills": 685,
+      "captures": 8,
+      "recaptures": 2,
+      "sector": 3,
+      "peak": 82,
+      "power": 62,
+      "towers": [
+        [
+          "left",
+          "ally",
+          160
+        ],
+        [
+          "right",
+          "ally",
+          36
+        ],
+        [
+          "core",
+          "enemy",
+          0
+        ]
+      ]
+    },
+    {
+      "seed": 5,
+      "style": "siege",
+      "mode": "win",
+      "time": 61.1,
+      "base": 100,
+      "kills": 575,
+      "captures": 6,
+      "recaptures": 0,
+      "sector": 3,
+      "peak": 106,
+      "power": 99,
+      "towers": [
+        [
+          "left",
+          "ally",
+          64
+        ],
+        [
+          "right",
+          "ally",
+          160
+        ],
+        [
+          "core",
+          "enemy",
+          0
+        ]
+      ]
+    },
+    {
+      "seed": 6,
+      "style": "right",
+      "mode": "win",
+      "time": 89.7,
+      "base": 90,
+      "kills": 711,
+      "captures": 6,
+      "recaptures": 0,
+      "sector": 3,
+      "peak": 90,
+      "power": 67,
+      "towers": [
+        [
+          "left",
+          "ally",
+          69
+        ],
+        [
+          "right",
+          "ally",
+          9
+        ],
+        [
+          "core",
+          "enemy",
+          0
+        ]
+      ]
+    }
+  ]
+}

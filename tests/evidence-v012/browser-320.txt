@@ -1,0 +1,21 @@
+- iframe [id="app"]:
+  - main:
+    - generic "裂潮战场：滑动寻找橙色缝眼，击碎后牵手向前冲锋"
+    - button "暂停": Ⅱ
+    - button "音效 OFF"
+    - button "咕咕 · 破阵冲锋 冲出 180 · 清开面前敌群":
+      - generic: 咕咕 · 破阵冲锋
+      - generic: 冲出 180 · 清开面前敌群
+- complementary:
+  - heading "V0.12 Tide QA" [level=2]
+  - paragraph: 持续跑动、无条件破阵、两条武器路线、开局性能与触摸回归。
+  - button "触控与完整突破回归" [active]
+  - button "洪流压迫视图"
+  - button "潮脊破口视图"
+  - button "向前冲锋中"
+  - button "港口路障"
+  - button "赤岩栈道"
+  - button "风暴桥"
+  - button "出口首领"
+  - button "参考路线逐帧前进"
+  - generic: "PASS native touch continues beyond canvas PASS lift and re-press resume movement PASS empty cancel lists recover for next press PASS independent skill finger preserves movement PASS manual pause stops time PASS resume restores battlefield PASS reckless rushing fails and renders retry PASS retry resets world and touch state PASS rush moves world position and camera follows with visible lag PASS complete unmodified simulation reaches escape PASS all nine living ridges genuinely traversed PASS exit guardian genuinely defeated PASS entity cap respected across full run PASS all nine physical obstacles avoided PASS three equipment upgrades and timed surges occur PASS same-route practice available PASS static scenery cache remains bounded PASS personal route record persisted locally PASS practice preserves route and resets progress PASS victory UI offers another seam PASS tap formation selects without leaving firing line { \"seed\": 3, \"time\": 44.71666666666541, \"distance\": 5403.583333333356, \"hull\": 98.31133333333278, \"kills\": 909, \"clean\": 14, \"hard\": 0, \"peak\": 218, \"rear\": 3.240000000000309, \"dodged\": 9, \"nearMisses\": 0, \"windRushes\": 0, \"bossHealth\": -22.31428571428601 }"

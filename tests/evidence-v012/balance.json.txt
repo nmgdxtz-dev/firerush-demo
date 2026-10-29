@@ -1,0 +1,185 @@
+
+> firerush-siege@0.12.0 balance
+> node scripts/balance-v012.mjs
+
+{
+  "idle": {
+    "seed": 3,
+    "style": "idle",
+    "mode": "lose",
+    "time": 29.1,
+    "distance": 2128,
+    "hull": 0,
+    "bossHealth": 850,
+    "kills": 392,
+    "firstKill": 0.02,
+    "hits": 2,
+    "walls": 3,
+    "dodged": 1,
+    "upgrades": [
+      "聚束钻头"
+    ],
+    "peak": 235
+  },
+  "spam": {
+    "seed": 3,
+    "style": "spam",
+    "mode": "lose",
+    "time": 22.4,
+    "distance": 3225,
+    "hull": 0,
+    "bossHealth": 850,
+    "kills": 332,
+    "firstKill": 0.02,
+    "hits": 1,
+    "walls": 5,
+    "dodged": 4,
+    "upgrades": [
+      "聚束钻头",
+      "聚束钻头"
+    ],
+    "peak": 197
+  },
+  "active": [
+    {
+      "seed": 1,
+      "style": "active",
+      "mode": "win",
+      "time": 44.2,
+      "distance": 5400,
+      "hull": 98.1,
+      "bossHealth": -0.5714285714290668,
+      "kills": 981,
+      "firstKill": 0.02,
+      "hits": 0,
+      "walls": 0,
+      "dodged": 9,
+      "upgrades": [
+        "聚束钻头",
+        "聚束钻头",
+        "聚束钻头"
+      ],
+      "peak": 215
+    },
+    {
+      "seed": 2,
+      "style": "active",
+      "mode": "win",
+      "time": 44.8,
+      "distance": 5400,
+      "hull": 82.6,
+      "bossHealth": -6.771428571428743,
+      "kills": 883,
+      "firstKill": 0.02,
+      "hits": 1,
+      "walls": 0,
+      "dodged": 8,
+      "upgrades": [
+        "聚束钻头",
+        "聚束钻头",
+        "聚束钻头"
+      ],
+      "peak": 215
+    },
+    {
+      "seed": 3,
+      "style": "active",
+      "mode": "win",
+      "time": 44.7,
+      "distance": 5404,
+      "hull": 98.3,
+      "bossHealth": -22.31428571428601,
+      "kills": 909,
+      "firstKill": 0.02,
+      "hits": 0,
+      "walls": 0,
+      "dodged": 9,
+      "upgrades": [
+        "聚束钻头",
+        "聚束钻头",
+        "聚束钻头"
+      ],
+      "peak": 218
+    },
+    {
+      "seed": 4,
+      "style": "active",
+      "mode": "win",
+      "time": 44.8,
+      "distance": 5400,
+      "hull": 98.6,
+      "bossHealth": -1.0285714285718228,
+      "kills": 972,
+      "firstKill": 0.02,
+      "hits": 0,
+      "walls": 0,
+      "dodged": 9,
+      "upgrades": [
+        "聚束钻头",
+        "聚束钻头",
+        "聚束钻头"
+      ],
+      "peak": 220
+    },
+    {
+      "seed": 5,
+      "style": "active",
+      "mode": "win",
+      "time": 44.8,
+      "distance": 5400,
+      "hull": 98.3,
+      "bossHealth": -11.228571428571769,
+      "kills": 942,
+      "firstKill": 0.02,
+      "hits": 0,
+      "walls": 0,
+      "dodged": 9,
+      "upgrades": [
+        "聚束钻头",
+        "聚束钻头",
+        "聚束钻头"
+      ],
+      "peak": 219
+    },
+    {
+      "seed": 6,
+      "style": "active",
+      "mode": "win",
+      "time": 43.2,
+      "distance": 5401,
+      "hull": 81.9,
+      "bossHealth": -19.685714285714834,
+      "kills": 933,
+      "firstKill": 0.02,
+      "hits": 1,
+      "walls": 0,
+      "dodged": 8,
+      "upgrades": [
+        "聚束钻头",
+        "聚束钻头",
+        "聚束钻头"
+      ],
+      "peak": 220
+    }
+  ],
+  "wings": {
+    "seed": 3,
+    "style": "wings",
+    "mode": "win",
+    "time": 41.2,
+    "distance": 5401,
+    "hull": 99,
+    "bossHealth": -8.519999999999119,
+    "kills": 1144,
+    "firstKill": 0.02,
+    "hits": 0,
+    "walls": 0,
+    "dodged": 9,
+    "upgrades": [
+      "回旋双翼",
+      "回旋双翼",
+      "回旋双翼"
+    ],
+    "peak": 197
+  }
+}
