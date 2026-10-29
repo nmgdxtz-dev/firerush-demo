@@ -1,0 +1,24 @@
+PASS native touch continues beyond canvas
+PASS lift and re-press resume movement
+PASS empty cancel lists recover for next press
+PASS independent skill finger preserves movement
+PASS manual pause stops time
+PASS resume restores battlefield
+PASS reckless rushing fails and renders retry
+PASS retry resets world and touch state
+PASS rush moves world position and camera follows with visible lag
+PASS complete unmodified simulation reaches escape
+PASS all six living ridges genuinely traversed
+PASS clean seam strategy succeeds against real crowd
+PASS victory UI offers another seam
+{
+  "seed": 3,
+  "time": 70.7833333333306,
+  "distance": 3604.7411522634084,
+  "hull": 60.45496666666165,
+  "kills": 1146,
+  "clean": 14,
+  "hard": 0,
+  "peak": 618,
+  "rear": 83.96000000000001
+}

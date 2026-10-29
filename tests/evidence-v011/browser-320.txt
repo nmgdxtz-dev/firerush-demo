@@ -1,0 +1,20 @@
+- iframe [id="app"]:
+  - main:
+    - generic "裂潮战场：滑动寻找橙色缝眼，击碎后牵手向前冲锋"
+    - button "暂停": Ⅱ
+    - button "音效 OFF"
+    - button "拉弦冷却 0.2s 接力冲锋只耗 22 · 滑动弯冲" [disabled]:
+      - generic: 拉弦冷却 0.2s
+      - generic: 接力冲锋只耗 22 · 滑动弯冲
+- complementary:
+  - heading "V0.11 Tide QA" [level=2]
+  - paragraph: 沿海公路、真实障碍、擦边尾风、三段场景与触摸回归。
+  - button "触控与完整突破回归" [active]
+  - button "洪流压迫视图"
+  - button "潮脊破口视图"
+  - button "向前冲锋中"
+  - button "港口路障"
+  - button "赤岩栈道"
+  - button "风暴桥"
+  - button "参考路线逐帧前进"
+  - generic: "PASS native touch continues beyond canvas PASS lift and re-press resume movement PASS empty cancel lists recover for next press PASS independent skill finger preserves movement PASS manual pause stops time PASS resume restores battlefield PASS reckless rushing fails and renders retry PASS retry resets world and touch state PASS rush moves world position and camera follows with visible lag PASS complete unmodified simulation reaches escape PASS all nine living ridges genuinely traversed PASS clean seam strategy succeeds against real crowd PASS all nine physical obstacles avoided PASS near-miss tailwind feeds forward rush PASS same-route practice available PASS personal route record persisted locally PASS practice preserves route and resets progress PASS victory UI offers another seam PASS tap formation selects without leaving firing line { \"seed\": 3, \"time\": 55.53333333333146, \"distance\": 5401.235596707863, \"hull\": 43.103499999998476, \"kills\": 1812, \"clean\": 20, \"hard\": 0, \"peak\": 617, \"rear\": 91.70000000000026, \"dodged\": 9, \"nearMisses\": 6, \"windRushes\": 5 }"

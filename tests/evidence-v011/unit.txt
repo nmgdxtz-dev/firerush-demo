@@ -1,0 +1,338 @@
+
+> firerush-siege@0.11.0 test
+> node --test tests/*.test.js
+
+TAP version 13
+# Subtest: seeded initial armies and waves reproduce
+ok 1 - seeded initial armies and waves reproduce
+  ---
+  duration_ms: 9.599125
+  type: 'test'
+  ...
+# Subtest: command fortress is immune until side towers are captured
+ok 2 - command fortress is immune until side towers are captured
+  ---
+  duration_ms: 0.175417
+  type: 'test'
+  ...
+# Subtest: destroying a side tower does not instantly capture it
+ok 3 - destroying a side tower does not instantly capture it
+  ---
+  duration_ms: 0.077
+  type: 'test'
+  ...
+# Subtest: holding a cleared side for 1.4 seconds captures a functional turret
+ok 4 - holding a cleared side for 1.4 seconds captures a functional turret
+  ---
+  duration_ms: 0.318375
+  type: 'test'
+  ...
+# Subtest: nearby enemies contest capture even while player holds that side
+ok 5 - nearby enemies contest capture even while player holds that side
+  ---
+  duration_ms: 0.255958
+  type: 'test'
+  ...
+# Subtest: sapper raid can recapture a neglected turret and restore fortress shield
+ok 6 - sapper raid can recapture a neglected turret and restore fortress shield
+  ---
+  duration_ms: 0.361542
+  type: 'test'
+  ...
+# Subtest: normal resonance is local, cannot clear the opposite flank or auto-capture
+ok 7 - normal resonance is local, cannot clear the opposite flank or auto-capture
+  ---
+  duration_ms: 0.355458
+  type: 'test'
+  ...
+# Subtest: supply arithmetic previews multiplication, division and cap
+ok 8 - supply arithmetic previews multiplication, division and cap
+  ---
+  duration_ms: 0.087375
+  type: 'test'
+  ...
+# Subtest: paid repair consumes real firepower and cannot be granted for free
+ok 9 - paid repair consumes real firepower and cannot be granted for free
+  ---
+  duration_ms: 0.428958
+  type: 'test'
+  ...
+# Subtest: forward progress depends on fortress destruction rather than waiting
+ok 10 - forward progress depends on fortress destruction rather than waiting
+  ---
+  duration_ms: 13.399833
+  type: 'test'
+  ...
+# Subtest: defeating three fortress sectors produces victory without resource cheats
+ok 11 - defeating three fortress sectors produces victory without resource cheats
+  ---
+  duration_ms: 26.5805
+  type: 'test'
+  ...
+# Subtest: alternate opening can also complete the operation
+ok 12 - alternate opening can also complete the operation
+  ---
+  duration_ms: 38.453542
+  type: 'test'
+  ...
+# Subtest: stationary play fails with no captured structures
+ok 13 - stationary play fails with no captured structures
+  ---
+  duration_ms: 2.075
+  type: 'test'
+  ...
+# Subtest: entity caps hold during repeated large spawns
+ok 14 - entity caps hold during repeated large spawns
+  ---
+  duration_ms: 0.107041
+  type: 'test'
+  ...
+# Subtest: native finger continues across window outside canvas
+ok 15 - native finger continues across window outside canvas
+  ---
+  duration_ms: 1.274417
+  type: 'test'
+  ...
+# Subtest: lift and re-press always selects a fresh movement finger
+ok 16 - lift and re-press always selects a fresh movement finger
+  ---
+  duration_ms: 0.317667
+  type: 'test'
+  ...
+# Subtest: secondary skill finger cannot steal or end movement
+ok 17 - secondary skill finger cannot steal or end movement
+  ---
+  duration_ms: 0.136334
+  type: 'test'
+  ...
+# Subtest: cancellation clears only the active finger, allowing a new touch
+ok 18 - cancellation clears only the active finger, allowing a new touch
+  ---
+  duration_ms: 0.143375
+  type: 'test'
+  ...
+# Subtest: touch-generated pointer events do not duplicate native touch control
+ok 19 - touch-generated pointer events do not duplicate native touch control
+  ---
+  duration_ms: 0.148875
+  type: 'test'
+  ...
+# Subtest: mouse fallback follows window movement without pointer capture
+ok 20 - mouse fallback follows window movement without pointer capture
+  ---
+  duration_ms: 0.090708
+  type: 'test'
+  ...
+# Subtest: empty cancellation lists cannot strand a stale iOS finger identifier
+ok 21 - empty cancellation lists cannot strand a stale iOS finger identifier
+  ---
+  duration_ms: 0.114834
+  type: 'test'
+  ...
+# Subtest: a missed end event can recover on the next genuine press
+ok 22 - a missed end event can recover on the next genuine press
+  ---
+  duration_ms: 0.096667
+  type: 'test'
+  ...
+# Subtest: seeded routes replay exactly, new seeds vary sides and cart phase
+ok 23 - seeded routes replay exactly, new seeds vary sides and cart phase
+  ---
+  duration_ms: 3.846916
+  type: 'test'
+  ...
+# Subtest: swept collision catches a rush that skips the whole obstacle in one frame
+ok 24 - swept collision catches a rush that skips the whole obstacle in one frame
+  ---
+  duration_ms: 0.619666
+  type: 'test'
+  ...
+# Subtest: rush immunity does not ignore physical barriers and contact grace prevents instant death
+ok 25 - rush immunity does not ignore physical barriers and contact grace prevents instant death
+  ---
+  duration_ms: 0.220083
+  type: 'test'
+  ...
+# Subtest: clear-side crossing passes once and grants near-miss tailwind
+ok 26 - clear-side crossing passes once and grants near-miss tailwind
+  ---
+  duration_ms: 0.388791
+  type: 'test'
+  ...
+# Subtest: wide formation requires more lateral clearance
+ok 27 - wide formation requires more lateral clearance
+  ---
+  duration_ms: 0.161084
+  type: 'test'
+  ...
+# Subtest: far detour is safe but grants no precision reward
+ok 28 - far detour is safe but grants no precision reward
+  ---
+  duration_ms: 0.135666
+  type: 'test'
+  ...
+# Subtest: tailwind extends one rush and is consumed, expired wind grants no bonus
+ok 29 - tailwind extends one rush and is consumed, expired wind grants no bonus
+  ---
+  duration_ms: 0.975875
+  type: 'test'
+  ...
+# Subtest: cart moves predictably with simulation time, not wall clock
+ok 30 - cart moves predictably with simulation time, not wall clock
+  ---
+  duration_ms: 0.183666
+  type: 'test'
+  ...
+# Subtest: both protagonists stay on curved bridge even in widest formation
+ok 31 - both protagonists stay on curved bridge even in widest formation
+  ---
+  duration_ms: 7.289375
+  type: 'test'
+  ...
+# Subtest: score favors completing route over farming endless kills, precision earns S
+ok 32 - score favors completing route over farming endless kills, precision earns S
+  ---
+  duration_ms: 0.463791
+  type: 'test'
+  ...
+# Subtest: road-aware full run passes all nine obstacles; aim-only strategy collides and fails
+ok 33 - road-aware full run passes all nine obstacles; aim-only strategy collides and fails
+  ---
+  duration_ms: 187.428125
+  type: 'test'
+  ...
+# Subtest: V09 starts with a real reproducible dense crowd, not a decorative count
+ok 34 - V09 starts with a real reproducible dense crowd, not a decorative count
+  ---
+  duration_ms: 2.648125
+  type: 'test'
+  ...
+# Subtest: a closed living ridge blocks the seam even after nearby enemies are cleared
+ok 35 - a closed living ridge blocks the seam even after nearby enemies are cleared
+  ---
+  duration_ms: 0.258334
+  type: 'test'
+  ...
+# Subtest: sustained fire at the moving iris actually opens a temporary seam
+ok 36 - sustained fire at the moving iris actually opens a temporary seam
+  ---
+  duration_ms: 0.430208
+  type: 'test'
+  ...
+# Subtest: an unused seam closes and restores some iris health
+ok 37 - an unused seam closes and restores some iris health
+  ---
+  duration_ms: 0.578125
+  type: 'test'
+  ...
+# Subtest: a clean rush moves the player through world space while camera follows
+ok 38 - a clean rush moves the player through world space while camera follows
+  ---
+  duration_ms: 1.382625
+  type: 'test'
+  ...
+# Subtest: reckless rush cannot teleport through a closed ridge and drains health
+ok 39 - reckless rush cannot teleport through a closed ridge and drains health
+  ---
+  duration_ms: 0.612334
+  type: 'test'
+  ...
+# Subtest: normal walking cannot pass an unbroken ridge
+ok 40 - normal walking cannot pass an unbroken ridge
+  ---
+  duration_ms: 0.712917
+  type: 'test'
+  ...
+# Subtest: successful traversal leaves a breached ridge behind
+ok 41 - successful traversal leaves a breached ridge behind
+  ---
+  duration_ms: 0.269459
+  type: 'test'
+  ...
+# Subtest: formation arithmetic exchanges actual damage and footprint and has bounded widths
+ok 42 - formation arithmetic exchanges actual damage and footprint and has bounded widths
+  ---
+  duration_ms: 0.441708
+  type: 'test'
+  ...
+# Subtest: leaked side enemies become rear pressure instead of vanishing for free
+ok 43 - leaked side enemies become rear pressure instead of vanishing for free
+  ---
+  duration_ms: 0.348625
+  type: 'test'
+  ...
+# Subtest: simulated enemy count is capped under flood injection
+ok 44 - simulated enemy count is capped under flood injection
+  ---
+  duration_ms: 0.202167
+  type: 'test'
+  ...
+# Subtest: a deliberate cut-and-rush route can break all six ridges and finish
+ok 45 - a deliberate cut-and-rush route can break all six ridges and finish
+  ---
+  duration_ms: 96.585209
+  type: 'test'
+  ...
+# Subtest: holding center and repeatedly pressing rush fails at a closed ridge
+ok 46 - holding center and repeatedly pressing rush fails at a closed ridge
+  ---
+  duration_ms: 16.736
+  type: 'test'
+  ...
+# Subtest: shooting and sweeping without moving through seams does not auto-win
+ok 47 - shooting and sweeping without moving through seams does not auto-win
+  ---
+  duration_ms: 73.434584
+  type: 'test'
+  ...
+# Subtest: Gugu holds a last-moment seam until the committed clean rush passes
+ok 48 - Gugu holds a last-moment seam until the committed clean rush passes
+  ---
+  duration_ms: 0.231375
+  type: 'test'
+  ...
+# Subtest: spread formation keeps both characters inside the world at screen edges
+ok 49 - spread formation keeps both characters inside the world at screen edges
+  ---
+  duration_ms: 6.970333
+  type: 'test'
+  ...
+# Subtest: clean rush leaves a curved damaging wake and opens discounted chain
+ok 50 - clean rush leaves a curved damaging wake and opens discounted chain
+  ---
+  duration_ms: 2.027541
+  type: 'test'
+  ...
+# Subtest: third rush ends chain and requires recovery
+ok 51 - third rush ends chain and requires recovery
+  ---
+  duration_ms: 1.23925
+  type: 'test'
+  ...
+# Subtest: lantern cascade kills locally without global clearing
+ok 52 - lantern cascade kills locally without global clearing
+  ---
+  duration_ms: 0.77625
+  type: 'test'
+  ...
+# Subtest: blocked skill is defensive, cannot teleport through a closed ridge
+ok 53 - blocked skill is defensive, cannot teleport through a closed ridge
+  ---
+  duration_ms: 0.283166
+  type: 'test'
+  ...
+# Subtest: nine-ridge escape is achievable while idle and button spam fail
+ok 54 - nine-ridge escape is achievable while idle and button spam fail
+  ---
+  duration_ms: 249.144917
+  type: 'test'
+  ...
+1..54
+# tests 54
+# suites 0
+# pass 54
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 322.025792

@@ -1,0 +1,18 @@
+name: V0.8 siege verification
+on: [push, pull_request]
+jobs:
+  playable:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: npm test
+      - run: npm run balance:v08
+      - run: npm run build:v08
+      - run: git diff --exit-code -- preview/v0.8/index.html
+      - uses: actions/upload-artifact@v4
+        with:
+          name: firerush-v08-phone
+          path: preview/v0.8/index.html

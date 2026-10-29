@@ -1,0 +1,16 @@
+- iframe [id="app"]:
+  - main:
+    - generic "算阵破军：看算式选一列，凿穿后突破下一层"
+    - button "暂停": Ⅱ
+    - button "墨墨 · 集中齐射 号令回充中" [disabled]:
+      - generic: 墨墨 · 集中齐射
+      - generic: 号令回充中
+- complementary:
+  - button "原生触摸回归"
+  - button "第一层交战"
+  - button "缺口已凿穿"
+  - button "穿过缺口"
+  - button "第七层纵深"
+  - button "逐帧推进" [active]
+  - button "完整十二层回归"
+  - generic: "{ \"mode\": \"play\", \"layer\": 2, \"crossed\": 1, \"time\": 12.37, \"distance\": 2111, \"army\": 39, \"kills\": 32, \"retreated\": 48, \"maxEmptyTime\": 0.55, \"peak\": 256, \"calculations\": [ { \"layer\": 0, \"lane\": 0, \"before\": 24, \"after\": 39, \"raw\": 39, \"formula\": \"÷2 → +27\", \"time\": 10.266666666666756 } ], \"cache\": { \"renderScale\": 1, \"tiles\": 3, \"cachePixels\": 1461600, \"canvasPixels\": 319200 } }"
